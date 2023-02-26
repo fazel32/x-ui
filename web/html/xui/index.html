@@ -20,7 +20,7 @@
             <a-spin :spinning="spinning" :delay="200" :tip="loadingTip"/>
             <transition name="list" appear>
                 <a-row>
-                    <a-card hoverable>
+                    <a-card hoverable style="border-radius: 5px;">
                         <a-row>
                             <a-col :sm="24" :md="12">
                                 <a-row>
@@ -67,7 +67,7 @@
             <transition name="list" appear>
                 <a-row>
                     <a-col :sm="24" :md="12">
-                        <a-card hoverable>
+                        <a-card hoverable style="border-radius: 5px;">
                             {{ i18n "pages.index.xrayStatus" }}:
                             <a-tag :color="status.xray.color">[[ status.xray.state ]]</a-tag>
                             <a-tooltip v-if="status.xray.state === State.Error">
@@ -76,12 +76,13 @@
                                 </template>
                                 <a-icon type="question-circle" theme="filled"></a-icon>
                             </a-tooltip>
-                            <a-tag color="green" @click="openSelectV2rayVersion">[[ status.xray.version ]]</a-tag>
+                             {{ i18n "pages.index.xrayVerion" }}:
+                            <a-tag color="purple" >[[ status.xray.version ]]</a-tag>
                             <a-tag color="blue" @click="openSelectV2rayVersion">{{ i18n "pages.index.xraySwitch"}}</a-tag>
                         </a-card>
                     </a-col>
                     <a-col :sm="24" :md="12">
-                        <a-card hoverable>
+                        <a-card hoverable style="border-radius: 5px;">
                             {{ i18n "pages.index.operationHours" }}:
                             <a-tag color="#87d068">[[ formatSecond(status.uptime) ]]</a-tag>
                             <a-tooltip>
@@ -93,12 +94,12 @@
                         </a-card>
                     </a-col>
                     <a-col :sm="24" :md="12">
-                        <a-card hoverable>
+                        <a-card hoverable style="border-radius: 5px;">
                             {{ i18n "pages.index.systemLoad" }}: [[ status.loads[0] ]] | [[ status.loads[1] ]] | [[ status.loads[2] ]]
                         </a-card>
                     </a-col>
                     <a-col :sm="24" :md="12">
-                        <a-card hoverable>
+                        <a-card hoverable style="border-radius: 5px;">
                             tcp / udp {{ i18n "pages.index.connectionCount" }}: [[ status.tcpCount ]] / [[ status.udpCount ]]
                             <a-tooltip>
                                 <template slot="title">
@@ -109,7 +110,7 @@
                         </a-card>
                     </a-col>
                     <a-col :sm="24" :md="12">
-                        <a-card hoverable>
+                        <a-card hoverable style="border-radius: 5px;">
                             <a-row>
                                 <a-col :span="12">
                                     <a-icon type="arrow-up"></a-icon>
@@ -135,7 +136,7 @@
                         </a-card>
                     </a-col>
                     <a-col :sm="24" :md="12">
-                        <a-card hoverable>
+                        <a-card hoverable style="border-radius: 5px;">
                             <a-row>
                                 <a-col :span="12">
                                     <a-icon type="cloud-upload"></a-icon>
