@@ -61,7 +61,7 @@
                 </span>
                 <a-input v-model.trim="vmess.email"></a-input>
             </a-form-item>
-            <a-form-item>
+            <!-- <a-form-item>
                 <span slot="label">
                     IP Count Limit
                     <a-tooltip>
@@ -73,7 +73,7 @@
                 </span>
             
               <a-input type="number" v-model.number="vmess.limitIp" min="0" ></a-input>
-            </a-form-item>
+            </a-form-item> -->
             <a-form-item v-if="vmess.email && vmess.limitIp > 0 && isEdit">
                 <span slot="label">
                     IP Log 
@@ -92,10 +92,10 @@
             </a-form-item>
 
         </a-form>
-        <a-form-item label="id">
+        <a-form-item label="ID">
             <a-input v-model.trim="vmess.id"></a-input>
         </a-form-item>
-        <a-form-item label='{{ i18n "additional" }} ID'>
+        <a-form-item label='{{ i18n "additional" }}'>
             <a-input type="number" v-model.number="vmess.alterId"></a-input>
         </a-form-item>
         <a-form-item>
