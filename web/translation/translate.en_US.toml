@@ -1,6 +1,6 @@
 "username" = "Username"
 "password" = "Password"
-"login" = "LOGIN"
+"login" = "Login"
 "confirm" = "Confirm"
 "cancel" = "Cancel"
 "close" = "Close"
@@ -51,7 +51,7 @@
 "githubpage" = "Github Page"
 
 [pages.login]
-"title" = "X-UI ENGLISH LOGIN"
+"title" = "X-UI LOGIN"
 "loginAgain" = "The login session has expired, please log in again"
 
 [pages.login.toasts]
