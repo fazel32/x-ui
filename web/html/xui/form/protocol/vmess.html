@@ -2,6 +2,46 @@
 <a-form layout="inline">
 <a-collapse activeKey="0"  v-for="(vmess, index) in inbound.settings.vmesses"
 :key="`vmess-${index}`">
+
+<template>
+            <div style="text-align: right; margin-top: 4px; margin-right: 4px;">
+                <!--Add Svg Icon-->
+            <svg
+
+            @click="addClient(inbound.protocol,vmess, inbound.settings.vmesses)"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            class="ml-2 cursor-pointer"
+            >
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path
+            fill="green"
+            d="M11 11V7h2v4h4v2h-4v4h-2v-4H7v-2h4zm1 11C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"
+            />
+        </svg>
+    
+        <!--Remove Svg Icon-->
+        <svg
+            v-show="inbound.settings.vmesses.length > 1"
+            @click="removeClient(index, inbound.settings.vmesses)"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            class="ml-2 cursor-pointer"
+            >
+            <path fill="none" d="M0 0h24v24H0z" />
+            <path
+            fill="#EC4899"
+            d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm0-9.414l2.828-2.829 1.415 1.415L13.414 12l2.829 2.828-1.415 1.415L12 13.414l-2.828 2.829-1.415-1.415L10.586 12 7.757 9.172l1.415-1.415L12 10.586z"
+            />
+        </svg>
+            </div>
+            <a-divider style="height: 1px;" />
+</template>
+
     <a-collapse-panel :header="getHeaderText(vmess.email)">
         <a-tag v-if="isExpiry(index) || ((getUpStats(vmess.email) + getDownStats(vmess.email)) > vmess.totalGB && vmess.totalGB != 0)" color="red" style="margin-bottom: 10px;display: block;text-align: center;">Account is (Expired|Traffic Ended) And Disabled</a-tag>
 
@@ -90,40 +130,7 @@
             </a-form>
         </a-form>
 
-            <!--Add Svg Icon-->
-            <svg
-
-                @click="addClient(inbound.protocol,vmess, inbound.settings.vmesses)"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                width="24"
-                height="24"
-                class="ml-2 cursor-pointer"
-                >
-                <path fill="none" d="M0 0h24v24H0z" />
-                <path
-                fill="green"
-                d="M11 11V7h2v4h4v2h-4v4h-2v-4H7v-2h4zm1 11C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"
-                />
-            </svg>
-        
-            <!--Remove Svg Icon-->
-            <svg
-                v-show="inbound.settings.vmesses.length > 1"
-                @click="removeClient(index, inbound.settings.vmesses)"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                width="24"
-                height="24"
-                class="ml-2 cursor-pointer"
-                >
-                <path fill="none" d="M0 0h24v24H0z" />
-                <path
-                fill="#EC4899"
-                d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm0-9.414l2.828-2.829 1.415 1.415L13.414 12l2.829 2.828-1.415 1.415L12 13.414l-2.828 2.829-1.415-1.415L10.586 12 7.757 9.172l1.415-1.415L12 10.586z"
-                />
-            </svg>
-            <!-- <a-divider style="height: 2px; background-color: #7e7e7e" /> -->
+            
     
     </a-collapse-panel>
 
