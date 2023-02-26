@@ -951,7 +951,7 @@ class Inbound extends XrayCommonClass {
 
         let obj = {
             v: '2',
-            ps: remark,
+            ps: remark + ` - ${this.settings.vmesses[clientIndex].email}`, // for adding user email to vmess config remark
             add: address,
             port: this.port,
             id: this.settings.vmesses[clientIndex].id,
@@ -1039,7 +1039,7 @@ class Inbound extends XrayCommonClass {
         for (const [key, value] of params) {
             url.searchParams.set(key, value)
         }
-        url.hash = encodeURIComponent(remark);
+        url.hash = encodeURIComponent(remark + ` - ${settings.vlesses[clientIndex].email}`); // for adding user email to vless config remark
         return url.toString();
     }
 
