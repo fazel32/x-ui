@@ -130,6 +130,7 @@
 "publicKeyContent" = "Certificate.crt content"
 "keyPath" = "Private.key file path"
 "keyContent" = "Private.key content"
+"resetClientTraffic" = "Reset this client traffic"
 
 [pages.inbounds.toasts]
 "obtain" = "Obtain"

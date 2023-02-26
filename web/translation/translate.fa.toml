@@ -130,6 +130,7 @@
 "publicKeyContent" = "محتوای Certificate.crt"
 "keyPath" = "مسیر فایل Private.key"
 "keyContent" = "محتوای Private.key"
+"resetClientTraffic" = "ریست کردن ترافیک این کلاینت"
 
 [pages.inbounds.toasts]
 "obtain" = "Obtain"
