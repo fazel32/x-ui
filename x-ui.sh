@@ -545,7 +545,6 @@ show_menu() {
  ${GREEN}15.${PLAIN} One-click installation BBR (the latest kernel)
  ${GREEN}16.${PLAIN} One-click application certificate (ACME script application)
  ${GREEN}17.${PLAIN} Open all network ports in the server
- ${GREEN}18.${PLAIN} Install and configure Cloudflare Warp (Experimental)
  --------------------------------------------------------------------------------   "
     show_status
     echo ""
@@ -578,8 +577,7 @@ show_menu() {
         15) install_bbr ;;
         16) wget -N --no-check-certificate https://raw.githubusercontent.com/sudospaes/x-ui/main/acme.sh && bash acme.sh && before_show_menu ;;
         17) open_ports ;;
-        18) wget -N --no-check-certificate https://raw.githubusercontent.com/taffychan/warp/main/warp.sh && bash warp.sh && before_show_menu ;;
-        *) red "Please enter the correct option [0-18]" ;;
+        *) red "Please enter the correct option [0-17]" ;;
     esac
 }
 
