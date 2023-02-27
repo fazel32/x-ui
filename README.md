@@ -66,28 +66,3 @@ systemctl daemon-reload
 systemctl enable x-ui
 systemctl restart x-ui
 ```
-
-## Install using docker
-
-
-1. Install docker
-
-```shell
-curl -fsSL https://get.docker.com | sh
-````
-
-2. Install x-ui
-
-```shell
-mkdir x-ui && cd x-ui
-docker run -itd --network=host \
-    -v $PWD/db/:/etc/x-ui/ \
-    -v $PWD/cert/:/root/cert/ \
-    --name x-ui --restart=unless-stopped \
-    enwaiax/x-ui:latest
-````
-
-> Build your own image
-```shell
-docker build -t x-ui .
-````
