@@ -2,14 +2,14 @@
 
 English Version of X-UI Panel with Updated Xray-Core, Multi-protocol & Multi-user, with more option and some of more advanced.
 
-It's a fork from [hossinasaadi's x-ui](https://github.com/hossinasaadi/x-ui) and [NidukaAkalanka's x-ui](https://github.com/NidukaAkalanka/x-ui-english).
+It's a fork from [HossinAsaadi's x-ui](https://github.com/hossinasaadi/x-ui) and [NidukaAkalanka's x-ui](https://github.com/NidukaAkalanka/x-ui-english).
 
 
 ## Features
 -   The xray-core has been updated
 -   Ability to install the latest version of the xary-core from inside the panel
 -   More transmits for the Trojan protocol
--   Ability to define SNI for VMESS, VlESS, Trojan
+-   Ability to define SNI for VMESS, VLESS, Trojan
 -   Automatic Adding users email to configuration name by panel
 -   Some design change for better looking
 -   Improving the Persian language for the panel
@@ -25,14 +25,6 @@ It's a fork from [hossinasaadi's x-ui](https://github.com/hossinasaadi/x-ui) and
 -   Support one-click install BBR kernel
 -   Support one-click SSL certificate application and automatic renewal
 
-<!-- ## Preview
-![enter image description here](https://github.com/sudospaes/img/blob/main/XL-UI/Screenshot_20230224_035858.png?raw=true)
-
-![enter image description here](https://github.com/sudospaes/img/blob/main/XL-UI/Screenshot_20230224_035932.png?raw=true)
-
-![enter image description here](https://github.com/sudospaes/img/blob/main/XL-UI/Screenshot_20230224_035951.png?raw=true)
-
-![enter image description here](https://github.com/NidukaAkalanka/x-ui-english/raw/main/media/PostInstallation.png) -->
 
 ## Supported operating systems
 
@@ -74,3 +66,28 @@ systemctl daemon-reload
 systemctl enable x-ui
 systemctl restart x-ui
 ```
+
+## Install using docker
+
+
+1. Install docker
+
+```shell
+curl -fsSL https://get.docker.com | sh
+````
+
+2. Install x-ui
+
+```shell
+mkdir x-ui && cd x-ui
+docker run -itd --network=host \
+    -v $PWD/db/:/etc/x-ui/ \
+    -v $PWD/cert/:/root/cert/ \
+    --name x-ui --restart=unless-stopped \
+    enwaiax/x-ui:latest
+````
+
+> Build your own image
+```shell
+docker build -t x-ui .
+````
