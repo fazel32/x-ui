@@ -42,10 +42,10 @@ done
 
 os_version=$(grep -i version_id /etc/os-release | cut -d \" -f2 | cut -d . -f1)
 
-[[ $SYSTEM == "CentOS" && ${os_version} -lt 7 ]] && echo -e "Please use the system 7 or higher!" && exit 1
-[[ $SYSTEM == "Fedora" && ${os_version} -lt 29 ]] && echo -e "Please use Fedora 29 or higher!" && exit 1
-[[ $SYSTEM == "Ubuntu" && ${os_version} -lt 16 ]] && echo -e "Please use Ubuntu 16 or higher!" && exit 1
-[[ $SYSTEM == "Debian" && ${os_version} -lt 9 ]] && echo -e "Please use Debian 9 or higher!" && exit 1
+[[ $SYSTEM == "CentOS" && ${os_version} -lt 9 ]] && echo -e "Please use the CentOS 9 or higher!" && exit 1
+[[ $SYSTEM == "Fedora" && ${os_version} -lt 32 ]] && echo -e "Please use Fedora 32 or higher!" && exit 1
+[[ $SYSTEM == "Ubuntu" && ${os_version} -lt 20 ]] && echo -e "Please use Ubuntu 20.04 or higher!" && exit 1
+[[ $SYSTEM == "Debian" && ${os_version} -lt 11 ]] && echo -e "Please use Debian 11 or higher!" && exit 1
 
 archAffix(){
     case "$(uname -m)" in
@@ -88,7 +88,7 @@ before_show_menu() {
 }
 
 install() {
-    bash <(curl -Ls https://raw.githubusercontent.com/NidukaAkalanka/x-ui-english/main/install.sh)
+    bash <(curl -Ls https://raw.githubusercontent.com/sudospaes/x-ui/main/install.sh)
     if [[ $? == 0 ]]; then
         if [[ $# == 0 ]]; then
             start
@@ -107,14 +107,14 @@ update() {
             rm -rf /usr/local/x-ui/
         fi
         
-        last_version=$(curl -Ls "https://api.github.com/repos/NidukaAkalanka/x-ui-english/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/') || last_version=$(curl -sm8 https://raw.githubusercontent.com/NidukaAkalanka/x-ui-english/main/config/version)
+        last_version=$(curl -Ls "https://api.github.com/repos/sudospaes/x-ui/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/') || last_version=$(curl -sm8 https://raw.githubusercontent.com/sudospaes/x-ui/main/config/version)
         if [[ -z "$last_version" ]]; then
             red "Detecting the X-UI version failed, please make sure your server can connect to the GitHub API"
             exit 1
         fi
         
         yellow "The latest version of X-UI is: $ {last_version}, starting update..."
-        wget -N --no-check-certificate -O /usr/local/x-ui-linux-$(archAffix).tar.gz https://github.com/NidukaAkalanka/x-ui-english/releases/download/${last_version}/x-ui-linux-$(archAffix).tar.gz
+        wget -N --no-check-certificate -O /usr/local/x-ui-linux-$(archAffix).tar.gz https://github.com/sudospaes/x-ui/releases/download/${last_version}/x-ui-linux-$(archAffix).tar.gz
         if [[ $? -ne 0 ]]; then
             red "Download the X-UI failure, please make sure your server can connect and download the files from github"
             exit 1
@@ -128,7 +128,7 @@ update() {
         chmod +x x-ui bin/xray-linux-$(archAffix)
         cp -f x-ui.service /etc/systemd/system/
         
-        wget -N --no-check-certificate https://raw.githubusercontent.com/NidukaAkalanka/x-ui-english/main/x-ui.sh -O /usr/bin/x-ui
+        wget -N --no-check-certificate https://raw.githubusercontent.com/sudospaes/x-ui/main/x-ui.sh -O /usr/bin/x-ui
         chmod +x /usr/local/x-ui/x-ui.sh
         chmod +x /usr/bin/x-ui
         
@@ -324,7 +324,7 @@ install_bbr() {
 }
 
 update_shell() {
-    wget -O /usr/bin/x-ui -N --no-check-certificate https://github.com/NidukaAkalanka/x-ui-english/raw/master/x-ui.sh
+    wget -O /usr/bin/x-ui -N --no-check-certificate https://github.com/sudospaes/x-ui/raw/master/x-ui.sh
     if [[ $? != 0 ]]; then
         echo ""
         red "Downloading the script failed, please make sure your server can connect and download the files from github"
@@ -526,7 +526,7 @@ show_menu() {
 --------------------------------------------------------------------------------
   ${GREEN}1.${PLAIN} Install X-UI
   ${GREEN}2.${PLAIN} Update X-UI
-  ${GREEN}3.${PLAIN} Uninstalled X-UI
+  ${GREEN}3.${PLAIN} Uninstall X-UI
 --------------------------------------------------------------------------------
   ${GREEN}4.${PLAIN} Reset Username Password
   ${GREEN}5.${PLAIN} Reset Panel Settings
@@ -576,7 +576,7 @@ show_menu() {
         13) check_install && disable_xui ;;
         14) update_geo ;;
         15) install_bbr ;;
-        16) wget -N --no-check-certificate https://raw.githubusercontent.com/NidukaAkalanka/x-ui-english/main/acme.sh && bash acme.sh && before_show_menu ;;
+        16) wget -N --no-check-certificate https://raw.githubusercontent.com/sudospaes/x-ui/main/acme.sh && bash acme.sh && before_show_menu ;;
         17) open_ports ;;
         18) wget -N --no-check-certificate https://raw.githubusercontent.com/taffychan/warp/main/warp.sh && bash warp.sh && before_show_menu ;;
         *) red "Please enter the correct option [0-18]" ;;
