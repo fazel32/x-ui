@@ -25,14 +25,14 @@ It's a fork from [hossinasaadi's x-ui](https://github.com/hossinasaadi/x-ui) and
 -   Support one-click install BBR kernel
 -   Support one-click SSL certificate application and automatic renewal
 
-## Preview
+<!-- ## Preview
 ![enter image description here](https://github.com/sudospaes/img/blob/main/XL-UI/Screenshot_20230224_035858.png?raw=true)
 
 ![enter image description here](https://github.com/sudospaes/img/blob/main/XL-UI/Screenshot_20230224_035932.png?raw=true)
 
 ![enter image description here](https://github.com/sudospaes/img/blob/main/XL-UI/Screenshot_20230224_035951.png?raw=true)
 
-![enter image description here](https://github.com/NidukaAkalanka/x-ui-english/raw/main/media/PostInstallation.png)
+![enter image description here](https://github.com/NidukaAkalanka/x-ui-english/raw/main/media/PostInstallation.png) -->
 
 ## Supported operating systems
 
