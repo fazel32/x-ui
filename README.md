@@ -46,7 +46,7 @@ It's a fork from [hossinasaadi's x-ui](https://github.com/hossinasaadi/x-ui) and
 ## Single Command Install & upgrade
 Manual installation is recommended for **AlmaLinux** and **Rocky Linux**
 
-    Empty
+    bash <(curl -Ls https://raw.githubusercontent.com/sudospaes/x-ui/master/install.sh)
 
     
 ## Manual install & upgrade
