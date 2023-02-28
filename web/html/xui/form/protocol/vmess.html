@@ -133,9 +133,7 @@
                 </span>
             </a-tooltip>
             <a-tag color="blue">[[ sizeFormat(getUpStats(vmess.email)) ]] / [[ sizeFormat(getDownStats(vmess.email)) ]]</a-tag>
-            <a-form v-if="vmess._totalGB > 0">
-                <a-tag color="red">used : [[ sizeFormat(getUpStats(vmess.email) + getDownStats(vmess.email)) ]]</a-tag>
-            </a-form>
+            <a-tag v-if="vmess._totalGB > 0" color="red">used : [[ sizeFormat(getUpStats(vmess.email) + getDownStats(vmess.email)) ]]</a-tag>
         </a-form>
 
             
