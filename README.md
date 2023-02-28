@@ -9,8 +9,8 @@ It's a fork from [HossinAsaadi's x-ui](https://github.com/hossinasaadi/x-ui) and
 
 -   System status monitoring
 -   English and Persian language support
--   Use latest version of xay-Core
--   Ability to install the latest version of the xary-core from inside the panel
+-   Use latest version of xray-core
+-   Ability to install the latest version of the xray-core from inside the panel
 -   Multi-user can be added as users for Vmess, Vless and Trojan configurations with separate QR codes
 -   Support more transmission for Trojan protocol
 -   Ability to define SNI for Vmess, Vless, Trojan
