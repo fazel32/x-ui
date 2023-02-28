@@ -5,29 +5,29 @@ English Version of X-UI Panel with Updated Xray-Core, Multi-protocol & Multi-use
 It's a fork from [HossinAsaadi's x-ui](https://github.com/hossinasaadi/x-ui) and [NidukaAkalanka's x-ui](https://github.com/NidukaAkalanka/x-ui-english).
 
 
-## Features
--   The xray-core has been updated
--   Ability to install the latest version of the xary-core from inside the panel
--   More transmits for the Trojan protocol
--   Ability to define SNI for VMESS, VLESS, Trojan
--   Automatic Adding users email to configuration name by panel
--   Some design change for better looking
--   Improving the Persian language for the panel
--   Everything is in English (Serverside setup + Serverside UI + Web UI)
+## Features 🪄
+
 -   System status monitoring
+-   English and Persian language support
+-   Use latest version of xay-Core
+-   Ability to install the latest version of the xary-core from inside the panel
+-   Multi-user can be added as users for Vmess, Vless and Trojan configurations with separate QR codes
+-   Support more transmission for Trojan protocol
+-   Ability to define SNI for Vmess, Vless, Trojan
+-   Ability to define uTLS for Vmess, Vless, Trojan
+-   Automatic Adding users email to configuration remark by panel
+-   Some design change for better ui
 -   Support multi-user multi-protocol, web page visualization operation
--   Multi UUIDs can be added as users for Vmess and Vless configurations with separate QR codes
 -   Supported protocols: vmess, vless, trojan, shadowsocks, dokodemo-door, socks, http
 -   Support to configure more transmission configurations
--   Traffic statistics, limit traffic, limit expiration time
+-   Traffic statistics, limit traffic, users tarffic limit and limit expiration time
 -   Customizable xray configuration templates
 -   Support https access panel (bring your own domain name + ssl certificate)
 -   Support one-click install BBR kernel
 -   Support one-click SSL certificate application and automatic renewal
 
 
-## Supported operating systems
-
+## Supported operating systems 💻
 -   Debian 11 or higher (Recommended)
 -   Ubuntu 20.04 or higher
 -   Fedora 32 or higher
@@ -35,13 +35,14 @@ It's a fork from [HossinAsaadi's x-ui](https://github.com/hossinasaadi/x-ui) and
 -   AlmaLinux 9.1 or higher
 -   Rocky Linux 9 or higher
 
-## Single Command Install & upgrade
-Manual installation is recommended for **AlmaLinux** and **Rocky Linux**
+Note : Manual installation is recommended for "AlmaLinux" and "Rocky Linux"
+
+## Single Command Install & upgrade ✨
 
     bash <(curl -Ls https://raw.githubusercontent.com/sudospaes/x-ui/master/install.sh)
 
     
-## Manual install & upgrade
+## Manual install & upgrade ⚙️
 1.  First update your system and run the following commands. (Must have root user permissions)
 
    ```
