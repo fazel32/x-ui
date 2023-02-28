@@ -60,14 +60,12 @@ archAffix(){
 info_bar(){
     clear
     echo -e "${GREEN} --------------------------------------------------------------------- ${PLAIN}"
-    echo -e "${GREEN}   __   __           _    _ _____    ______             _ _     _      ${PLAIN}"
-    echo -e "${GREEN}   \ \ / /          | |  | |_   _|  |  ____|           | (_)   | |     ${PLAIN}"
-    echo -e "${GREEN}    \ V /   ______  | |  | | | |    | |__   _ __   __ _| |_ ___| |__   ${PLAIN}"
-    echo -e "${GREEN}     > <   |______| | |  | | | |    |  __| |  _ \ / _  | | / __|  _ \  ${PLAIN}"
-    echo -e "${GREEN}    / . \           | |__| |_| |_   | |____| | | | (_| | | \__ \ | | | ${PLAIN}"
-    echo -e "${GREEN}   /_/ \_\           \____/|_____|  |______|_| |_|\__, |_|_|___/_| |_| ${PLAIN}"
-    echo -e "${GREEN}                                                  __/ |                ${PLAIN}"
-    echo -e "${GREEN}                                                 |___/                 ${PLAIN}"
+    echo -e "${GREEN}                  __   __           _    _ _____                       ${PLAIN}"
+    echo -e "${GREEN}                  \ \ / /          | |  | |_   _|                      ${PLAIN}"
+    echo -e "${GREEN}                   \ V /   ______  | |  | | | |                        ${PLAIN}"
+    echo -e "${GREEN}                    > <   |______| | |  | | | |                        ${PLAIN}"
+    echo -e "${GREEN}                   / . \           | |__| |_| |_                       ${PLAIN}"
+    echo -e "${GREEN}                  /_/ \_\           \____/|_____|                      ${PLAIN}"
     echo -e "${GREEN} --------------------------------------------------------------------- ${PLAIN}"
     echo ""
     echo -e "OS: ${GREEN} ${CMD} ${PLAIN}"
@@ -177,8 +175,8 @@ install_xui() {
         read -rp "Please enter the option [y/n, default n]: " yn
         if [[ $yn =~ "Y"|"y" ]]; then
             cd
-            mv /etc/x-ui/x-ui.db /etc/x-ui-english.db.bak # Backing up Chinese X-UI db (if any)
-            mv /etc/x-ui-english/x-ui-english.db /etc/x-ui-english.db.bak # Backing up English X-UI db 
+            mv /etc/x-ui/x-ui.db /etc/x-ui.db.bak # Backing up Chinese X-UI db (if any)
+            mv /etc/x-ui/x-ui.db /etc/x-ui.db.bak # Backing up English X-UI db 
             systemctl stop x-ui
             systemctl disable x-ui
             rm /etc/systemd/system/x-ui.service -f
@@ -199,8 +197,8 @@ install_xui() {
     download_xui $1
     
     cd
-    mkdir /etc/x-ui-english #makidng a directory to import the backup
-    mv /etc/x-ui-english.db.bak /etc/x-ui-english/x-ui-english.db # Importing the backed up db
+    mkdir /etc/x-ui #makidng a directory to import the backup
+    mv /etc/x-ui.db.bak /etc/x-ui/x-ui.db # Importing the backed up db
     
     panel_config
     
@@ -213,15 +211,13 @@ install_xui() {
     rm -f install.sh
     green "X-UI v${last_version} Installation / Upgrade is Completed, The Panel has been Started"
     echo -e ""
-    echo -e "${GREEN} --------------------------------------------------------------------  ${PLAIN}"
-    echo -e "${GREEN}   __   __           _    _ _____    ______             _ _     _      ${PLAIN}"
-    echo -e "${GREEN}   \ \ / /          | |  | |_   _|  |  ____|           | (_)   | |     ${PLAIN}"
-    echo -e "${GREEN}    \ V /   ______  | |  | | | |    | |__   _ __   __ _| |_ ___| |__   ${PLAIN}"
-    echo -e "${GREEN}     > <   |______| | |  | | | |    |  __| |  _ \ / _  | | / __|  _ \  ${PLAIN}"
-    echo -e "${GREEN}    / . \           | |__| |_| |_   | |____| | | | (_| | | \__ \ | | | ${PLAIN}"
-    echo -e "${GREEN}   /_/ \_\           \____/|_____|  |______|_| |_|\__, |_|_|___/_| |_| ${PLAIN}"
-    echo -e "${GREEN}                                                  __/ |                ${PLAIN}"
-    echo -e "${GREEN}                                                 |___/                 ${PLAIN}"
+    echo -e "${GREEN} --------------------------------------------------------------------- ${PLAIN}"
+    echo -e "${GREEN}                  __   __           _    _ _____                       ${PLAIN}"
+    echo -e "${GREEN}                  \ \ / /          | |  | |_   _|                      ${PLAIN}"
+    echo -e "${GREEN}                   \ V /   ______  | |  | | | |                        ${PLAIN}"
+    echo -e "${GREEN}                    > <   |______| | |  | | | |                        ${PLAIN}"
+    echo -e "${GREEN}                   / . \           | |__| |_| |_                       ${PLAIN}"
+    echo -e "${GREEN}                  /_/ \_\           \____/|_____|                      ${PLAIN}"
     echo -e "${GREEN} --------------------------------------------------------------------- ${PLAIN}"
     echo -e ""
     echo -e "------------------------------------------------------------------------------"

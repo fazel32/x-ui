@@ -476,17 +476,15 @@ check_login_info(){
 }
 
 show_usage() {
-    green "X-UI English v${last_version} Installation is Completed, The Panel has been Started"
+    green "X-UI ${last_version} Installation is Completed, The Panel has been Started"
     echo -e ""
     echo -e "${GREEN} --------------------------------------------------------------------- ${PLAIN}"
-    echo -e "${GREEN}   __   __           _    _ _____    ______             _ _     _      ${PLAIN}"
-    echo -e "${GREEN}   \ \ / /          | |  | |_   _|  |  ____|           | (_)   | |     ${PLAIN}"
-    echo -e "${GREEN}    \ V /   ______  | |  | | | |    | |__   _ __   __ _| |_ ___| |__   ${PLAIN}"
-    echo -e "${GREEN}     > <   |______| | |  | | | |    |  __| |  _ \ / _  | | / __|  _ \  ${PLAIN}"
-    echo -e "${GREEN}    / . \           | |__| |_| |_   | |____| | | | (_| | | \__ \ | | | ${PLAIN}"
-    echo -e "${GREEN}   /_/ \_\           \____/|_____|  |______|_| |_|\__, |_|_|___/_| |_| ${PLAIN}"
-    echo -e "${GREEN}                                                  __/ |                ${PLAIN}"
-    echo -e "${GREEN}                                                 |___/                 ${PLAIN}"
+    echo -e "${GREEN}                  __   __           _    _ _____                       ${PLAIN}"
+    echo -e "${GREEN}                  \ \ / /          | |  | |_   _|                      ${PLAIN}"
+    echo -e "${GREEN}                   \ V /   ______  | |  | | | |                        ${PLAIN}"
+    echo -e "${GREEN}                    > <   |______| | |  | | | |                        ${PLAIN}"
+    echo -e "${GREEN}                   / . \           | |__| |_| |_                       ${PLAIN}"
+    echo -e "${GREEN}                  /_/ \_\           \____/|_____|                      ${PLAIN}"
     echo -e "${GREEN} --------------------------------------------------------------------- ${PLAIN}"
     echo -e ""
     echo -e "------------------------------------------------------------------------------"
@@ -511,16 +509,14 @@ show_usage() {
 show_menu() {
     echo -e "
  -------------------------------------------------------------------------------- 
-  ${GREEN}   __   __           _    _ _____    ______             _ _     _       ${PLAIN} 
-  ${GREEN}   \ \ / /          | |  | |_   _|  |  ____|           | (_)   | |      ${PLAIN}
-  ${GREEN}    \ V /   ______  | |  | | | |    | |__   _ __   __ _| |_ ___| |__    ${PLAIN}
-  ${GREEN}     > <   |______| | |  | | | |    |  __| |  _ \ / _  | | / __|  _ \   ${PLAIN}
-  ${GREEN}    / . \           | |__| |_| |_   | |____| | | | (_| | | \__ \ | | |  ${PLAIN} 
-  ${GREEN}   /_/ \_\           \____/|_____|  |______|_| |_|\__, |_|_|___/_| |_|  ${PLAIN}
-  ${GREEN}                                                  __/ |                 ${PLAIN}
-  ${GREEN}                                                 |___/                  ${PLAIN}
+  ${GREEN}                  __   __           _    _ _____                       ${PLAIN} 
+  ${GREEN}                  \ \ / /          | |  | |_   _|                      ${PLAIN}
+  ${GREEN}                   \ V /   ______  | |  | | | |                        ${PLAIN}
+  ${GREEN}                    > <   |______| | |  | | | |                        ${PLAIN}
+  ${GREEN}                   / . \           | |__| |_| |_                       ${PLAIN} 
+  ${GREEN}                  /_/ \_\           \____/|_____|                      ${PLAIN}
 --------------------------------------------------------------------------------
-  ${GREEN}X-UI ENGLISH PANEL MANAGEMENT SCRIPT ${PLAIN}
+  ${GREEN}X-UI PANEL MANAGEMENT SCRIPT ${PLAIN}
 --------------------------------------------------------------------------------
   ${GREEN}0.${PLAIN} Exit Script
 --------------------------------------------------------------------------------
