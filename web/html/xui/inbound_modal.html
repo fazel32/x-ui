@@ -81,6 +81,7 @@
                 switch (protocol) {
                     case Protocols.VMESS: return clients.push(new Inbound.VmessSettings.Vmess());
                     case Protocols.VLESS: return clients.push(new Inbound.VLESSSettings.VLESS());
+                    case Protocols.TROJAN: return clients.push(new Inbound.TrojanSettings.Trojan());
                     default: return null;
                 }
             },
@@ -189,6 +190,15 @@
                     string += chars[Math.floor(Math.random() * chars.length)];
                 }
                 client.email = string + "@mail.fun"
+            },
+            getNewTrojanUsername(client) {
+                var chars = 'abcdefghijklmnopqrstuvwxyz1234567890';
+                var string = '';
+                var len = 6 + Math.floor(Math.random() * 5)
+                for(var ii=0; ii<len; ii++){
+                    string += chars[Math.floor(Math.random() * chars.length)];
+                }
+                client.email = string
             }
         },
     });
