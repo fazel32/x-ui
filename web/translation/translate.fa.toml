@@ -131,6 +131,8 @@
 "keyPath" = "مسیر فایل Private.key"
 "keyContent" = "محتوای Private.key"
 "resetClientTraffic" = "ریست کردن ترافیک این کلاینت"
+"removeClient" = "حذف این کلاینت"
+"addClient" = "اضافه کردن کلاینت جدید"
 
 [pages.inbounds.toasts]
 "obtain" = "Obtain"

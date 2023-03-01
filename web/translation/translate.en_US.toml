@@ -131,6 +131,8 @@
 "keyPath" = "Private.key file path"
 "keyContent" = "Private.key content"
 "resetClientTraffic" = "Reset this client traffic"
+"removeClient" = "Remove This Client"
+"addClient" = "Add New Client"
 
 [pages.inbounds.toasts]
 "obtain" = "Obtain"
