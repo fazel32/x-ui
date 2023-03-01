@@ -988,7 +988,7 @@ class Inbound extends XrayCommonClass {
 
         let obj = {
             v: '2',
-            ps: remark + ` - ${this.settings.vmesses[clientIndex].email}`, // for adding user email to vmess config remark
+            ps: remark,
             add: address,
             port: this.port,
             id: this.settings.vmesses[clientIndex].id,
@@ -1092,7 +1092,7 @@ class Inbound extends XrayCommonClass {
         for (const [key, value] of params) {
             url.searchParams.set(key, value)
         }
-        url.hash = encodeURIComponent(remark + ` - ${settings.vlesses[clientIndex].email}`); // for adding user email to vless config remark
+        url.hash = encodeURIComponent(remark);
         return url.toString();
     }
 
@@ -1194,16 +1194,27 @@ class Inbound extends XrayCommonClass {
         for (const [key, value] of params) {
             url.searchParams.set(key, value)
         }
-        url.hash = encodeURIComponent(remark + ` - ${settings.trojans[clientIndex].email}`); // for adding user email to trojan config remark
         return url.toString();
     }
 
     genLink(address='', remark='', clientIndex=0) {
         switch (this.protocol) {
-            case Protocols.VMESS: return this.genVmessLink(address, remark, clientIndex);
-            case Protocols.VLESS: return this.genVLESSLink(address, remark, clientIndex);
+            case Protocols.VMESS:
+                if (this.settings.vmesses[clientIndex].email != ""){
+                    remark += ` - ${this.settings.vmesses[clientIndex].email}`; // for adding user email to vmess config remark
+                }
+                return this.genVmessLink(address, remark, clientIndex);
+            case Protocols.VLESS:
+                if (this.settings.vlesses[clientIndex].email != ""){
+                    remark += ` - ${this.settings.vlesses[clientIndex].email}`; // for adding user email to vless config remark
+                }
+                return this.genVLESSLink(address, remark, clientIndex);
+            case Protocols.TROJAN:
+                if (this.settings.trojans[clientIndex].email != ""){
+                    remark += ` - ${this.settings.trojans[clientIndex].email}`; // for adding user email to trojan config remark
+                }
+                return this.genTrojanLink(address, remark, clientIndex);
             case Protocols.SHADOWSOCKS: return this.genSSLink(address, remark);
-            case Protocols.TROJAN: return this.genTrojanLink(address, remark, clientIndex);
             default: return '';
         }
     }
