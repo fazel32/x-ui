@@ -45,12 +45,41 @@ const FLOW_CONTROL = {
     DIRECT: "xtls-rprx-direct",
 };
 
+const TLS_VERSION_OPTION = {
+    TLS10: "1.0",
+    TLS11: "1.1",
+    TLS12: "1.2",
+    TLS13: "1.3",
+};
+
+const TLS_CIPHER_OPTION = {
+    RSA_AES_128_CBC: "TLS_RSA_WITH_AES_128_CBC_SHA",
+    RSA_AES_256_CBC: "TLS_RSA_WITH_AES_256_CBC_SHA",
+    RSA_AES_128_GCM: "TLS_RSA_WITH_AES_128_GCM_SHA256",
+    RSA_AES_256_GCM: "TLS_RSA_WITH_AES_256_GCM_SHA384",
+    AES_128_GCM: "TLS_AES_128_GCM_SHA256",
+    AES_256_GCM: "TLS_AES_256_GCM_SHA384",
+    CHACHA20_POLY1305: "TLS_CHACHA20_POLY1305_SHA256",
+    ECDHE_ECDSA_AES_128_CBC: "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA",
+    ECDHE_ECDSA_AES_256_CBC: "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA",
+    ECDHE_RSA_AES_128_CBC: "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA",
+    ECDHE_RSA_AES_256_CBC: "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA",
+    ECDHE_ECDSA_AES_128_GCM: "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256",
+    ECDHE_ECDSA_AES_256_GCM: "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
+    ECDHE_RSA_AES_128_GCM: "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+    ECDHE_RSA_AES_256_GCM: "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384",
+    ECDHE_ECDSA_CHACHA20_POLY1305: "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256",
+    ECDHE_RSA_CHACHA20_POLY1305: "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256",
+};
+
 Object.freeze(Protocols);
 Object.freeze(VmessMethods);
 Object.freeze(SSMethods);
 Object.freeze(RULE_IP);
 Object.freeze(RULE_DOMAIN);
 Object.freeze(FLOW_CONTROL);
+Object.freeze(TLS_VERSION_OPTION);
+Object.freeze(TLS_CIPHER_OPTION);
 
 class XrayCommonClass {
 
@@ -416,10 +445,13 @@ class GrpcStreamSettings extends XrayCommonClass {
 }
 
 class TlsStreamSettings extends XrayCommonClass {
-    constructor(serverName='',
+    constructor(serverName='', minVersion = TLS_VERSION_OPTION.TLS12, maxVersion = TLS_VERSION_OPTION.TLS13, cipherSuites = '',
                 certificates=[new TlsStreamSettings.Cert()], alpn=[],settings=[new TlsStreamSettings.Settings()]) {
         super();
         this.server = serverName;
+        this.minVersion = minVersion;
+        this.maxVersion = maxVersion;
+        this.cipherSuites = cipherSuites;
         this.certs = certificates;
         this.alpn = alpn;
         this.settings = settings;
@@ -446,6 +478,9 @@ class TlsStreamSettings extends XrayCommonClass {
 
         return new TlsStreamSettings(
             json.serverName,
+            json.minVersion,
+            json.maxVersion,
+            json.cipherSuites,
             certs,
             json.alpn,
             settings,
@@ -455,6 +490,9 @@ class TlsStreamSettings extends XrayCommonClass {
     toJson() {
         return {
             serverName: this.server,
+            minVersion: this.minVersion,
+            maxVersion: this.maxVersion,
+            cipherSuites: this.cipherSuites,
             certificates: TlsStreamSettings.toJsonArray(this.certs),
             alpn: this.alpn,
             settings: TlsStreamSettings.toJsonArray(this.settings),
