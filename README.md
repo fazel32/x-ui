@@ -35,8 +35,6 @@ It's a fork from [HossinAsaadi's x-ui](https://github.com/hossinasaadi/x-ui) and
 -   AlmaLinux 9.1 or higher
 -   Rocky Linux 9 or higher
 
-Note : Manual installation is recommended for "AlmaLinux" and "Rocky Linux"
-
 ## Single Command Install & upgrade ✨
 
     bash <(curl -Ls https://raw.githubusercontent.com/sudospaes/x-ui/master/install.sh)
