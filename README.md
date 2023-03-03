@@ -30,10 +30,10 @@ It's a fork from [HossinAsaadi's x-ui](https://github.com/hossinasaadi/x-ui) and
 ## Supported operating systems 💻
 -   Debian 11 or higher (Recommended)
 -   Ubuntu 20.04 or higher
--   Fedora 32 or higher
 -   CentOS 9 Stream or higher
 -   AlmaLinux 9.1 or higher
 -   Rocky Linux 9 or higher
+-   Fedora 32 or higher (Use Manual install)
 
 ## Single Command Install & upgrade ✨
 
