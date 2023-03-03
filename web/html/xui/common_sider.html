@@ -11,6 +11,10 @@
     <a-icon type="setting"></a-icon>
     <span>{{ i18n "menu.setting"}}</span>
 </a-menu-item>
+<a-menu-item key="https://github.com/sudospaes/x-ui">
+    <a-icon type="github"></a-icon>
+    <span>{{ i18n "menu.githubpage"}}</span>
+</a-menu-item>
 <!--<a-menu-item key="{{ .base_path }}xui/clients">-->
 <!--    <a-icon type="laptop"></a-icon>-->
 <!--    <span>客户端</span>-->
@@ -19,16 +23,12 @@
     <a-icon type="logout"></a-icon>
     <span>{{ i18n "menu.logout"}}</span>
 </a-menu-item>
-<a-menu-item key="https://github.com/sudospaes/x-ui">
-        <a-icon type="github"></a-icon>
-        <span>{{ i18n "menu.githubpage"}}</span>
-    </a-menu-item>
 {{end}}
 
 
 {{define "commonSider"}}
-<a-layout-sider style="background-color: black;" id="sider" collapsible breakpoint="md" collapsed-width="0">
-    <a-menu style="background-color: black;" theme="dark" mode="inline" :selected-keys="['{{ .request_uri }}']"
+<a-layout-sider style="background-color: #191919;" id="sider" collapsible breakpoint="md" collapsed-width="0">
+    <a-menu style="background-color: #191919;" theme="dark" mode="inline" :selected-keys="['{{ .request_uri }}']"
             @click="({key}) => key.startsWith('http') ? window.open(key) : location.href = key">
         {{template "menuItems" .}}
     </a-menu>

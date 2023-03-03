@@ -19,7 +19,7 @@
 
     <template v-if="qrModal.inbound.protocol === Protocols.TROJAN" v-for="(trojan, index) in qrModal.inbound.settings.trojans">
         <a-tag color="red" style="margin-bottom: 10px;display: block;text-align: center;" v-text="trojan.email"></a-tag>
-        <canvas @click="copyTextToClipboard(`qrCode-trojan-${trojan.email}`,index)" :id="`qrCode-trojan-${trojan.email}`" style="width: 100%; height: 100%;"></canvas>
+        <canvas @click="copyTextToClipboard(`qrCode-trojan-${trojan.password}`,index)" :id="`qrCode-trojan-${trojan.password}`" style="width: 100%; height: 100%;"></canvas>
         <a-divider style="height: 1px; background-color: #000000" />
     </template>
 </a-modal>
@@ -120,7 +120,7 @@
                         trojans = qrModal.inbound.settings.trojans
 
                         for (const index in trojans) {
-                            this.setQrCode("qrCode-trojan-" + trojans[index].email ,index)
+                            this.setQrCode("qrCode-trojan-" + trojans[index].password ,index)
                         }
                     break;
                     default: return null;
