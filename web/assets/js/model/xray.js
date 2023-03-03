@@ -72,6 +72,24 @@ const TLS_CIPHER_OPTION = {
     ECDHE_RSA_CHACHA20_POLY1305: "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256",
 };
 
+const UTLS_OPTION = {
+    CHROME: "chrome",
+    FIREFOX: "firefox",
+    EDGE: "edge",
+    SAFARI: "safari",
+    THREE_SIX_ZERO: "360",
+    QQ: "qq",
+    IOS: "ios",
+    ANDROID: "android",
+    RANDOM: "random",
+};
+
+const ALPN_OPTION = {
+    H2: "h2",
+    HTTP1: "http/1.1",
+    BOTH: "h2,http/1.1",
+};
+
 Object.freeze(Protocols);
 Object.freeze(VmessMethods);
 Object.freeze(SSMethods);
@@ -80,6 +98,8 @@ Object.freeze(RULE_DOMAIN);
 Object.freeze(FLOW_CONTROL);
 Object.freeze(TLS_VERSION_OPTION);
 Object.freeze(TLS_CIPHER_OPTION);
+Object.freeze(UTLS_OPTION);
+Object.freeze(ALPN_OPTION);
 
 class XrayCommonClass {
 
@@ -446,7 +466,7 @@ class GrpcStreamSettings extends XrayCommonClass {
 
 class TlsStreamSettings extends XrayCommonClass {
     constructor(serverName='', minVersion = TLS_VERSION_OPTION.TLS12, maxVersion = TLS_VERSION_OPTION.TLS13, cipherSuites = '',
-                certificates=[new TlsStreamSettings.Cert()], alpn=[],settings=[new TlsStreamSettings.Settings()]) {
+                certificates=[new TlsStreamSettings.Cert()], alpn=[''],settings=[new TlsStreamSettings.Settings()]) {
         super();
         this.server = serverName;
         this.minVersion = minVersion;
@@ -542,7 +562,7 @@ TlsStreamSettings.Cert = class extends XrayCommonClass {
 };
 
 TlsStreamSettings.Settings = class extends XrayCommonClass {
-  constructor(insecure = false, fingerprint = '', serverName = '') {
+  constructor(insecure = false, fingerprint = 'random', serverName = '') {
     super();
     this.inSecure = insecure;
     this.fingerprint = fingerprint;
@@ -1037,6 +1057,8 @@ class Inbound extends XrayCommonClass {
             path: path,
             tls: this.stream.security,
             sni: this.stream.tls.settings[0]['serverName'], // SNI value is in TlsStreamSettings.Settings 
+            fp: this.stream.tls.settings[0]['fingerprint'],
+            alpn: this.stream.tls.alpn[0],
         };
         return 'vmess://' + base64(JSON.stringify(obj, null, 2));
     }
@@ -1100,6 +1122,8 @@ class Inbound extends XrayCommonClass {
         if (this.stream.security === 'tls') {
             if (!ObjectUtil.isEmpty(this.stream.tls.server)) {
                 address = this.stream.tls.server;
+                params.set("fp" , this.stream.tls.settings[0]['fingerprint']);
+                params.set("alpn", this.stream.tls.alpn[0]);
                 if (this.stream.tls.settings[0]['serverName'] !== ''){
                     params.set("sni", this.stream.tls.settings[0]['serverName']);
                 }
@@ -1112,6 +1136,8 @@ class Inbound extends XrayCommonClass {
         if(this.xtls == true){
             if (!ObjectUtil.isEmpty(this.stream.tls.server)) {
                 address = this.stream.tls.server;
+                params.set("fp" , this.stream.tls.settings[0]['fingerprint']);
+                params.set("alpn", this.stream.tls.alpn[0]);
                 if (this.stream.tls.settings[0]['serverName'] !== ''){
                     params.set("sni", this.stream.tls.settings[0]['serverName']);
                 }
@@ -1202,6 +1228,8 @@ class Inbound extends XrayCommonClass {
         if (this.stream.security === 'tls') {
             if (!ObjectUtil.isEmpty(this.stream.tls.server)) {
                 address = this.stream.tls.server;
+                params.set("fp" , this.stream.tls.settings[0]['fingerprint']);
+                params.set("alpn", this.stream.tls.alpn[0]);
                 if (this.stream.tls.settings[0]['serverName'] !== ''){
                     params.set("sni", this.stream.tls.settings[0]['serverName']);
                 }
@@ -1214,6 +1242,8 @@ class Inbound extends XrayCommonClass {
         if(this.xtls == true){
             if (!ObjectUtil.isEmpty(this.stream.tls.server)) {
                 address = this.stream.tls.server;
+                params.set("fp" , this.stream.tls.settings[0]['fingerprint']);
+                params.set("alpn", this.stream.tls.alpn[0]);
                 if (this.stream.tls.settings[0]['serverName'] !== ''){
                     params.set("sni", this.stream.tls.settings[0]['serverName']);
                 }
