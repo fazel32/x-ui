@@ -38,12 +38,31 @@ for ((int = 0; int < ${#REGEX[@]}; int++)); do
     [[ $(echo "$SYS" | tr '[:upper:]' '[:lower:]') =~ ${REGEX[int]} ]] && SYSTEM="${RELEASE[int]}" && [[ -n $SYSTEM ]] && break
 done
 
+# ------ For detect Fedora ------
+if [ -f /etc/os-release ]; then
+    . /etc/os-release
+    OS=$NAME
+    VER=$VERSION_ID
+elif type lsb_release >/dev/null 2>&1; then
+    OS=$(lsb_release -si)
+    VER=$(lsb_release -sr)
+elif [ -f /etc/lsb-release ]; then
+    . /etc/lsb-release
+    OS=$DISTRIB_ID
+    VER=$DISTRIB_RELEASE
+fi
+
+if [[ $OS == "Fedora Linux" ]]; then
+    SYSTEM = "Fedora"
+fi
+# -------------------------------
+
 [[ -z $SYSTEM ]] && red "Does not support the current OS, please use the a supported one" && exit 1
 
 os_version=$(grep -i version_id /etc/os-release | cut -d \" -f2 | cut -d . -f1)
 
-[[ $SYSTEM == "CentOS" && ${os_version} -lt 9 ]] && echo -e "Please use the CentOS 9 or higher!" && exit 1
-[[ $SYSTEM == "Fedora" && ${os_version} -lt 32 ]] && echo -e "Please use Fedora 32 or higher!" && exit 1
+[[ $SYSTEM == "CentOS" && ${os_version} -lt 9 ]] && echo -e "Please use CentOS 9 or higher!" && exit 1
+[[ $SYSTEM == "Fedora" && ${VER} -lt 32 ]] && echo -e "Please use Fedora 32 or higher!" && exit 1
 [[ $SYSTEM == "Ubuntu" && ${os_version} -lt 20 ]] && echo -e "Please use Ubuntu 20.04 or higher!" && exit 1
 [[ $SYSTEM == "Debian" && ${os_version} -lt 11 ]] && echo -e "Please use Debian 11 or higher!" && exit 1
 
