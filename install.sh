@@ -53,7 +53,7 @@ elif [ -f /etc/lsb-release ]; then
 fi
 
 if [[ $OS == "Fedora Linux" ]]; then
-    SYSTEM = "Fedora"
+    SYSTEM="Fedora"
 fi
 # -------------------------------
 
