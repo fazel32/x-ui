@@ -5,7 +5,7 @@
         <a-switch v-model="inbound.tls">
         </a-switch>
     </a-form-item>
-    <a-form-item v-if="inbound.canEnableXTls()" label="xtls">
+    <a-form-item v-if="inbound.canEnableXTls()" label="XTLS">
         <a-switch v-model="inbound.xtls"></a-switch>
     </a-form-item>
 </a-form>
@@ -25,6 +25,7 @@
         </a-form-item>
         <a-form-item label="UTLS">
             <a-select v-model="inbound.stream.tls.settings[0].fingerprint" style="width: 130px">
+                <a-select-option value=''>don't use uTLS</a-select-option>
                 <a-select-option v-for="key in UTLS_OPTION" :value="key">[[ key ]]</a-select-option>
             </a-select>
         </a-form-item>

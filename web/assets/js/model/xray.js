@@ -562,7 +562,7 @@ TlsStreamSettings.Cert = class extends XrayCommonClass {
 };
 
 TlsStreamSettings.Settings = class extends XrayCommonClass {
-  constructor(insecure = false, fingerprint = 'random', serverName = '') {
+  constructor(insecure = false, fingerprint = '', serverName = '') {
     super();
     this.inSecure = insecure;
     this.fingerprint = fingerprint;
