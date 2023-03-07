@@ -36,79 +36,10 @@
                         <a-button type="danger" :disabled="!saveBtnDisable" @click="restartPanel">{{ i18n "pages.setting.restartPanel" }}</a-button>
                     </a-space>
                     <a-tabs default-active-key="1">
-                        <a-tab-pane key="1" tab='{{ i18n "pages.setting.panelConfig"}}'>
-
-                            <a-list item-layout="horizontal" style="background: white">
-                                <setting-list-item type="text" title='{{ i18n "pages.setting.panelListeningIP"}}' desc='{{ i18n "pages.setting.panelListeningIPDesc"}}' v-model="allSetting.webListen"></setting-list-item>
-                                <setting-list-item type="number" title='{{ i18n "pages.setting.panelPort"}}' desc='{{ i18n "pages.setting.panelPortDesc"}}' v-model.number="allSetting.webPort"></setting-list-item>
-                                <setting-list-item type="text" title='{{ i18n "pages.setting.publicKeyPath"}}' desc='{{ i18n "pages.setting.publicKeyPathDesc"}}' v-model="allSetting.webCertFile"></setting-list-item>
-                                <setting-list-item type="text" title='{{ i18n "pages.setting.privateKeyPath"}}' desc='{{ i18n "pages.setting.privateKeyPathDesc"}}' v-model="allSetting.webKeyFile"></setting-list-item>
-                                <setting-list-item type="text" title='{{ i18n "pages.setting.panelUrlPath"}}' desc='{{ i18n "pages.setting.panelUrlPathDesc"}}' v-model="allSetting.webBasePath"></setting-list-item>
-                                <a-list-item>
-                                    <a-row  style="padding: 20px">
-                                        <a-col :lg="24" :xl="12">
-                                            <a-list-item-meta title='{{ i18n "pages.setting.language"}}'/>
-                                        </a-col>
-
-                                        <a-col :lg="24" :xl="12">
-                                            <temlate>
-                                                <a-select
-                                                        ref="selectLang"
-                                                        v-model="lang"
-                                                        @change="setLang(lang)"
-                                                        style="width: 100%"
-                                                >
-                                                    <a-select-option  :value="l.value" label="Persian" v-for="l in supportLangs" >
-                                                        <span role="img" aria-label="l.name" v-text="l.icon"></span>
-                                                        &nbsp;&nbsp;<span v-text="l.name"></span>
-                                                    </a-select-option>
-                                                </a-select>
-                                            </temlate>
-                                        </a-col>
-                                    </a-row>
-                                </a-list-item>                               
-                            </a-list>
-                        </a-tab-pane>
-                        <a-tab-pane key="2" tab='{{ i18n "pages.setting.userSetting"}}'>
-                            <a-form style="background: white; padding: 20px">
-                                <a-form-item label='{{ i18n "pages.setting.oldUsername"}}'>
-                                    <a-input v-model="user.oldUsername" style="max-width: 300px"></a-input>
-                                </a-form-item>
-                                <a-form-item label='{{ i18n "pages.setting.currentPassword"}}'>
-                                    <a-input type="password" v-model="user.oldPassword"
-                                             style="max-width: 300px"></a-input>
-                                </a-form-item>
-                                <a-form-item label='{{ i18n "pages.setting.newUsername"}}'>
-                                    <a-input v-model="user.newUsername" style="max-width: 300px"></a-input>
-                                </a-form-item>
-                                <a-form-item label='{{ i18n "pages.setting.newPassword"}}'>
-                                    <a-input type="password" v-model="user.newPassword"
-                                             style="max-width: 300px"></a-input>
-                                </a-form-item>
-                                <a-form-item>
-<!--                                    <a-button type="primary" @click="updateUser">修改</a-button>-->
-                                    <a-button type="primary" @click="updateUser">{{ i18n "confirm" }}</a-button>
-                                </a-form-item>
-                            </a-form>
-                        </a-tab-pane>
-                        <a-tab-pane key="3" tab='{{ i18n "pages.setting.xrayConfiguration"}}'>
-                            <a-list item-layout="horizontal" style="background: white">
-                                <setting-list-item type="textarea" title='{{ i18n "pages.setting.xrayConfigTemplate"}}' desc='{{ i18n "pages.setting.xrayConfigTemplateDesc"}}' v-model="allSetting.xrayTemplateConfig"></setting-list-item>
-                            </a-list>
-                        </a-tab-pane>
-                        <!-- <a-tab-pane key="4" tab='{{ i18n "pages.setting.TGReminder"}}'>
-                            <a-list item-layout="horizontal" style="background: white">
-                                <setting-list-item type="switch" title='{{ i18n "pages.setting.telegramBotEnable" }}' desc='{{ i18n "pages.setting.telegramBotEnableDesc" }}'  v-model="allSetting.tgBotEnable"></setting-list-item>
-                                <setting-list-item type="text" title='{{ i18n "pages.setting.telegramToken"}}' desc='{{ i18n "pages.setting.telegramTokenDesc"}}'  v-model="allSetting.tgBotToken"></setting-list-item>
-                                <setting-list-item type="number" title='{{ i18n "pages.setting.telegramChatId"}}' desc='{{ i18n "pages.setting.telegramChatIdDesc"}}'  v-model.number="allSetting.tgBotChatId"></setting-list-item>
-                                <setting-list-item type="text" title='{{ i18n "pages.setting.telegramNotifyTime"}}' desc='{{ i18n "pages.setting.telegramNotifyTimeDesc"}}'  v-model="allSetting.tgRunTime"></setting-list-item>
-                            </a-list>
-                        </a-tab-pane> -->
-                        <a-tab-pane key="5" tab='{{ i18n "pages.setting.otherSetting"}}'>
-                            <a-list item-layout="horizontal" style="background: white">
-                                <setting-list-item type="text" title='{{ i18n "pages.setting.timeZonee"}}' desc='{{ i18n "pages.setting.timeZoneDesc"}}' v-model="allSetting.timeLocation"></setting-list-item>
-                            </a-list>
-                        </a-tab-pane>
+                    {{template "settings/panel"}}
+                    {{template "settings/user"}}
+                    {{template "settings/xray"}}
+                    {{template "settings/other"}}
                     </a-tabs>
                 </a-space>
             </a-spin>
