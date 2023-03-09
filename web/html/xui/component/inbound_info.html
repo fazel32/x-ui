@@ -53,10 +53,16 @@
     </template>
     
     <template v-if="dbInbound.isVMess" v-for="(vmess, index) in inbound.settings.vmesses">
-        <a-divider style="height: 0.2px; background-color: #161616" />
+        <a-card>
         <p>Email : <a-tag color="purple">[[ vmess.email ]]</a-tag></p>
         <p>uuid : <a-tag color="purple">[[ vmess.id ]]</a-tag></p>
         <p>alterId : <a-tag color="purple">[[ vmess.alterId ]]</a-tag></p>
+        <p>Traffic : 
+            <a-tag v-if="vmess.totalGB > 0" color="blue">Allowed Traffic : [[ sizeFormat(vmess.totalGB) ]]</a-tag>
+            <a-tag v-else color="blue">Allowed Traffic : {{ i18n "indefinitely" }}</a-tag>
+            <a-tag color="orange"> Used Traffic : [[ sizeFormat(getUpStats(dbInbound, vmess.email) + getDownStats(dbInbound, vmess.email)) ]]</a-tag>
+            <a-tag v-if="((getUpStats(dbInbound, vmess.email) + getDownStats(dbInbound, vmess.email)) > vmess.totalGB && vmess.totalGB != 0)" color="red"> Used Traffic : [[ sizeFormat(getUpStats(dbInbound, vmess.email) + getDownStats(dbInbound, vmess.email)) ]] (Ended)</a-tag>
+        </p>
         <template>
             Expiry Time : 
             <template v-if="vmess.expiryTime > 0">
@@ -69,14 +75,20 @@
             </template>
             <a-tag v-else color="green">{{ i18n "indefinitely" }}</a-tag>
         </template>
-        <a-divider style="height: 0.2px; background-color: #161616" />
+        </a-card>
     </template>
 
     <template v-if="dbInbound.isVLess" v-for="(vless, index) in inbound.settings.vlesses">
-        <a-divider style="height: 0.5px; background-color: #161616" />
+        <a-card>
         <p>Email : <a-tag color="purple">[[ vless.email ]]</a-tag></p>
         <p>uuid : <a-tag color="purple">[[ vless.id ]]</a-tag></p>
         <p v-if="inbound.xtls">Flow : <a-tag color="blue">[[ vless.flow ]]</a-tag></p>
+        <p>Traffic : 
+            <a-tag v-if="vless.totalGB > 0" color="blue">Allowed Traffic : [[ sizeFormat(vless.totalGB) ]]</a-tag>
+            <a-tag v-else color="blue">Allowed Traffic : {{ i18n "indefinitely" }}</a-tag>
+            <a-tag color="orange"> Used Traffic : [[ sizeFormat(getUpStats(dbInbound, vless.email) + getDownStats(dbInbound, vless.email)) ]]</a-tag>
+            <a-tag v-if="((getUpStats(dbInbound, vless.email) + getDownStats(dbInbound, vless.email)) > vless.totalGB && vless.totalGB != 0)" color="red"> Used Traffic : [[ sizeFormat(getUpStats(dbInbound, vless.email) + getDownStats(dbInbound, vless.email)) ]] (Ended)</a-tag>
+        </p>
         <template>
             Expiry Time : 
             <template v-if="vless.expiryTime > 0">
@@ -89,14 +101,20 @@
             </template>
             <a-tag v-else color="green">{{ i18n "indefinitely" }}</a-tag>
         </template>
-        <a-divider style="height: 0.5px; background-color: #161616" />
+        </a-card>
     </template>
 
     <template v-if="dbInbound.isTrojan" v-for="(trojan, index) in inbound.settings.trojans">
-        <a-divider style="height: 0.5px; background-color: #161616" />
+        <a-card>
         <p>Email : <a-tag color="purple">[[ trojan.email ]]</a-tag></p>
         <p>Password : <a-tag color="purple">[[ trojan.password ]]</a-tag></p>
         <p v-if="inbound.xtls">Flow : <a-tag color="blue">[[ trojan.flow ]]</a-tag></p>
+        <p>Traffic : 
+            <a-tag v-if="trojan.totalGB > 0" color="blue">Allowed Traffic : [[ sizeFormat(trojan.totalGB) ]]</a-tag>
+            <a-tag v-else color="blue">Allowed Traffic : {{ i18n "indefinitely" }}</a-tag>
+            <a-tag color="orange"> Used Traffic : [[ sizeFormat(getUpStats(dbInbound, trojan.email) + getDownStats(dbInbound, trojan.email)) ]]</a-tag>
+            <a-tag v-if="((getUpStats(dbInbound, trojan.email) + getDownStats(dbInbound, trojan.email)) > trojan.totalGB && trojan.totalGB != 0)" color="red"> Used Traffic : [[ sizeFormat(getUpStats(dbInbound, trojan.email) + getDownStats(dbInbound, trojan.email)) ]] (Ended)</a-tag>
+        </p>
         <template>
             Expiry Time : 
             <template v-if="trojan.expiryTime > 0">
@@ -109,7 +127,7 @@
             </template>
             <a-tag v-else color="green">{{ i18n "indefinitely" }}</a-tag>
         </template>
-        <a-divider style="height: 0.5px; background-color: #161616" />
+        </a-card>
     </template>
 
     <template v-if="dbInbound.isSS">
@@ -136,5 +154,35 @@
         props: ["dbInbound", "inbound"],
         template: `{{template "component/inboundInfoComponent"}}`,
     });
+</script>
+
+<script>
+    function getUpStats(dbInbound, email) {
+        const inbound = dbInbound.toInbound(); 
+        clientStats = inbound.clientStats;
+        if(clientStats.length > 0) {
+            for (const key in clientStats) {
+                if (Object.hasOwnProperty.call(clientStats, key)) {
+                    if(clientStats[key]['email'] == email) { 
+                        return clientStats[key]['up'];
+                    }
+                }
+            }
+        }
+    };
+
+    function getDownStats(dbInbound, email) {
+        const inbound = dbInbound.toInbound();
+        clientStats = inbound.clientStats;
+        if(clientStats.length > 0) {
+            for (const key in clientStats) {
+                if (Object.hasOwnProperty.call(clientStats, key)) {
+                    if(clientStats[key]['email'] == email) {
+                        return clientStats[key]['down']
+                    }
+                }
+            }
+        }
+    };
 </script>
 {{end}}
