@@ -245,7 +245,7 @@
                 this.$confirm({
                     title: '{{ i18n "pages.inbounds.cloneInbound"}} ' + dbInbound.remark,
                     content: '{{ i18n "pages.inbounds.cloneInboundContent"}}',
-                    okText: '{{ i18n "pages.inbounds.cloneInboundOk"}} ' + dbInbound.remark,
+                    okText: '{{ i18n "pages.inbounds.cloneInboundOk"}}',
                     cancelText: '{{ i18n "cancel" }}',
                     onOk: () => {
                         const baseInbound = dbInbound.toInbound();

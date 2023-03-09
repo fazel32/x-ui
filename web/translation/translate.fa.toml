@@ -136,7 +136,7 @@
 "Clone" = "کلون"
 "cloneInbound" = "ساخت کلون از"
 "cloneInboundContent" = "همه موارد این ورودی بجز پورت ، ای پی و کلاینت ها روی کلون اعمال خواهند شد"
-"cloneInboundOk" = "ساختن یک کلون از"
+"cloneInboundOk" = "ایجاد"
 
 [pages.inbounds.toasts]
 "obtain" = "Obtain"
