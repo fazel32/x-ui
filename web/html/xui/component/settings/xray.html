@@ -5,13 +5,11 @@
       <setting-list-item type="switch" title='{{ i18n "pages.setting.blockIranIP"}}' desc='{{ i18n "pages.setting.blockIranIPDesc"}}' v-model="allSetting.blockIranIP"></setting-list-item>
     </a-list>
     <a-list item-layout="horizontal" style="background: white">
-      <setting-list-item type="text" title='{{ i18n "pages.setting.blockDomain"}}' desc='{{ i18n "pages.setting.blockDomainDesc"}}' v-model="allSetting.blockDomainPattern"></setting-list-item>
-    </a-list>
-    <a-list item-layout="horizontal" style="background: white">
       <setting-list-item type="textarea" title='{{ i18n "pages.setting.xrayConfigTemplate"}}' desc='{{ i18n "pages.setting.xrayConfigTemplateDesc"}}' v-model="allSetting.xrayTemplateConfig"></setting-list-item>
     </a-list>
     <a-form-item>
-      <a-button type="primary" @click="updateXray">{{ i18n "confirm" }}</a-button>
+      <a-button type="primary" @click="updateXray">{{ i18n "pages.setting.confirmBlockIranIP"}}</a-button>
+      <a-button style="margin-left: 10px;" type="primary" @click="updateAllSetting">{{ i18n "pages.setting.applyXrayChange"}}</a-button>
     </a-form-item>
   </a-form>
 </a-tab-pane>

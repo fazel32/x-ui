@@ -120,7 +120,6 @@
                 this.allSetting.xrayTemplateConfig = JSON.stringify(xrayTemplate,null,3);
                 await PromiseUtil.sleep(1000);
                 this.loading(false);
-                this.saveBtnDisable = false;
             },
             async restartPanel() {
                 await new Promise(resolve => {

@@ -61,7 +61,7 @@
             <a-tag v-if="vmess.totalGB > 0" color="blue">Allowed Traffic : [[ sizeFormat(vmess.totalGB) ]]</a-tag>
             <a-tag v-else color="blue">Allowed Traffic : {{ i18n "indefinitely" }}</a-tag>
             <a-tag color="orange"> Used Traffic : [[ sizeFormat(getUpStats(dbInbound, vmess.email) + getDownStats(dbInbound, vmess.email)) ]]</a-tag>
-            <a-tag v-if="((getUpStats(dbInbound, vmess.email) + getDownStats(dbInbound, vmess.email)) > vmess.totalGB && vmess.totalGB != 0)" color="red"> Used Traffic : [[ sizeFormat(getUpStats(dbInbound, vmess.email) + getDownStats(dbInbound, vmess.email)) ]] (Ended)</a-tag>
+            <a-tag v-if="((getUpStats(dbInbound, vmess.email) + getDownStats(dbInbound, vmess.email)) > vmess.totalGB && vmess.totalGB != 0)" color="red">Traffic Ended</a-tag>
         </p>
         <template>
             Expiry Time : 
@@ -87,7 +87,7 @@
             <a-tag v-if="vless.totalGB > 0" color="blue">Allowed Traffic : [[ sizeFormat(vless.totalGB) ]]</a-tag>
             <a-tag v-else color="blue">Allowed Traffic : {{ i18n "indefinitely" }}</a-tag>
             <a-tag color="orange"> Used Traffic : [[ sizeFormat(getUpStats(dbInbound, vless.email) + getDownStats(dbInbound, vless.email)) ]]</a-tag>
-            <a-tag v-if="((getUpStats(dbInbound, vless.email) + getDownStats(dbInbound, vless.email)) > vless.totalGB && vless.totalGB != 0)" color="red"> Used Traffic : [[ sizeFormat(getUpStats(dbInbound, vless.email) + getDownStats(dbInbound, vless.email)) ]] (Ended)</a-tag>
+            <a-tag v-if="((getUpStats(dbInbound, vless.email) + getDownStats(dbInbound, vless.email)) > vless.totalGB && vless.totalGB != 0)" color="red">Traffic Ended</a-tag>
         </p>
         <template>
             Expiry Time : 
@@ -113,7 +113,7 @@
             <a-tag v-if="trojan.totalGB > 0" color="blue">Allowed Traffic : [[ sizeFormat(trojan.totalGB) ]]</a-tag>
             <a-tag v-else color="blue">Allowed Traffic : {{ i18n "indefinitely" }}</a-tag>
             <a-tag color="orange"> Used Traffic : [[ sizeFormat(getUpStats(dbInbound, trojan.email) + getDownStats(dbInbound, trojan.email)) ]]</a-tag>
-            <a-tag v-if="((getUpStats(dbInbound, trojan.email) + getDownStats(dbInbound, trojan.email)) > trojan.totalGB && trojan.totalGB != 0)" color="red"> Used Traffic : [[ sizeFormat(getUpStats(dbInbound, trojan.email) + getDownStats(dbInbound, trojan.email)) ]] (Ended)</a-tag>
+            <a-tag v-if="((getUpStats(dbInbound, trojan.email) + getDownStats(dbInbound, trojan.email)) > trojan.totalGB && trojan.totalGB != 0)" color="red">Traffic Ended</a-tag>
         </p>
         <template>
             Expiry Time : 
