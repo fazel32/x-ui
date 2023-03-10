@@ -35,7 +35,7 @@
                         <a-button type="primary" :disabled="saveBtnDisable" @click="updateAllSetting">{{ i18n "pages.setting.save" }}</a-button>
                         <a-button type="danger" :disabled="!saveBtnDisable" @click="restartPanel">{{ i18n "pages.setting.restartPanel" }}</a-button>
                     </a-space>
-                    <a-tabs default-active-key="1">
+                    <a-tabs default-active-key="1" @change="changeTab">
                     {{template "settings/panel"}}
                     {{template "settings/user"}}
                     {{template "settings/xray"}}
@@ -60,11 +60,15 @@
             allSetting: new AllSetting(),
             saveBtnDisable: true,
             user: {},
-            lang : getLang()
+            lang : getLang(),
+            activeTab:1
         },
         methods: {
             loading(spinning = true) {
                 this.spinning = spinning;
+            },
+            changeTab(key){
+                this.activeTab=key;
             },
             async getAllSetting() {
                 this.loading(true);
@@ -92,6 +96,31 @@
                     this.user = {};
                 }
             },
+            async updateXray() {
+                // Pretty bad and dirty code , But I'm gonna leave it like this for now ;)
+                this.loading(true);
+                if(this.allSetting.blockIranIP){
+                    xrayTemplate = JSON.parse(this.allSetting.xrayTemplateConfig);
+                    xrayTemplate.routing["domainStrategy"] = "IPIfNonMatch";
+                    xrayTemplate.routing["rules"][1]["ip"].push("geoip:ir");
+                    domains = ["regexp:.*\\.ir$","ext:iran.dat:ir","ext:iran.dat:other","geosite:category-ir-gov","geosite:category-ir-news","geosite:category-ir-bank","geosite:category-ir-tech","geosite:category-ir-travel","geosite:category-ir-shopping","geosite:category-ir-insurance","geosite:category-ir-scholar"];
+                    domainPatterns = this.allSetting.blockDomainPattern.split(',');  
+                    domainPatterns.forEach( (item) => {
+                        if(item != "")
+                            domains.push(item);
+                      });
+                    xrayTemplate.routing["rules"][2]["domain"] = domains;
+                }else{
+                    xrayTemplate = JSON.parse(this.allSetting.xrayTemplateConfig);
+                    delete xrayTemplate.routing["domainStrategy"]
+                    xrayTemplate.routing["rules"][1]["ip"] = ["geoip:private"]
+                    delete xrayTemplate.routing["rules"][2]["domain"];
+                }
+                this.allSetting.xrayTemplateConfig = JSON.stringify(xrayTemplate,null,3);
+                await PromiseUtil.sleep(1000);
+                this.loading(false);
+                this.saveBtnDisable = false;
+            },
             async restartPanel() {
                 await new Promise(resolve => {
                     this.$confirm({
@@ -116,7 +145,8 @@
             await this.getAllSetting();
             while (true) {
                 await PromiseUtil.sleep(1000);
-                this.saveBtnDisable = this.oldAllSetting.equals(this.allSetting);
+                if(this.activeTab != 3)
+                    this.saveBtnDisable = this.oldAllSetting.equals(this.allSetting);
             }
         },
     });
