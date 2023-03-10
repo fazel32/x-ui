@@ -196,10 +196,12 @@
 "telegramNotifyTimeDesc" = "Use Crontab timing format (Refer the README.md). Restart the panel to take effect"
 "timeZonee" = "Time Zone"
 "timeZoneDesc" = "The scheduled tasks run according to this time zone. Restarts the panel to take effect"
-"blockIranIP" = "Blobk Iran IP addresses"
+"blockIranIP" = "Block Iran IP addresses"
 "blockIranIPDesc" = "By enabling this option all requests to Iran IP addresses will be blocked.(recommended)"
 "blockDomain" = "Block domains with specific words"
-"blockDomainDesc" = "Enter each word  and seperate them with comma(,). (Is it blocking freedom or nah?) "
+"blockDomainDesc" = "Enter each word  and seperate them with comma(,). (Is it blocking freedom or nah?)"
+"aboutTab" = "About Panel"
+"aboutLearnMore" = "Learn more :"
 
 [pages.setting.toasts]
 "modifySetting" = "Modify setting"
