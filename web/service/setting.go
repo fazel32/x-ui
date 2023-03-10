@@ -33,6 +33,8 @@ var defaultValueMap = map[string]string{
 	"tgBotToken":         "",
 	"tgBotChatId":        "0",
 	"tgRunTime":          "",
+  "blockIranIP":        "false",
+  "blockDomainPattern": "",
 }
 
 type SettingService struct {
@@ -240,6 +242,14 @@ func (s *SettingService) GetCertFile() (string, error) {
 
 func (s *SettingService) GetKeyFile() (string, error) {
 	return s.getString("webKeyFile")
+}
+
+func (s *SettingService) GetBlockIranIP() (bool, error){
+  return s.getBool("blockIranIP")
+}
+
+func (s *SettingService) GetBlockDomainPattern() (string, error){
+  return s.getString("blockDomainPattern")
 }
 
 func (s *SettingService) GetSecret() ([]byte, error) {

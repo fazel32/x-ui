@@ -38,7 +38,9 @@ type AllSetting struct {
 	TgRunTime          string `json:"tgRunTime" form:"tgRunTime"`
 	XrayTemplateConfig string `json:"xrayTemplateConfig" form:"xrayTemplateConfig"`
 
-	TimeLocation string `json:"timeLocation" form:"timeLocation"`
+	TimeLocation       string `json:"timeLocation" form:"timeLocation"`
+  BlockIranIP        bool   `json:"blockIranIP" form:"blockIranIP"`
+  BlockDomainPattern string `json:"blockDomainPattern" form:"blockDomainPattern"`
 }
 
 func (s *AllSetting) CheckValid() error {
