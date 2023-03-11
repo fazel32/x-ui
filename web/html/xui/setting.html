@@ -145,8 +145,7 @@
             await this.getAllSetting();
             while (true) {
                 await PromiseUtil.sleep(1000);
-                if(this.activeTab != 3)
-                    this.saveBtnDisable = this.oldAllSetting.equals(this.allSetting);
+                this.saveBtnDisable = this.oldAllSetting.equals(this.allSetting);
             }
         },
     });
