@@ -41,8 +41,9 @@ const RULE_DOMAIN = {
 };
 
 const FLOW_CONTROL = {
-    ORIGIN: "xtls-rprx-origin",
-    DIRECT: "xtls-rprx-direct",
+    // ORIGIN: "xtls-rprx-origin", Not support in xray-core v1.8.0
+    // DIRECT: "xtls-rprx-direct", Not support in xray-core v1.8.0
+    VISION: "xtls-rprx-vision",
 };
 
 const TLS_VERSION_OPTION = {
@@ -82,6 +83,7 @@ const UTLS_OPTION = {
     IOS: "ios",
     ANDROID: "android",
     RANDOM: "random",
+    RANDOMIZED: "randomized", // Completely randomly generate a unique fingerprint (100% TLS 1.3 support using X25519)
 };
 
 const ALPN_OPTION = {
@@ -962,6 +964,19 @@ class Inbound extends XrayCommonClass {
         return this.network === "tcp";
     }
 
+    // This is used for xtls-rprx-vison (VLESS ONLY)
+    canEnableFlow() {
+        if ((this.stream.security === 'tls') && (this.network === "tcp")) {
+            switch (this.protocol) {
+                case Protocols.VLESS:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+        return false;
+    }
+
     canEnableStream() {
         switch (this.protocol) {
             case Protocols.VMESS:
@@ -1070,11 +1085,7 @@ class Inbound extends XrayCommonClass {
         const type = this.stream.network;
         const params = new Map();
         params.set("type", this.stream.network);
-        if (this.xtls) {
-            params.set("security", "xtls");
-        } else {
-            params.set("security", this.stream.security);
-        }
+        params.set("security", this.stream.security);
         switch (type) {
             case "tcp":
                 const tcp = this.stream.tcp;
@@ -1130,25 +1141,10 @@ class Inbound extends XrayCommonClass {
                 else{
                    params.set("sni", address);
                 }
-            }
-        }
-
-        if(this.xtls == true){
-            if (!ObjectUtil.isEmpty(this.stream.tls.server)) {
-                address = this.stream.tls.server;
-                params.set("fp" , this.stream.tls.settings[0]['fingerprint']);
-                params.set("alpn", this.stream.tls.alpn[0]);
-                if (this.stream.tls.settings[0]['serverName'] !== ''){
-                    params.set("sni", this.stream.tls.settings[0]['serverName']);
-                }
-                else{
-                   params.set("sni", address);
+                if (type === "tcp") {
+                    params.set("flow", this.settings.vlesses[clientIndex].flow);
                 }
             }
-        }
-
-        if (this.xtls) {
-            params.set("flow", this.settings.vlesses[clientIndex].flow);
         }
 
         const link = `vless://${uuid}@${address}:${port}`;
@@ -1176,11 +1172,7 @@ class Inbound extends XrayCommonClass {
         const type = this.stream.network;
         const params = new Map();
         params.set("type", this.stream.network);
-        if (this.xtls) {
-            params.set("security", "xtls");
-        } else {
-            params.set("security", this.stream.security);
-        }
+        params.set("security", this.stream.security);
         switch (type) {
             case "tcp":
                 const tcp = this.stream.tcp;
@@ -1237,24 +1229,6 @@ class Inbound extends XrayCommonClass {
                    params.set("sni", address);
                 }
             }
-        }
-
-        if(this.xtls == true){
-            if (!ObjectUtil.isEmpty(this.stream.tls.server)) {
-                address = this.stream.tls.server;
-                params.set("fp" , this.stream.tls.settings[0]['fingerprint']);
-                params.set("alpn", this.stream.tls.alpn[0]);
-                if (this.stream.tls.settings[0]['serverName'] !== ''){
-                    params.set("sni", this.stream.tls.settings[0]['serverName']);
-                }
-                else{
-                   params.set("sni", address);
-                }
-            }
-        }
-
-        if (this.xtls) {
-            params.set("flow", this.settings.trojans[clientIndex].flow);
         }
 
         const link = `trojan://${settings.trojans[clientIndex].password}@${address}:${this.port}#${encodeURIComponent(remark)}`;
@@ -1484,7 +1458,7 @@ Inbound.VLESSSettings = class extends Inbound.Settings {
 };
 Inbound.VLESSSettings.VLESS = class extends XrayCommonClass {
 
-    constructor(id=RandomUtil.randomUUID(), flow=FLOW_CONTROL.DIRECT, email=`${RandomUtil.randomSeq(8)}@mail.fun`, limitIp=0, totalGB=0, expiryTime='') {
+    constructor(id=RandomUtil.randomUUID(), flow=FLOW_CONTROL.VISION, email=`${RandomUtil.randomSeq(8)}@mail.fun`, limitIp=0, totalGB=0, expiryTime='') {
         super();
         this.id = id;
         this.flow = flow;
@@ -1600,7 +1574,7 @@ Inbound.TrojanSettings = class extends Inbound.Settings {
     }
 };
 Inbound.TrojanSettings.Trojan = class extends XrayCommonClass {
-    constructor(password=RandomUtil.randomSeq(10), flow=FLOW_CONTROL.DIRECT, email=`${RandomUtil.randomSeq(8)}@mail.fun`, totalGB=0, expiryTime='') {
+    constructor(password=RandomUtil.randomSeq(10), flow='', email=`${RandomUtil.randomSeq(8)}@mail.fun`, totalGB=0, expiryTime='') {
         super();
         this.password = password;
         this.flow = flow;

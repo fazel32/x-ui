@@ -82,7 +82,8 @@
         <a-card>
         <p>Email : <a-tag color="purple">[[ vless.email ]]</a-tag></p>
         <p>uuid : <a-tag color="purple">[[ vless.id ]]</a-tag></p>
-        <p v-if="inbound.xtls">Flow : <a-tag color="blue">[[ vless.flow ]]</a-tag></p>
+        <p v-if="inbound.canEnableFlow() && vless.flow != ''">Flow : <a-tag color="blue">[[ vless.flow ]]</a-tag></p>
+        <p v-if="inbound.canEnableFlow() && vless.flow == ''">Flow : <a-tag color="blue">None</a-tag></p>
         <p>Traffic : 
             <a-tag v-if="vless.totalGB > 0" color="blue">Allowed Traffic : [[ sizeFormat(vless.totalGB) ]]</a-tag>
             <a-tag v-else color="blue">Allowed Traffic : {{ i18n "indefinitely" }}</a-tag>
@@ -108,7 +109,8 @@
         <a-card>
         <p>Email : <a-tag color="purple">[[ trojan.email ]]</a-tag></p>
         <p>Password : <a-tag color="purple">[[ trojan.password ]]</a-tag></p>
-        <p v-if="inbound.xtls">Flow : <a-tag color="blue">[[ trojan.flow ]]</a-tag></p>
+        <p v-if="inbound.canEnableFlow() && trojan.flow != ''">Flow : <a-tag color="blue">[[ trojan.flow ]]</a-tag></p>
+        <p v-if="inbound.canEnableFlow() && trojan.flow == ''">Flow : <a-tag color="blue">None</a-tag></p>
         <p>Traffic : 
             <a-tag v-if="trojan.totalGB > 0" color="blue">Allowed Traffic : [[ sizeFormat(trojan.totalGB) ]]</a-tag>
             <a-tag v-else color="blue">Allowed Traffic : {{ i18n "indefinitely" }}</a-tag>

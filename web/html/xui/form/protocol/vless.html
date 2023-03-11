@@ -57,7 +57,7 @@
         <a-form-item label="ID">
             <a-input v-model.trim="vless.id"></a-input>
         </a-form-item>
-        <a-form-item v-if="inbound.xtls" label="Flow">
+        <a-form-item v-if="inbound.canEnableFlow()" label="Flow">
             <a-select v-model="vless.flow" style="width: 150px">
                 <a-select-option value="">{{ i18n "none" }}</a-select-option>
                 <a-select-option v-for="key in FLOW_CONTROL" :value="key">[[ key ]]</a-select-option>
