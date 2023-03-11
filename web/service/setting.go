@@ -34,7 +34,6 @@ var defaultValueMap = map[string]string{
 	"tgBotChatId":        "0",
 	"tgRunTime":          "",
   "blockIranIP":        "false",
-  "blockDomainPattern": "",
 }
 
 type SettingService struct {
