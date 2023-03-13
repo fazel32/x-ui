@@ -40,6 +40,12 @@
 <p v-if="inbound.stream.tls.settings[0].serverName != ''">
     SNI Parameter : <a-tag color="green">[[ inbound.stream.tls.settings[0].serverName ]]</a-tag>
 </p>
+<p v-if="inbound.stream.tls.settings[0].fingerprint != ''">
+    uTLS : <a-tag color="green">[[ inbound.stream.tls.settings[0].fingerprint ]]</a-tag>
+</p>
+<p v-if="inbound.stream.tls.cipherSuites != ''">
+    CipherSuites : <a-tag color="green">[[ inbound.stream.tls.cipherSuites ]]</a-tag>
+</p>
 {{end}}
 
 
