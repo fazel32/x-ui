@@ -40,6 +40,7 @@ type AllSetting struct {
 
 	TimeLocation       string `json:"timeLocation" form:"timeLocation"`
   BlockIranIP        bool   `json:"blockIranIP" form:"blockIranIP"`
+  SecretEnable       bool   `json:"secretEnable" form:"secretEnable"`
 }
 
 func (s *AllSetting) CheckValid() error {

@@ -7,18 +7,18 @@ import (
 	"x-ui/web/job"
 	"x-ui/web/service"
 	"x-ui/web/session"
-
 	"github.com/gin-gonic/gin"
 )
 
 type LoginForm struct {
 	Username string `json:"username" form:"username"`
 	Password string `json:"password" form:"password"`
+  LoginSecret string `json:"loginSecret" form:"loginSecret"`
 }
 
 type IndexController struct {
 	BaseController
-
+  settingService service.SettingService
 	userService service.UserService
 }
 
@@ -32,6 +32,7 @@ func (a *IndexController) initRouter(g *gin.RouterGroup) {
 	g.GET("/", a.index)
 	g.POST("/login", a.login)
 	g.GET("/logout", a.logout)
+  g.POST("/getSecretStatus", a.getSecretStatus)
 }
 
 func (a *IndexController) index(c *gin.Context) {
@@ -57,7 +58,7 @@ func (a *IndexController) login(c *gin.Context) {
 		pureJsonMsg(c, false, I18n(c , "pages.login.toasts.emptyPassword"))
 		return
 	}
-	user := a.userService.CheckUser(form.Username, form.Password)
+	user := a.userService.CheckUser(form.Username, form.Password, form.LoginSecret)
 	timeStr := time.Now().Format("2006-01-02 15:04:05")
 	if user == nil {
 		job.NewStatsNotifyJob().UserLoginNotify(form.Username, getRemoteIp(c), timeStr, 0)
@@ -81,4 +82,11 @@ func (a *IndexController) logout(c *gin.Context) {
 	}
 	session.ClearSession(c)
 	c.Redirect(http.StatusTemporaryRedirect, c.GetString("base_path"))
+}
+func (a *IndexController) getSecretStatus(c *gin.Context) {
+  status, err := a.settingService.GetSecretStatus()
+  if err == nil {
+    jsonObj(c , status , nil )
+  }
+
 }

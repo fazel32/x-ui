@@ -247,8 +247,8 @@ func (s *SettingService) GetBlockIranIP() (bool, error){
   return s.getBool("blockIranIP")
 }
 
-func (s *SettingService) GetBlockDomainPattern() (string, error){
-  return s.getString("blockDomainPattern")
+func (s *SettingService) GetSecretStatus() (bool, error){
+  return s.getBool("secretEnable")
 }
 
 func (s *SettingService) GetSecret() ([]byte, error) {

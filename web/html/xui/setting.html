@@ -60,41 +60,44 @@
             oldAllSetting: new AllSetting(),
             allSetting: new AllSetting(),
             saveBtnDisable: true,
-            user: {},
+            user: new User(),
             lang : getLang(),
             activeTab:1
         },
         methods: {
-            loading(spinning = true) {
-                this.spinning = spinning;
+            loading(spinning = true , obj) {
+                if(obj == null)
+                  this.spinning = spinning;
             },
             changeTab(key){
                 this.activeTab=key;
             },
             async getAllSetting() {
-                this.loading(true);
+                this.loading(true,{});
                 const msg = await HttpUtil.post("/xui/setting/all");
-                this.loading(false);
+                this.loading(false,null);
                 if (msg.success) {
                     this.oldAllSetting = new AllSetting(msg.obj);
                     this.allSetting = new AllSetting(msg.obj);
                     this.saveBtnDisable = true;
                 }
+                await this.getUserSecret();
+
             },
             async updateAllSetting() {
-                this.loading(true);
+                this.loading(true,{});
                 const msg = await HttpUtil.post("/xui/setting/update", this.allSetting);
-                this.loading(false);
+                this.loading(false,null);
                 if (msg.success) {
                     await this.getAllSetting();
                 }
             },
             async updateUser() {
-                this.loading(true);
+                this.loading(true,{});
                 const msg = await HttpUtil.post("/xui/setting/updateUser", this.user);
-                this.loading(false);
+                this.loading(false,null);
                 if (msg.success) {
-                    this.user = {};
+                    this.user = new User();
                 }
             },
             async updateXray() {
@@ -116,6 +119,41 @@
                 await PromiseUtil.sleep(1000);
                 this.loading(false);
             },
+            async getUserSecret(){
+                const user_msg = await HttpUtil.post("/xui/setting/getUserSecret", this.user);
+                if (user_msg.success){
+                    this.user = user_msg.obj;
+                }
+                this.loading(false);
+            },
+            async updateSecret(){
+                this.loading(true,{});
+                const msg = await HttpUtil.post("/xui/setting/updateUserSecret", this.user);
+                if (msg.success){
+                    this.user = msg.obj;
+                }
+                this.loading(false,null);
+                await this.updateAllSetting();
+            },
+            async getNewSecret(){
+                this.loading(true,{});
+                await PromiseUtil.sleep(1000);
+                var chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+                var string = '';
+                var len = 64;
+                for(var ii=0; ii<len; ii++){
+                    string += chars[Math.floor(Math.random() * chars.length)];
+                }
+                this.user.loginSecret = string;
+                document.getElementById('token').value =this.user.loginSecret; 
+                this.loading(false,null);
+            },
+            async toggleToken(value){
+                if(value)
+                  this.getNewSecret();
+                else 
+                  this.user.loginSecret = "";
+            },
             async restartPanel() {
                 await new Promise(resolve => {
                     this.$confirm({
@@ -126,9 +164,9 @@
                         onOk: () => resolve(),
                     });
                 });
-                this.loading(true);
+                this.loading(true,{});
                 const msg = await HttpUtil.post("/xui/setting/restartPanel");
-                this.loading(false);
+                this.loading(false,null);
                 if (msg.success) {
                     this.loading(true);
                     await PromiseUtil.sleep(5000);

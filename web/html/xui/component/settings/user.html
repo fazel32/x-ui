@@ -1,6 +1,6 @@
 {{define "settings/user"}}
- <a-tab-pane key="2" tab='{{ i18n "pages.setting.userSetting"}}'>
-   <a-form style="background: white; padding: 20px">
+ <a-tab-pane key="2" tab='{{ i18n "pages.setting.userSetting"}}' style="display:flex; flex-direction:row;">
+   <a-form style="background: white; padding: 20px;width: 100%;margin: 10px;border-radius: 10px;">
      <a-form-item label='{{ i18n "pages.setting.oldUsername"}}'>
        <a-input v-model="user.oldUsername" style="max-width: 300px"></a-input>
      </a-form-item>
@@ -17,6 +17,38 @@
        <!---        <a-button type="primary" @click="updateUser">修改</a-button>-->
        <a-button type="primary" @click="updateUser">{{ i18n "confirm" }}</a-button>
      </a-form-item>
+  </a-form>
+  <a-form style="background: white; padding: 20px;width: 100%;margin: 10px;border-radius: 10px">
+    <a-list-item style="padding: 20px">
+       <a-row>
+         <a-col :lg="24" :xl="12">
+            <a-list-item-meta title='{{ i18n "pages.setting.loginSecurity" }}' description='{{ i18n "pages.setting.loginSecurityDesc" }}'/>
+         </a-col>
+         <a-col :lg="24" :xl="12">
+            <template>
+                <a-switch @change="toggleToken(allSetting.secretEnable)" v-model="allSetting.secretEnable"></a-switch>
+            </template>
+         </a-col>
+       </a-row>
+    </a-list-item>
+    <a-list-item style="padding: 20px">
+      <a-row>
+        <a-col :lg="24" :xl="12">
+          <a-list-item-meta title='{{ i18n "pages.setting.secretToken" }}' description='{{ i18n "pages.setting.secretTokenDesc" }}'/>
+
+        </a-col>
+        <a-col :lg="24" :xl="12">
+           <svg 
+                  @click="getNewSecret"
+                  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="anticon anticon-question-circle" viewBox="0 0 16 16"> <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/> <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/> 
+           </svg>
+           <template>
+               <a-textarea type="text" id='token' :disabled="!allSetting.secretEnable" v-model="user.loginSecret"></a-textarea>
+           </template>
+        </a-col>
+      </a-row>
+    </a-list-item>
+    <a-button type="primary" @click="updateSecret">{{ i18n "confirm" }}</a-button>
   </a-form>
 </a-tab-pane>
 {{end}}

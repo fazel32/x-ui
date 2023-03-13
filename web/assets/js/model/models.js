@@ -3,6 +3,7 @@ class User {
   constructor() {
     this.username = "";
     this.password = "";
+    this.loginSecret = "";
   }
 }
 
@@ -172,6 +173,7 @@ class AllSetting {
     this.xrayTemplateConfig = "";
     this.timeLocation = "Asia/Shanghai";
     this.blockIranIP = false;
+    this.secretEnable = false;
 
     if (data == null) {
       return

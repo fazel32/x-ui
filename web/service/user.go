@@ -25,12 +25,12 @@ func (s *UserService) GetFirstUser() (*model.User, error) {
 	return user, nil
 }
 
-func (s *UserService) CheckUser(username string, password string) *model.User {
+func (s *UserService) CheckUser(username string, password string, secret string) *model.User {
 	db := database.GetDB()
 
 	user := &model.User{}
 	err := db.Model(model.User{}).
-		Where("username = ? and password = ?", username, password).
+		Where("username = ? and password = ? and login_secret = ?", username, password, secret).
 		First(user).
 		Error
 	if err == gorm.ErrRecordNotFound {
@@ -50,7 +50,25 @@ func (s *UserService) UpdateUser(id int, username string, password string) error
 		Update("password", password).
 		Error
 }
-
+func (s *UserService) UpdateUserSecret(id int,secret string) error {
+	db := database.GetDB()
+	return db.Model(model.User{}).
+		Where("id = ?", id).
+		Update("login_secret", secret).
+		Error
+}
+func (s *UserService) GetUserSecret(id int) *model.User{
+  db := database.GetDB()
+  user := &model.User{}
+  err :=db.Model(model.User{}).
+		Where("id = ?", id).
+    First(user).
+		Error
+  if err == gorm.ErrRecordNotFound {
+		return nil
+  }
+  return user
+}
 func (s *UserService) UpdateFirstUser(username string, password string) error {
 	if username == "" {
 		return errors.New("username can not be empty")
@@ -63,11 +81,13 @@ func (s *UserService) UpdateFirstUser(username string, password string) error {
 	if database.IsNotFound(err) {
 		user.Username = username
 		user.Password = password
+    user.LoginSecret = ""
 		return db.Model(model.User{}).Create(user).Error
 	} else if err != nil {
 		return err
 	}
 	user.Username = username
 	user.Password = password
+  user.LoginSecret = "" 
 	return db.Save(user).Error
 }
