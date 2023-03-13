@@ -41,6 +41,7 @@
 "success" = " Succeed"
 "getVersion" = "Get version"
 "install" = "Install"
+"secretToken" = "Secret token"
 
 [menu]
 "dashboard" = "System Status"
@@ -200,6 +201,10 @@
 "blockIranIPDesc" = "By enabling this option all requests to Iran IP addresses will be blocked. (Recommended)"
 "aboutTab" = "About Panel"
 "aboutLearnMore" = "Learn more :"
+"loginSecurity" = "Login security"
+"loginSecurityDesc" = "Toggle additional step in user login page"
+"secretToken" = "Secret Token"
+"secretTokenDesc" = "Copy this secret token and keep it in safe place; whitout this you wont be able to login. This can not be recovered from x-ui command tool neighter" 
 
 [pages.setting.toasts]
 "modifySetting" = "Modify setting"
