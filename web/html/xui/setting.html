@@ -65,17 +65,16 @@
             activeTab:1
         },
         methods: {
-            loading(spinning = true , obj) {
-                if(obj == null)
-                  this.spinning = spinning;
+            loading(spinning = true) {
+                this.spinning = spinning;
             },
             changeTab(key){
                 this.activeTab=key;
             },
             async getAllSetting() {
-                this.loading(true,{});
+                this.loading(true);
                 const msg = await HttpUtil.post("/xui/setting/all");
-                this.loading(false,null);
+                this.loading(false);
                 if (msg.success) {
                     this.oldAllSetting = new AllSetting(msg.obj);
                     this.allSetting = new AllSetting(msg.obj);
@@ -85,17 +84,17 @@
 
             },
             async updateAllSetting() {
-                this.loading(true,{});
+                this.loading(true);
                 const msg = await HttpUtil.post("/xui/setting/update", this.allSetting);
-                this.loading(false,null);
+                this.loading(false);
                 if (msg.success) {
                     await this.getAllSetting();
                 }
             },
             async updateUser() {
-                this.loading(true,{});
+                this.loading(true);
                 const msg = await HttpUtil.post("/xui/setting/updateUser", this.user);
-                this.loading(false,null);
+                this.loading(false);
                 if (msg.success) {
                     this.user = new User();
                 }
@@ -127,16 +126,16 @@
                 this.loading(false);
             },
             async updateSecret(){
-                this.loading(true,{});
+                this.loading(true);
                 const msg = await HttpUtil.post("/xui/setting/updateUserSecret", this.user);
                 if (msg.success){
                     this.user = msg.obj;
                 }
-                this.loading(false,null);
+                this.loading(false);
                 await this.updateAllSetting();
             },
             async getNewSecret(){
-                this.loading(true,{});
+                this.loading(true);
                 await PromiseUtil.sleep(1000);
                 var chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
                 var string = '';
@@ -146,7 +145,7 @@
                 }
                 this.user.loginSecret = string;
                 document.getElementById('token').value =this.user.loginSecret; 
-                this.loading(false,null);
+                this.loading(false);
             },
             async toggleToken(value){
                 if(value)
@@ -164,9 +163,9 @@
                         onOk: () => resolve(),
                     });
                 });
-                this.loading(true,{});
+                this.loading(true);
                 const msg = await HttpUtil.post("/xui/setting/restartPanel");
-                this.loading(false,null);
+                this.loading(false);
                 if (msg.success) {
                     this.loading(true);
                     await PromiseUtil.sleep(5000);
