@@ -28,6 +28,7 @@ func initUser() error {
 		user := &model.User{
 			Username: "admin",
 			Password: "admin",
+      LoginSecret: "",
 		}
 		return db.Create(user).Error
 	}
