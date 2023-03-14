@@ -16,6 +16,7 @@ It's a fork from [HossinAsaadi's x-ui](https://github.com/hossinasaadi/x-ui) and
 -   Support more transmission for Trojan protocol
 -   Ability to define SNI for Vmess, Vless, Trojan
 -   Ability to define uTLS for Vmess, Vless, Trojan
+-   Advanced TLS settings
 -   Automatic Adding users email to configuration remark by panel
 -   Some design change for better ui
 -   Block Iran IP option
