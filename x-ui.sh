@@ -198,6 +198,8 @@ reset_user() {
     /usr/local/x-ui/x-ui setting -username ${config_account} -password ${config_password} >/dev/null 2>&1
     echo -e "Panel login user name has been reset to: ${GREEN} ${config_account} ${PLAIN}"
     echo -e "Panel login password has been reset to: ${GREEN} ${config_password} ${PLAIN}"
+    echo -e "Do you wish to remove secret token from user(if any has been set before)?:${GREEN} ${config_secret} ${PLAIN}"
+    /usr/local/x-ui/x-ui setting -remove_secret ${config_secret} >/dev/null 2>&1
     green "Please use the new login user name and password to access the X-UI panel. Also remember them!"
     confirm_restart
 }
