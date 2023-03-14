@@ -57,6 +57,13 @@ func (s *UserService) UpdateUserSecret(id int,secret string) error {
 		Update("login_secret", secret).
 		Error
 }
+func (s *UserService) RemoveUserSecret() error {
+	db := database.GetDB()
+	return db.Model(model.User{}).
+		Where("1 = 1").
+		Update("login_secret", "").
+		Error
+}
 func (s *UserService) GetUserSecret(id int) *model.User{
   db := database.GetDB()
   user := &model.User{}
@@ -81,13 +88,11 @@ func (s *UserService) UpdateFirstUser(username string, password string) error {
 	if database.IsNotFound(err) {
 		user.Username = username
 		user.Password = password
-    user.LoginSecret = ""
 		return db.Model(model.User{}).Create(user).Error
 	} else if err != nil {
 		return err
 	}
 	user.Username = username
 	user.Password = password
-  user.LoginSecret = "" 
 	return db.Save(user).Error
 }

@@ -117,7 +117,13 @@ func (s *SettingService) GetAllSetting() (*entity.AllSetting, error) {
 
 func (s *SettingService) ResetSettings() error {
 	db := database.GetDB()
-	return db.Where("1 = 1").Delete(model.Setting{}).Error
+  err := db.Where("1 = 1").Delete(model.Setting{}).Error
+  if err != nil {
+    return err
+  }
+  return db.Model(model.User{}).
+    Where("1 = 1").
+    Update("login_secret", "").Error
 }
 
 func (s *SettingService) getSetting(key string) (*model.Setting, error) {
@@ -250,6 +256,10 @@ func (s *SettingService) GetBlockIranIP() (bool, error){
 
 func (s *SettingService) GetSecretStatus() (bool, error){
   return s.getBool("secretEnable")
+}
+
+func (s *SettingService) SetSecretStatus(value bool) error {
+  return s.setBool("secretEnable", value)
 }
 
 func (s *SettingService) GetSecret() ([]byte, error) {

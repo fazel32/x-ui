@@ -203,6 +203,23 @@ func updateSetting(port int, username string, password string) {
 		}
 	}
 }
+func removeSecret() {
+  err := database.InitDB(config.GetDBPath())
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  userService := service.UserService{}
+  err = userService.RemoveUserSecret()
+  if err != nil {
+    fmt.Println(err)
+  }
+  settingService := service.SettingService{}
+  err = settingService.SetSecretStatus(false)
+  if err != nil {
+    fmt.Println(err)
+  }
+}
 
 func main() {
 	if len(os.Args) < 2 {
@@ -229,8 +246,10 @@ func main() {
 	var tgbotRuntime string
 	var reset bool
 	var show bool
+  var remove_secret bool
 	settingCmd.BoolVar(&reset, "reset", false, "reset all settings")
 	settingCmd.BoolVar(&show, "show", false, "show current settings")
+  settingCmd.BoolVar(&remove_secret, "remove_secret", false, "remove secret from user ")
 	settingCmd.IntVar(&port, "port", 0, "set panel port")
 	settingCmd.StringVar(&username, "username", "", "set login username")
 	settingCmd.StringVar(&password, "password", "", "set login password")
@@ -290,6 +309,9 @@ func main() {
 		if (tgbottoken != "") || (tgbotchatid != 0) || (tgbotRuntime != "") {
 			updateTgbotSetting(tgbottoken, tgbotchatid, tgbotRuntime)
 		}
+    if remove_secret {
+      removeSecret()
+    }
 	default:
 		fmt.Println("except 'run' or 'v2-ui' or 'setting' subcommands")
 		fmt.Println()
