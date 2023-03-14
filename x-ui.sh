@@ -196,10 +196,10 @@ reset_user() {
     read -rp "Please set the login password [default is a random password]: " config_password
     [[ -z $config_password ]] && config_password=$(date +%s%N | md5sum | cut -c 1-8)
     /usr/local/x-ui/x-ui setting -username ${config_account} -password ${config_password} >/dev/null 2>&1
+    /usr/local/x-ui/x-ui setting -remove_secret >/dev/null 2>&1
     echo -e "Panel login user name has been reset to: ${GREEN} ${config_account} ${PLAIN}"
     echo -e "Panel login password has been reset to: ${GREEN} ${config_password} ${PLAIN}"
-    echo -e "Do you wish to remove secret token from user(if any has been set before)?:${GREEN} ${config_secret} ${PLAIN}"
-    /usr/local/x-ui/x-ui setting -remove_secret ${config_secret} >/dev/null 2>&1
+    yellow "Panel login secret token disabled"
     green "Please use the new login user name and password to access the X-UI panel. Also remember them!"
     confirm_restart
 }
@@ -545,7 +545,7 @@ show_menu() {
   ${GREEN}2.${PLAIN} Update X-UI
   ${GREEN}3.${PLAIN} Uninstall X-UI
 --------------------------------------------------------------------------------
-  ${GREEN}4.${PLAIN} Reset Username Password
+  ${GREEN}4.${PLAIN} Reset Username Password and Disable Secret Token
   ${GREEN}5.${PLAIN} Reset Panel Settings
   ${GREEN}6.${PLAIN} Set the Panel Web Port
 --------------------------------------------------------------------------------
