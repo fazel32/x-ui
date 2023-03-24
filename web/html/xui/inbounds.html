@@ -15,7 +15,7 @@
 <body>
 <a-layout id="app" v-cloak>
     {{ template "commonSider" . }}
-    <a-layout id="content-layout">
+    <a-layout id="content-layout" :style="siderDrawer.isDarkTheme ? bgDarkStyle : ''">
         <a-layout-content>
             <a-spin :spinning="spinning" :delay="500" tip="loading">
                 <transition name="list" appear>
@@ -24,7 +24,7 @@
                     </a-tag>
                 </transition>
                 <transition name="list" appear>
-                    <a-card hoverable style="margin-bottom: 20px; border-radius: 5px;">
+                    <a-card hoverable :class="siderDrawer.isDarkTheme ? darkClass : ''" style="margin-bottom: 20px; border-radius: 5px;">
                         <a-row>
                             <a-col :xs="24" :sm="24" :lg="12">
                                 {{ i18n "pages.inbounds.totalDownUp" }}：
@@ -42,12 +42,11 @@
                     </a-card>
                 </transition>
                 <transition name="list" appear>
-                    <a-card hoverable style="border-radius: 5px;">
+                    <a-card hoverable :class="siderDrawer.isDarkTheme ? darkClass : ''" style="border-radius: 5px;">
                         <div slot="title">
                             <a-button type="primary" icon="user-add" @click="openAddInbound">{{ i18n "pages.inbounds.addNewInbound" }}</a-button>
                             <a-button type="primary" icon="reload" @click="resetAllTraffic">{{ i18n "pages.inbounds.resetAllTraffic" }}</a-button>
                         </div>
-<!--                        <a-input v-model="searchKey" placeholder="搜索" autofocus style="max-width: 300px"></a-input>-->
                         <a-table :columns="columns" :row-key="dbInbound => dbInbound.id"
                                  :data-source="dbInbounds"
                                  :loading="spinning" :scroll="{ x: 1500 }"
@@ -57,7 +56,7 @@
                             <template slot="action" slot-scope="text, dbInbound">
                                 <a-dropdown :trigger="['click']">
                                     <a @click="e => e.preventDefault()">{{ i18n "pages.inbounds.operate" }}</a>
-                                    <a-menu slot="overlay" @click="a => clickAction(a, dbInbound)">
+                                    <a-menu slot="overlay" @click="a => clickAction(a, dbInbound)" :theme="siderDrawer.theme">
                                         <a-menu-item v-if="dbInbound.hasLink()" key="qrcode">
                                             <a-icon type="qrcode"></a-icon>
                                             {{ i18n "qrCode" }}
@@ -245,6 +244,7 @@
                 this.$confirm({
                     title: '{{ i18n "pages.inbounds.cloneInbound"}} ' + dbInbound.remark,
                     content: '{{ i18n "pages.inbounds.cloneInboundContent"}}',
+                    class: siderDrawer.isDarkTheme ? darkClass : '',
                     okText: '{{ i18n "pages.inbounds.cloneInboundOk"}}',
                     cancelText: '{{ i18n "cancel" }}',
                     onOk: () => {
@@ -343,6 +343,7 @@
                 this.$confirm({
                     title: '{{ i18n "pages.inbounds.resetTraffic"}}',
                     content: '{{ i18n "pages.inbounds.resetTrafficContent"}}',
+                    class: siderDrawer.isDarkTheme ? darkClass : '',
                     okText: '{{ i18n "reset"}}',
                     cancelText: '{{ i18n "cancel"}}',
                     onOk: () => {
@@ -357,6 +358,7 @@
                     this.$confirm({
                         title: '{{ i18n "pages.inbounds.resetAllTrafficTitle"}}',
                         content: '{{ i18n "pages.inbounds.resetAllTrafficContent"}}',
+                        class: siderDrawer.isDarkTheme ? darkClass : '',
                         okText: '{{ i18n "pages.inbounds.resetAllTrafficOkText"}}',
                         cancelText: '{{ i18n "pages.inbounds.resetAllTrafficCancelText"}}',
                         onOk: async () => {
@@ -373,6 +375,7 @@
                 this.$confirm({
                     title: '{{ i18n "pages.inbounds.deleteInbound"}}',
                     content: '{{ i18n "pages.inbounds.deleteInboundContent"}}',
+                    class: siderDrawer.isDarkTheme ? darkClass : '',
                     okText: '{{ i18n "delete"}}',
                     cancelText: '{{ i18n "cancel"}}',
                     onOk: () => this.submit('/xui/inbound/del/' + dbInbound.id),

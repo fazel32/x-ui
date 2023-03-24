@@ -15,10 +15,6 @@
     <a-icon type="github"></a-icon>
     <span>{{ i18n "menu.githubpage"}}</span>
 </a-menu-item>
-<!--<a-menu-item key="{{ .base_path }}xui/clients">-->
-<!--    <a-icon type="laptop"></a-icon>-->
-<!--    <span>客户端</span>-->
-<!--</a-menu-item>-->
 <a-menu-item key="{{ .base_path }}logout">
     <a-icon type="logout"></a-icon>
     <span>{{ i18n "menu.logout"}}</span>
@@ -32,6 +28,14 @@
             @click="({key}) => key.startsWith('http') ? window.open(key) : location.href = key">
         {{template "menuItems" .}}
     </a-menu>
+    <a-menu style="background-color: #191919;" theme="dark" mode="inline" selected-keys="">
+        <a-menu-item mode="inline">
+            Dark Mode : 
+            <a-switch :default-checked="siderDrawer.isDarkTheme" checked-children="ON"
+            un-checked-children="OFF"
+            @change="siderDrawer.changeTheme()"></a-switch>
+        </a-menu-item>
+    </a-menu>
 </a-layout-sider>
 <a-drawer id="sider-drawer" placement="left" :closable="false"
           @close="siderDrawer.close()"
@@ -43,11 +47,22 @@
         @click="({key}) => key.startsWith('http') ? window.open(key) : location.href = key">
         {{template "menuItems" .}}
     </a-menu>
+    <a-menu style="background-color: #191919;" theme="dark" mode="inline" selected-keys="">
+        <a-menu-item mode="inline">
+            Dark Mode : 
+            <a-switch :default-checked="siderDrawer.isDarkTheme"
+            @change="siderDrawer.changeTheme()" checked-children="ON"
+            un-checked-children="OFF"></a-switch>
+        </a-menu-item>
+    </a-menu>
 </a-drawer>
 <script>
-
+    const darkClass = "ant-card-dark";
+    const bgDarkStyle = "background-color: #242c3a";
     const siderDrawer = {
         visible: false,
+        collapsed: false,
+        isDarkTheme: localStorage.getItem("dark-mode") === 'true' ? true : false,
         show() {
             this.visible = true;
         },
@@ -56,6 +71,16 @@
         },
         change() {
             this.visible = !this.visible;
+        },
+        toggleCollapsed() {
+            this.collapsed = !this.collapsed;
+        },
+        changeTheme() {
+            this.isDarkTheme = ! this.isDarkTheme;
+            localStorage.setItem("dark-mode", this.isDarkTheme);
+        },
+        get theme() {
+            return this.isDarkTheme ? 'dark' : 'light';
         }
     };
 

@@ -1,7 +1,7 @@
 {{define "settings/xray"}}
 <a-tab-pane key="3" tab='{{ i18n "pages.setting.xrayConfiguration"}}'>
-  <a-form style="background: white; padding: 20px">
-    <a-list item-layout="horizontal" style="background: white">
+  <a-form :style="siderDrawer.isDarkTheme ? 'color: hsla(0,0%,100%,.65); padding: 20px;': 'background: white; padding: 20px;'">
+    <a-list item-layout="horizontal">
       <a-list-item style="padding: 20px">
         <a-row>
             <a-col :lg="24" :xl="12">
@@ -15,7 +15,7 @@
         </a-row>
     </a-list-item>
     </a-list>
-    <a-list item-layout="horizontal" style="background: white">
+    <a-list item-layout="horizontal">
       <setting-list-item type="textarea" title='{{ i18n "pages.setting.xrayConfigTemplate"}}' desc='{{ i18n "pages.setting.xrayConfigTemplateDesc"}}' v-model="allSetting.xrayTemplateConfig"></setting-list-item>
     </a-list>
   </a-form>

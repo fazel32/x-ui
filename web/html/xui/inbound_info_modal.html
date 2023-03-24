@@ -2,6 +2,7 @@
 {{template "component/inboundInfo"}}
 <a-modal id="inbound-info-modal" v-model="infoModal.visible" title='{{ i18n "pages.inbounds.details"}}' @ok="infoModal.ok"
          :closable="true" :mask-closable="true"
+         :class="siderDrawer.isDarkTheme ? darkClass : ''"
          ok-text='{{ i18n "pages.inbounds.copyLink"}}' cancel-text='{{ i18n "close" }}' :ok-button-props="infoModal.okBtnPros">
     <inbound-info :db-inbound="dbInbound" :inbound="inbound"></inbound-info>
 </a-modal>
