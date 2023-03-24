@@ -35,6 +35,7 @@ func (a *ServerController) initRouter(g *gin.RouterGroup) {
 	g.POST("/status", a.status)
 	g.POST("/getXrayVersion", a.getXrayVersion)
 	g.POST("/installXray/:version", a.installXray)
+	g.POST("/restartXrayService", a.restartXrayService)
 }
 
 func (a *ServerController) refreshStatus() {
@@ -82,4 +83,14 @@ func (a *ServerController) installXray(c *gin.Context) {
 	version := c.Param("version")
 	err := a.serverService.UpdateXray(version)
 	jsonMsg(c, I18n(c , "install") + " xray", err)
+}
+
+func (a *ServerController) restartXrayService(c *gin.Context) {
+	err := a.serverService.RestartXrayService()
+	if err != nil {
+		jsonMsg(c, "", err)
+		return
+	}
+	jsonMsg(c, "Xray restarted",err)
+
 }
