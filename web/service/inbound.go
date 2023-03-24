@@ -408,3 +408,30 @@ func (s *InboundService) ResetClientTraffic(clientEmail string) (error) {
 	}
 	return nil
 }
+
+func (s *InboundService) SwitchClientStatus(clientEmail string) (error) {
+  db := database.GetDB()
+  
+  client := &xray.ClientTraffic{}
+  err :=db.Model(xray.ClientTraffic{}).
+		Where("email = ?", clientEmail).
+    First(client).
+		Error
+
+  if err != nil {
+		return err
+	}
+
+  switchStatus := !client.Enable
+	result := db.Model(xray.ClientTraffic{}).
+		Where("email = ?", clientEmail).
+		Update("enable", switchStatus  ) 
+
+	err = result.Error
+
+	if err != nil {
+		return err
+	}
+	return nil
+
+}
