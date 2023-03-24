@@ -170,6 +170,19 @@ func (s *ServerService) GetStatus(lastStatus *Status) *Status {
 	return status
 }
 
+func (s *ServerService) RestartXrayService() (string error) {
+
+        s.xrayService.StopXray()
+        defer func() {
+                err := s.xrayService.RestartXray(true)
+                if err != nil {
+                        logger.Error("start xray failed:", err)
+		}
+        }()
+
+	return nil
+}
+
 func (s *ServerService) GetXrayVersions() ([]string, error) {
 	url := "https://api.github.com/repos/XTLS/Xray-core/releases"
 	resp, err := http.Get(url)
