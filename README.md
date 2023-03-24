@@ -12,15 +12,19 @@ It's a fork from [HossinAsaadi's x-ui](https://github.com/hossinasaadi/x-ui) and
 -   Use latest version of xray-core
 -   Ability to install the latest version of the xray-core from inside the panel
 -   Multi-user can be added as users for Vmess, Vless and Trojan configurations with separate QR codes
+-   Traffic statistics, limit traffic, users tarffic limit and limit expiration time
 -   Support more transmission for Trojan protocol
 -   Ability to define SNI for Vmess, Vless, Trojan
 -   Ability to define uTLS for Vmess, Vless, Trojan
+-   Advanced TLS settings
 -   Automatic Adding users email to configuration remark by panel
 -   Some design change for better ui
+-   Block Iran IP option
+-   Security token for login to panel
+-   Clone Inbounds
 -   Support multi-user multi-protocol, web page visualization operation
 -   Supported protocols: vmess, vless, trojan, shadowsocks, dokodemo-door, socks, http
 -   Support to configure more transmission configurations
--   Traffic statistics, limit traffic, users tarffic limit and limit expiration time
 -   Customizable xray configuration templates
 -   Support https access panel (bring your own domain name + ssl certificate)
 -   Support one-click install BBR kernel
