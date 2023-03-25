@@ -1374,7 +1374,7 @@ Inbound.VmessSettings = class extends Inbound.Settings {
     }
 };
 Inbound.VmessSettings.Vmess = class extends XrayCommonClass {
-    constructor(id=RandomUtil.randomUUID(), alterId=0, email=`${RandomUtil.randomSeq(8)}@mail.fun`, limitIp=0, totalGB=0, expiryTime='') {
+    constructor(id=RandomUtil.randomUUID(), alterId=0, email=`${RandomUtil.randomSeq(8)}@mail.fun`, limitIp=0, totalGB=0, expiryTime='', disable=false) {
         super();
         this.id = id;
         this.alterId = alterId;
@@ -1382,6 +1382,7 @@ Inbound.VmessSettings.Vmess = class extends XrayCommonClass {
         this.limitIp = limitIp;
         this.totalGB = totalGB;
         this.expiryTime = expiryTime;
+        this.disable = disable;
     }
 
     static fromJson(json={}) {
@@ -1392,6 +1393,7 @@ Inbound.VmessSettings.Vmess = class extends XrayCommonClass {
             json.limitIp,
             json.totalGB,
             json.expiryTime,
+            json.disable,
 
         );
     }
@@ -1415,6 +1417,14 @@ Inbound.VmessSettings.Vmess = class extends XrayCommonClass {
 
     set _totalGB(gb) {
         this.totalGB = toFixed(gb * ONE_GB, 0);
+    }
+    
+    get _disable(){
+        return this.disable;
+    }
+
+    set _disable(value){
+        this.disable = value;
     }
 
 };
@@ -1458,7 +1468,7 @@ Inbound.VLESSSettings = class extends Inbound.Settings {
 };
 Inbound.VLESSSettings.VLESS = class extends XrayCommonClass {
 
-    constructor(id=RandomUtil.randomUUID(), flow='', email=`${RandomUtil.randomSeq(8)}@mail.fun`, limitIp=0, totalGB=0, expiryTime='') {
+    constructor(id=RandomUtil.randomUUID(), flow='', email=`${RandomUtil.randomSeq(8)}@mail.fun`, limitIp=0, totalGB=0, expiryTime='', disable=false) {
         super();
         this.id = id;
         this.flow = flow;
@@ -1466,6 +1476,7 @@ Inbound.VLESSSettings.VLESS = class extends XrayCommonClass {
         this.limitIp = limitIp;
         this.totalGB = totalGB;
         this.expiryTime = expiryTime;
+        this.disable = disable;
 
     }
 
@@ -1477,6 +1488,7 @@ Inbound.VLESSSettings.VLESS = class extends XrayCommonClass {
             json.limitIp,
             json.totalGB,
             json.expiryTime,
+            json.disable,
 
         );
     }
@@ -1502,6 +1514,16 @@ Inbound.VLESSSettings.VLESS = class extends XrayCommonClass {
     set _totalGB(gb) {
         this.totalGB = toFixed(gb * ONE_GB, 0);
     }
+    
+    get _disable(){
+        return this.disable;
+    }
+
+    set _disable(value){
+        this.disable = value;
+    }
+
+
 };
 Inbound.VLESSSettings.Fallback = class extends XrayCommonClass {
     constructor(name="", alpn='', path='', dest='', xver=0) {
@@ -1574,13 +1596,14 @@ Inbound.TrojanSettings = class extends Inbound.Settings {
     }
 };
 Inbound.TrojanSettings.Trojan = class extends XrayCommonClass {
-    constructor(password=RandomUtil.randomSeq(10), flow='', email=`${RandomUtil.randomSeq(8)}@mail.fun`, totalGB=0, expiryTime='') {
+    constructor(password=RandomUtil.randomSeq(10), flow='', email=`${RandomUtil.randomSeq(8)}@mail.fun`, totalGB=0, expiryTime='', disable=false) {
         super();
         this.password = password;
         this.flow = flow;
         this.email = email;
         this.totalGB = totalGB;
         this.expiryTime = expiryTime;
+        this.disable = disable;
     }
 
     toJson() {
@@ -1590,6 +1613,7 @@ Inbound.TrojanSettings.Trojan = class extends XrayCommonClass {
             email: this.email,
             totalGB: this.totalGB,
             expiryTime: this.expiryTime,
+            disable: this.disable,
         };
     }
 
@@ -1600,6 +1624,7 @@ Inbound.TrojanSettings.Trojan = class extends XrayCommonClass {
             json.email,
             json.totalGB,
             json.expiryTime,
+            json.disable
 
         );
     }
@@ -1625,7 +1650,14 @@ Inbound.TrojanSettings.Trojan = class extends XrayCommonClass {
     set _totalGB(gb) {
         this.totalGB = toFixed(gb * ONE_GB, 0);
     }
+    
+    get _disable(){
+        return this.disable;
+    }
 
+    set _disable(value){
+        this.disable = value;
+    }
 };
 
 Inbound.TrojanSettings.Fallback = class extends XrayCommonClass {

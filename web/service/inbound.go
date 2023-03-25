@@ -345,7 +345,7 @@ func (s *InboundService) UpdateClientStat(inboundId int, inboundSettings string)
 	for _, client := range clients {
 		result := db.Model(xray.ClientTraffic{}).
 		Where("inbound_id = ? and email = ?", inboundId, client.Email).
-		Updates(map[string]interface{}{"enable": true, "total": client.TotalGB, "expiry_time": client.ExpiryTime})
+		Updates(map[string]interface{}{"total": client.TotalGB, "expiry_time": client.ExpiryTime})
 		if result.RowsAffected == 0 {
 			clientTraffic := xray.ClientTraffic{}
 			clientTraffic.InboundId = inboundId
