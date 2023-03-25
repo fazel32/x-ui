@@ -30,7 +30,7 @@
     </a-menu>
     <a-menu style="background-color: #191919;" theme="dark" mode="inline" selected-keys="">
         <a-menu-item mode="inline">
-            Dark Mode : 
+            {{ i18n "darkMode"}} : 
             <a-switch :default-checked="siderDrawer.isDarkTheme" checked-children="ON"
             un-checked-children="OFF"
             @change="siderDrawer.changeTheme()"></a-switch>
@@ -51,7 +51,7 @@
     </a-menu>
     <a-menu :theme="siderDrawer.theme" mode="inline" selected-keys="">
         <a-menu-item mode="inline">
-            Dark Mode : 
+            {{ i18n "darkMode"}} : 
             <a-switch :default-checked="siderDrawer.isDarkTheme"
             @change="siderDrawer.changeTheme()" checked-children="ON"
             un-checked-children="OFF"></a-switch>

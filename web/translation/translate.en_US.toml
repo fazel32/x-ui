@@ -42,6 +42,7 @@
 "getVersion" = "Get version"
 "install" = "Install"
 "secretToken" = "Secret token"
+"darkMode" = "Dark Mode"
 
 [menu]
 "dashboard" = "System Status"
@@ -127,7 +128,7 @@
 "leaveBlankToNeverExpire" = "Leave blank to never expire"
 "noRecommendKeepDefault" = "Keeping as default is recommended"
 "certificatePath" = "Certificate file path"
-"certificateContent" = "certificate file content"
+"certificateContent" = "Certificate file content"
 "publicKeyPath" = "Certificate.crt file path"
 "publicKeyContent" = "Certificate.crt content"
 "keyPath" = "Private.key file path"

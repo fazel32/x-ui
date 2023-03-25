@@ -174,7 +174,8 @@
 
 .ant-card-dark .ant-collapse-content,
 .ant-card-dark .ant-calendar,
-.ant-card-dark .ant-table-placeholder {
+.ant-card-dark .ant-table-placeholder,
+.ant-card-dark .ant-input-group-addon {
     color: hsla(0,0%,100%,.65);
     background-color: #262f3d;
 }
@@ -195,7 +196,8 @@
 .ant-card-dark .ant-calendar-year-select,
 .ant-card-dark .ant-calendar-date,
 .ant-card-dark .ant-collapse>.ant-collapse-item>.ant-collapse-header,
-.ant-card-dark .ant-empty-normal {
+.ant-card-dark .ant-empty-normal,
+.ant-card-dark .ant-checkbox+span {
     color: hsla(0,0%,100%,.65);
 }
 
@@ -302,12 +304,13 @@
 }
 
 .ant-card-dark .ant-tag-pink {
-    color: #db39d3;
+    color: #FB2576;
     background: #310113;
     border-color: #5c1045;
 }
 
-.ant-card-dark .ant-table-row-expand-icon {
+.ant-card-dark .ant-table-row-expand-icon,
+.ant-card-dark .ant-checkbox-inner {
     background: none;
 }
 
@@ -315,10 +318,15 @@
     background-color: #0c61b0;
 }
 
-.ant-card-dark .ant-btn {
+.ant-card-dark .ant-btn,
+.ant-card-dark .ant-radio-button-wrapper {
     color: hsla(0,0%,100%,.65);
     background: none;
     border: 1px solid hsla(0,0%,100%,.65);
+}
+
+.ant-card-dark .ant-radio-button-wrapper:hover {
+    color: #177ddc;
 }
 
 .ant-card-dark .ant-btn-primary {
