@@ -15,24 +15,26 @@
 <body>
 <a-layout id="app" v-cloak>
     {{ template "commonSider" . }}
-    <a-layout id="content-layout">
+    <a-layout id="content-layout" :style="siderDrawer.isDarkTheme ? bgDarkStyle : ''">
         <a-layout-content>
             <a-spin :spinning="spinning" :delay="200" :tip="loadingTip"/>
             <transition name="list" appear>
                 <a-row>
-                    <a-card hoverable style="border-radius: 5px;">
+                    <a-card hoverable style="border-radius: 5px;" :class="siderDrawer.isDarkTheme ? darkClass : ''">
                         <a-row>
                             <a-col :sm="24" :md="12">
                                 <a-row>
                                     <a-col :span="12" style="text-align: center">
                                         <a-progress type="dashboard" status="normal"
                                                     :stroke-color="status.cpu.color"
+                                                    :class="siderDrawer.isDarkTheme ? darkClass : ''"
                                                     :percent="status.cpu.percent"></a-progress>
                                         <div>CPU</div>
                                     </a-col>
                                     <a-col :span="12" style="text-align: center">
                                         <a-progress type="dashboard" status="normal"
                                                     :stroke-color="status.mem.color"
+                                                    :class="siderDrawer.isDarkTheme ? darkClass : ''"
                                                     :percent="status.mem.percent"></a-progress>
                                         <div>
                                             {{ i18n "pages.index.memory"}}: [[ sizeFormat(status.mem.current) ]] / [[ sizeFormat(status.mem.total) ]]
@@ -45,6 +47,7 @@
                                     <a-col :span="12" style="text-align: center">
                                         <a-progress type="dashboard" status="normal"
                                                     :stroke-color="status.swap.color"
+                                                    :class="siderDrawer.isDarkTheme ? darkClass : ''"
                                                     :percent="status.swap.percent"></a-progress>
                                         <div>
                                             swap: [[ sizeFormat(status.swap.current) ]] / [[ sizeFormat(status.swap.total) ]]
@@ -53,6 +56,7 @@
                                     <a-col :span="12" style="text-align: center">
                                         <a-progress type="dashboard" status="normal"
                                                     :stroke-color="status.disk.color"
+                                                    :class="siderDrawer.isDarkTheme ? darkClass : ''"
                                                     :percent="status.disk.percent"></a-progress>
                                         <div>
                                             {{ i18n "pages.index.hard"}}: [[ sizeFormat(status.disk.current) ]] / [[ sizeFormat(status.disk.total) ]]
@@ -67,7 +71,7 @@
             <transition name="list" appear>
                 <a-row>
                     <a-col :sm="24" :md="12">
-                        <a-card hoverable style="border-radius: 5px;">
+                        <a-card hoverable style="border-radius: 5px;" :class="siderDrawer.isDarkTheme ? darkClass : ''">
                             {{ i18n "pages.index.xrayStatus" }}:
                             <a-tag :color="status.xray.color">[[ status.xray.state ]]</a-tag>
                             <a-tooltip v-if="status.xray.state === State.Error">
@@ -82,9 +86,9 @@
                         </a-card>
                     </a-col>
                     <a-col :sm="24" :md="12">
-                        <a-card hoverable style="border-radius: 5px;">
+                        <a-card hoverable style="border-radius: 5px;" :class="siderDrawer.isDarkTheme ? darkClass : ''">
                             {{ i18n "pages.index.operationHours" }}:
-                            <a-tag color="#87d068">[[ formatSecond(status.uptime) ]]</a-tag>
+                            <a-tag color="green">[[ formatSecond(status.uptime) ]]</a-tag>
                             <a-tooltip>
                                 <template slot="title">
                                     {{ i18n "pages.index.operationHoursDesc" }}
@@ -94,12 +98,12 @@
                         </a-card>
                     </a-col>
                     <a-col :sm="24" :md="12">
-                        <a-card hoverable style="border-radius: 5px;">
+                        <a-card hoverable style="border-radius: 5px;" :class="siderDrawer.isDarkTheme ? darkClass : ''">
                             {{ i18n "pages.index.systemLoad" }}: [[ status.loads[0] ]] | [[ status.loads[1] ]] | [[ status.loads[2] ]]
                         </a-card>
                     </a-col>
                     <a-col :sm="24" :md="12">
-                        <a-card hoverable style="border-radius: 5px;">
+                        <a-card hoverable style="border-radius: 5px;" :class="siderDrawer.isDarkTheme ? darkClass : ''">
                             tcp / udp {{ i18n "pages.index.connectionCount" }}: [[ status.tcpCount ]] / [[ status.udpCount ]]
                             <a-tooltip>
                                 <template slot="title">
@@ -110,7 +114,7 @@
                         </a-card>
                     </a-col>
                     <a-col :sm="24" :md="12">
-                        <a-card hoverable style="border-radius: 5px;">
+                        <a-card hoverable style="border-radius: 5px;" :class="siderDrawer.isDarkTheme ? darkClass : ''">
                             <a-row>
                                 <a-col :span="12">
                                     <a-icon type="arrow-up"></a-icon>
@@ -136,7 +140,7 @@
                         </a-card>
                     </a-col>
                     <a-col :sm="24" :md="12">
-                        <a-card hoverable style="border-radius: 5px;">
+                        <a-card hoverable style="border-radius: 5px;" :class="siderDrawer.isDarkTheme ? darkClass : ''">
                             <a-row>
                                 <a-col :span="12">
                                     <a-icon type="cloud-upload"></a-icon>
@@ -167,6 +171,7 @@
     </a-layout>
     <a-modal id="version-modal" v-model="versionModal.visible" title='{{ i18n "pages.index.xraySwitch" }}'
              :closable="true" @ok="() => versionModal.visible = false"
+             :class="siderDrawer.isDarkTheme ? darkClass : ''"
              ok-text='{{ i18n "confirm" }}' cancel-text='{{ i18n "cancel"}}'>
         <h2>{{ i18n "pages.index.xraySwitchClick"}}</h2>
         <h2>{{ i18n "pages.index.xraySwitchClickDesk"}}</h2>
@@ -309,6 +314,7 @@
                     content: '{{ i18n "pages.index.xraySwitchVersionDialogDesc"}}' + ` ${version}?`,
                     okText: '{{ i18n "confirm"}}',
                     cancelText: '{{ i18n "cancel"}}',
+                    class: siderDrawer.isDarkTheme ? darkClass : '',
                     onOk: async () => {
                         versionModal.hide();
                         this.loading(true, '{{ i18n "pages.index.dontRefreshh"}}');

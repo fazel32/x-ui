@@ -1,22 +1,18 @@
 {{define "settings/aboutPanel"}}
 <a-tab-pane key="6" tab='{{ i18n "pages.setting.aboutTab"}}'>
     <template>
-        <a-result style="background-color: white; align-items: center;" title="Thank you for your choice">
-          <template #icon>
-            <a-icon type="smile" theme="twoTone" />
-          </template>
-          <template #extra>
-            <a-card title="X-UI Version 0.2.4.0" style="width: 400px; margin: 0 auto;">
-              <p>Developed with <a style="pointer-events: none;"><a-icon type="heart" theme="twoTone" two-tone-color="#eb2f96" /></a> by :
-                <br>
-                <a target=”_blank” rel="noopener noreferrer" href="https://github.com/sudospaes">sudospaes</a>
-                <br>
-                <a target=”_blank” rel="noopener noreferrer" href="https://github.com/HarlyquinForest">HarlyquinForest</a>
-              </p>
-              <p>{{ i18n "pages.setting.aboutLearnMore"}} <a target=”_blank” rel="noopener noreferrer" href="https://github.com/sudospaes/x-ui">github.com/sudospaes/x-ui</a></p>
-            </a-card>
-          </template>
-        </a-result>
+        <div :style="siderDrawer.isDarkTheme ? 'color: hsla(0,0%,100%,.65); align-items: center;': 'background: white; align-items: center;'">
+          <a-card style="width: 400px; margin: 0 auto; text-align: center; border-width: 0; border-radius: 0;" :class="siderDrawer.isDarkTheme ? darkClass : ''">
+            <p><h2>X-UI Version 0.2.4.0</h2></p>
+            <p>Developed with <a style="pointer-events: none;"><a-icon type="heart" theme="twoTone" two-tone-color="#eb2f96" /></a> by :
+              <br>
+              <a target=”_blank” rel="noopener noreferrer" href="https://github.com/sudospaes">sudospaes</a>
+              <br>
+              <a target=”_blank” rel="noopener noreferrer" href="https://github.com/HarlyquinForest">HarlyquinForest</a>
+            </p>
+            <p>{{ i18n "pages.setting.aboutLearnMore"}} <a target=”_blank” rel="noopener noreferrer" href="https://github.com/sudospaes/x-ui">github.com/sudospaes/x-ui</a></p>
+          </a-card>
+        </div>
     </template>
 </a-tab-pane>
 {{end}}

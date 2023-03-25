@@ -42,6 +42,7 @@
 "getVersion" = "دریافت ورژن"
 "install" = "نصب"
 "secretToken" = "توکن امنیتی"
+"darkMode" = "حالت تاریک"
 
 [menu]
 "dashboard" = "وضعیت سیستم"

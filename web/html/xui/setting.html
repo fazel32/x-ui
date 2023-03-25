@@ -20,14 +20,14 @@
         display: block;
     }
 
-    .ant-tabs-top-bar {
+    :not(.ant-card-dark)>.ant-tabs-top-bar {
         background: white;
     }
 </style>
 <body>
 <a-layout id="app" v-cloak>
     {{ template "commonSider" . }}
-    <a-layout id="content-layout">
+    <a-layout id="content-layout" :style="siderDrawer.isDarkTheme ? bgDarkStyle : ''">
         <a-layout-content>
             <a-spin :spinning="spinning" :delay="500" tip="loading">
                 <a-space direction="vertical">
@@ -35,12 +35,12 @@
                         <a-button type="primary" :disabled="saveBtnDisable" @click="updateAllSetting" icon="save">{{ i18n "pages.setting.save" }}</a-button>
                         <a-button type="danger" :disabled="!saveBtnDisable" @click="restartPanel" icon="sync">{{ i18n "pages.setting.restartPanel" }}</a-button>
                     </a-space>
-                    <a-tabs default-active-key="1" @change="changeTab" style="border-radius: 5px;">
-                    {{template "settings/panel"}}
-                    {{template "settings/user"}}
-                    {{template "settings/xray"}}
-                    {{template "settings/other"}}
-                    {{template "settings/aboutPanel"}}
+                    <a-tabs default-active-key="1" @change="changeTab" style="border-radius: 5px;" :class="siderDrawer.isDarkTheme ? darkClass : ''">
+                        {{template "settings/panel"}}
+                        {{template "settings/user"}}
+                        {{template "settings/xray"}}
+                        {{template "settings/other"}}
+                        {{template "settings/aboutPanel"}}
                     </a-tabs>
                 </a-space>
             </a-spin>
@@ -160,6 +160,7 @@
                         content: '{{ i18n "pages.setting.restartPanelDesc" }}',
                         okText: '{{ i18n "sure" }}',
                         cancelText: '{{ i18n "cancel" }}',
+                        class: siderDrawer.isDarkTheme ? darkClass : '',
                         onOk: () => resolve(),
                     });
                 });

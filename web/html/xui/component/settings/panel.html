@@ -1,6 +1,6 @@
 {{define "settings/panel"}}
 <a-tab-pane key="1" tab='{{ i18n "pages.setting.panelConfig"}}'>
-  <a-list item-layout="horizontal" style="background: white">
+  <a-list item-layout="horizontal" :style="siderDrawer.isDarkTheme ? 'color: hsla(0,0%,100%,.65);': 'background: white;'">
       <setting-list-item type="text" title='{{ i18n "pages.setting.panelListeningIP"}}' desc='{{ i18n "pages.setting.panelListeningIPDesc"}}' v-model="allSetting.webListen"></setting-list-item>
       <setting-list-item type="number" title='{{ i18n "pages.setting.panelPort"}}' desc='{{ i18n "pages.setting.panelPortDesc"}}' v-model.number="allSetting.webPort"></setting-list-item>
       <setting-list-item type="text" title='{{ i18n "pages.setting.publicKeyPath"}}' desc='{{ i18n "pages.setting.publicKeyPathDesc"}}' v-model="allSetting.webCertFile"></setting-list-item>
@@ -17,6 +17,7 @@
                         ref="selectLang"
                         v-model="lang"
                         @change="setLang(lang)"
+                        :dropdown-class-name="siderDrawer.isDarkTheme ? 'ant-card-dark' : ''"
                         style="width: 100%">
                                 <a-select-option  :value="l.value" label="Persian" v-for="l in supportLangs" >
                                                         <span role="img" aria-label="l.name" v-text="l.icon"></span>

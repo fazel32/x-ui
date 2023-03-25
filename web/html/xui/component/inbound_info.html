@@ -59,7 +59,7 @@
     </template>
     
     <template v-if="dbInbound.isVMess" v-for="(vmess, index) in inbound.settings.vmesses">
-        <a-card>
+        <a-card :class="siderDrawer.isDarkTheme ? darkClass : ''">
         <p>Email : <a-tag color="purple">[[ vmess.email ]]</a-tag></p>
         <p>uuid : <a-tag color="purple">[[ vmess.id ]]</a-tag></p>
         <p>alterId : <a-tag color="purple">[[ vmess.alterId ]]</a-tag></p>
@@ -85,7 +85,7 @@
     </template>
 
     <template v-if="dbInbound.isVLess" v-for="(vless, index) in inbound.settings.vlesses">
-        <a-card>
+        <a-card :class="siderDrawer.isDarkTheme ? darkClass : ''">
         <p>Email : <a-tag color="purple">[[ vless.email ]]</a-tag></p>
         <p>uuid : <a-tag color="purple">[[ vless.id ]]</a-tag></p>
         <p v-if="inbound.canEnableFlow() && vless.flow != ''">Flow : <a-tag color="blue">[[ vless.flow ]]</a-tag></p>
@@ -112,7 +112,7 @@
     </template>
 
     <template v-if="dbInbound.isTrojan" v-for="(trojan, index) in inbound.settings.trojans">
-        <a-card>
+        <a-card :class="siderDrawer.isDarkTheme ? darkClass : ''">
         <p>Email : <a-tag color="purple">[[ trojan.email ]]</a-tag></p>
         <p>Password : <a-tag color="purple">[[ trojan.password ]]</a-tag></p>
         <p v-if="inbound.canEnableFlow() && trojan.flow != ''">Flow : <a-tag color="blue">[[ trojan.flow ]]</a-tag></p>
