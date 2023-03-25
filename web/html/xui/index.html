@@ -314,6 +314,7 @@
                     content: '{{ i18n "pages.index.xraySwitchVersionDialogDesc"}}' + ` ${version}?`,
                     okText: '{{ i18n "confirm"}}',
                     cancelText: '{{ i18n "cancel"}}',
+                    class: siderDrawer.isDarkTheme ? darkClass : '',
                     onOk: async () => {
                         versionModal.hide();
                         this.loading(true, '{{ i18n "pages.index.dontRefreshh"}}');
