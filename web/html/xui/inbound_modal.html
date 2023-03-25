@@ -131,6 +131,12 @@
                     }
                 }
             },
+            async switchClientStatus(email,event) {
+                const msg = await HttpUtil.post('/xui/inbound/clientEnable/' + email)
+                if (!msg.success) {
+                    return;
+                }
+            },
             isExpiry(index) {
                 return this.inbound.isExpiry(index)
             },

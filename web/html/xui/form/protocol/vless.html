@@ -5,6 +5,7 @@
 
     <a-collapse-panel :header="getHeaderText(vless.email)">
         <a-tag v-if="isExpiry(index) || ((getUpStats(vless.email) + getDownStats(vless.email)) > vless.totalGB && vless.totalGB != 0)" color="red" style="margin-bottom: 10px;display: block;text-align: center;">Account is (Expired|Traffic Ended) And Disabled</a-tag>
+        <a-tag v-if="!isClientEnable(vless.email)" color="red" style="margin-bottom: 10px;display: block;text-align: center;">Account Disabled</a-tag>
 
         <a-form layout="inline">
             <a-form-item>
@@ -99,6 +100,9 @@
             </a-tooltip>
             <a-tag color="blue">[[ sizeFormat(getUpStats(vless.email)) ]] / [[ sizeFormat(getDownStats(vless.email)) ]]</a-tag>
             <a-tag v-if="vless._totalGB > 0" color="orange">used : [[ sizeFormat(getUpStats(vless.email) + getDownStats(vless.email)) ]]</a-tag>
+            <a-form-item label="Disable" style="width: 300px;">
+              <a-switch v-model='vless.disable' @change="switchClientStatus(vless.email)"></a-switch>
+            </a-form-item>
         </a-form>
         <div v-show="inbound.settings.vlesses.length > 1" style="text-align: center; margin-top: 10px;">
             <a-button type="danger" @click="removeClient(index, inbound.settings.vlesses)" ghost>{{ i18n "pages.inbounds.removeClient" }}</a-button>
