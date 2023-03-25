@@ -160,6 +160,7 @@
                         content: '{{ i18n "pages.setting.restartPanelDesc" }}',
                         okText: '{{ i18n "sure" }}',
                         cancelText: '{{ i18n "cancel" }}',
+                        class: siderDrawer.isDarkTheme ? darkClass : '',
                         onOk: () => resolve(),
                     });
                 });
