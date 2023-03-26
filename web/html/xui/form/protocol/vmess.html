@@ -5,8 +5,6 @@
 
     <a-collapse-panel :header="getHeaderText(vmess.email)">
         <a-tag v-if="isExpiry(index) || ((getUpStats(vmess.email) + getDownStats(vmess.email)) > vmess.totalGB && vmess.totalGB != 0)" color="red" style="margin-bottom: 10px;display: block;text-align: center;">Account is (Expired|Traffic Ended) And Disabled</a-tag>
-        <a-tag v-if="!isClientEnable(vmess.email)" color="red" style="margin-bottom: 10px;display: block;text-align: center;">Account Disabled</a-tag>
-
         <a-form layout="inline">
             <a-form-item>
                 <span slot="label">
@@ -96,12 +94,13 @@
             </a-tooltip>
             <a-tag color="blue">[[ sizeFormat(getUpStats(vmess.email)) ]] / [[ sizeFormat(getDownStats(vmess.email)) ]]</a-tag>
             <a-tag v-if="vmess._totalGB > 0" color="orange">used : [[ sizeFormat(getUpStats(vmess.email) + getDownStats(vmess.email)) ]]</a-tag>
-            <a-form-item label="Disable" style="width: 300px;">
-              <a-switch v-model='vmess.disable' @change="switchClientStatus(vmess.email)"></a-switch>
-            </a-form-item>
         </a-form>
-        <div v-show="inbound.settings.vmesses.length > 1" style="text-align: center; margin-top: 10px;">
-            <a-button type="danger" @click="removeClient(index, inbound.settings.vmesses)" ghost>{{ i18n "pages.inbounds.removeClient" }}</a-button>
+        <div style="text-align: center;">
+            <a-button v-if="!isExpiry(index) || ((getUpStats(vmess.email) + getDownStats(vmess.email)) > vmess.totalGB && vmess.totalGB == 0)" 
+                v-show="returnClientsStatusText(vmess.email) != 'hide'" style="margin-top: 10px;"
+                @click="switchClientStatus(vmess.email)" type="primary">[[ returnClientsStatusText(vmess.email) ]]</a-button>
+            <a-button v-show="inbound.settings.vmesses.length > 1" type="danger" style="margin-top: 10px;"
+                @click="removeClient(index, inbound.settings.vmesses)" ghost>{{ i18n "pages.inbounds.removeClient" }}</a-button>
         </div>
 
     </a-collapse-panel>

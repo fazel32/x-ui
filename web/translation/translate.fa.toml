@@ -43,6 +43,10 @@
 "install" = "نصب"
 "secretToken" = "توکن امنیتی"
 "darkMode" = "حالت تاریک"
+"clients" = "کلاینت ها"
+"allClients" = "تعداد کل"
+"clientActive" = "فعال"
+"clientDeactive" = "غیرفعال"
 
 [menu]
 "dashboard" = "وضعیت سیستم"
@@ -140,6 +144,8 @@
 "cloneInbound" = "ساخت کلون از"
 "cloneInboundContent" = "همه موارد این ورودی بجز پورت ، ای پی و کلاینت ها روی کلون اعمال خواهند شد"
 "cloneInboundOk" = "ایجاد"
+"activeClient" = "فعال کردن این کلاینت"
+"deactiveClient" = "غیرفعال کردن این کلاینت"
 
 [pages.inbounds.toasts]
 "obtain" = "Obtain"

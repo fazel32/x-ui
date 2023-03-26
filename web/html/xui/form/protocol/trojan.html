@@ -5,7 +5,6 @@
     
         <a-collapse-panel :header="getHeaderText(trojan.email)">
             <a-tag v-if="isExpiry(index) || ((getUpStats(trojan.email) + getDownStats(trojan.email)) > trojan.totalGB && trojan.totalGB != 0)" color="red" style="margin-bottom: 10px;display: block;text-align: center;">Account is (Expired|Traffic Ended) And Disabled</a-tag>
-            <a-tag v-if="!isClientEnable(trojan.email)" color="red" style="margin-bottom: 10px;display: block;text-align: center;">Account Disabled</a-tag>
             <a-form layout="inline">
                 <a-form-item>
                     <span slot="label">
@@ -68,12 +67,13 @@
                 </a-tooltip>
                 <a-tag color="blue">[[ sizeFormat(getUpStats(trojan.email)) ]] / [[ sizeFormat(getDownStats(trojan.email)) ]]</a-tag>
                 <a-tag v-if="trojan._totalGB > 0" color="orange">used : [[ sizeFormat(getUpStats(trojan.email) + getDownStats(trojan.email)) ]]</a-tag>
-                <a-form-item label="Disable" style="width: 300px;">
-                  <a-switch v-model='trojan.disable' @change="switchClientStatus(trojan.email)"></a-switch>
-                </a-form-item>
             </a-form>
-            <div v-show="inbound.settings.trojans.length > 1" style="text-align: center; margin-top: 10px;">
-                <a-button type="danger" @click="removeClient(index, inbound.settings.trojans)" ghost>{{ i18n "pages.inbounds.removeClient" }}</a-button>
+            <div style="text-align: center;">
+                <a-button v-if="!isExpiry(index) || ((getUpStats(trojan.email) + getDownStats(trojan.email)) > trojan.totalGB && trojan.totalGB == 0)" 
+                    v-show="returnClientsStatusText(trojan.email) != 'hide'" style="margin-top: 10px;"
+                    @click="switchClientStatus(trojan.email)" type="primary">[[ returnClientsStatusText(trojan.email) ]]</a-button>
+                <a-button v-show="inbound.settings.trojans.length > 1" type="danger" style="margin-top: 10px;"
+                    @click="removeClient(index, inbound.settings.trojans)" ghost>{{ i18n "pages.inbounds.removeClient" }}</a-button>
             </div>
         </a-collapse-panel>
     </a-collapse>

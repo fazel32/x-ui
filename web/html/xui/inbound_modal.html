@@ -182,6 +182,19 @@
                 }
             },
 
+            returnClientsStatusText(email) {
+                if(this.isClientEnable(email) == false) {
+                    return '{{ i18n "pages.inbounds.activeClient"}}';
+                }
+                else if (this.isClientEnable(email) == true) {
+                    return '{{ i18n "pages.inbounds.deactiveClient"}}';
+                }
+                else{
+                    return 'hide';
+                }
+            },
+            
+
             getHeaderText(email) {
                 if(email == "")
                     return "Add Client"
