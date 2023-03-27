@@ -433,8 +433,6 @@
                     up += this.dbInbounds[i].up;
                 }
                 this.dbInbounds.forEach(dbInbound => {
-                    down += dbInbound.down;
-                    up += dbInbound.up;
                     inbound = dbInbound.toInbound();
                     clients = this.getClients(dbInbound.protocol, inbound.settings);
                     if(clients){
