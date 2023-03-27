@@ -28,6 +28,10 @@
     <p v-if="inbound.tls">tls : <a-tag color="green">{{ i18n "turnOn" }}</a-tag></p>
     <p v-if="inbound.xtls">xtls : <a-tag color="green">{{ i18n "turnOn" }}</a-tag></p>
 </template>
+<template>
+    <p>{{ i18n "pages.inbounds.inboundStatus"}} : <a-tag v-if="dbInbound.enable" color="green">{{ i18n "enable" }}</a-tag>
+    <a-tag v-else color="red">{{ i18n "disable" }}</a-tag></p>
+</template>
 <template v-else>
     <p>tls : <a-tag color="red">{{ i18n "closure" }}</a-tag></p>
 </template>
@@ -60,7 +64,7 @@
     
     <template v-if="dbInbound.isVMess" v-for="(vmess, index) in inbound.settings.vmesses">
         <a-card :class="siderDrawer.isDarkTheme ? darkClass : ''">
-        <p>Status : <a-tag v-if="this.checkClientEnable(dbInbound, vmess.email) == true" color="blue">{{ i18n "clientActive" }}</a-tag>
+        <p>Status : <a-tag v-if="(this.checkClientEnable(dbInbound, vmess.email) == true) && dbInbound.enable" color="blue">{{ i18n "clientActive" }}</a-tag>
             <a-tag v-else color="red">{{ i18n "clientDeactive" }}</a-tag></p>
         <p>Email : <a-tag color="purple">[[ vmess.email ]]</a-tag></p>
         <p>uuid : <a-tag color="purple">[[ vmess.id ]]</a-tag></p>
@@ -88,7 +92,7 @@
 
     <template v-if="dbInbound.isVLess" v-for="(vless, index) in inbound.settings.vlesses">
         <a-card :class="siderDrawer.isDarkTheme ? darkClass : ''">
-        <p>Status : <a-tag v-if="this.checkClientEnable(dbInbound, vless.email) == true" color="blue">{{ i18n "clientActive" }}</a-tag>
+        <p>Status : <a-tag v-if="(this.checkClientEnable(dbInbound, vless.email) == true) && dbInbound.enable" color="blue">{{ i18n "clientActive" }}</a-tag>
             <a-tag v-else color="red">{{ i18n "clientDeactive" }}</a-tag></p>
         <p>Email : <a-tag color="purple">[[ vless.email ]]</a-tag></p>
         <p>uuid : <a-tag color="purple">[[ vless.id ]]</a-tag></p>
@@ -117,7 +121,7 @@
 
     <template v-if="dbInbound.isTrojan" v-for="(trojan, index) in inbound.settings.trojans">
         <a-card :class="siderDrawer.isDarkTheme ? darkClass : ''">
-        <p>Status : <a-tag v-if="this.checkClientEnable(dbInbound, trojan.email) == true" color="blue">{{ i18n "clientActive" }}</a-tag>
+        <p>Status : <a-tag v-if="(this.checkClientEnable(dbInbound, trojan.email) == true) && dbInbound.enable" color="blue">{{ i18n "clientActive" }}</a-tag>
             <a-tag v-else color="red">{{ i18n "clientDeactive" }}</a-tag></p>
         <p>Email : <a-tag color="purple">[[ trojan.email ]]</a-tag></p>
         <p>Password : <a-tag color="purple">[[ trojan.password ]]</a-tag></p>

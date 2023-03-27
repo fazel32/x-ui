@@ -97,7 +97,7 @@
         </a-form>
         <div style="text-align: center;">
             <a-button v-if="!isExpiry(index) || ((getUpStats(vmess.email) + getDownStats(vmess.email)) > vmess.totalGB && vmess.totalGB == 0)" 
-                v-show="returnClientsStatusText(vmess.email) != 'hide'" style="margin-top: 10px;"
+                v-show="(returnClientsStatusText(vmess.email) != 'hide') && dbInbound.enable" style="margin-top: 10px;"
                 @click="switchClientStatus(vmess.email)" type="primary">[[ returnClientsStatusText(vmess.email) ]]</a-button>
             <a-button v-show="inbound.settings.vmesses.length > 1" type="danger" style="margin-top: 10px;"
                 @click="removeClient(index, inbound.settings.vmesses)" ghost>{{ i18n "pages.inbounds.removeClient" }}</a-button>

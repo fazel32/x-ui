@@ -9,6 +9,7 @@
 "download" = "دانلود"
 "remark" = "نام"
 "enable" = "فعال"
+"disable" = "غیرفعال"
 "protocol" = "پروتکل"
 
 "loading" = "در حال بروزرسانی..."
@@ -146,6 +147,7 @@
 "cloneInboundOk" = "ایجاد"
 "activeClient" = "فعال کردن این کلاینت"
 "deactiveClient" = "غیرفعال کردن این کلاینت"
+"inboundStatus" = "وضعیت اینباند"
 
 [pages.inbounds.toasts]
 "obtain" = "Obtain"

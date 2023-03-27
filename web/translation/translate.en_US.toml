@@ -9,6 +9,7 @@
 "download" = "Download"
 "remark" = "Remark"
 "enable" = "Enable"
+"disable" = "Disable"
 "protocol" = "Protocol"
 
 "loading" = "Loading..."
@@ -146,6 +147,7 @@
 "cloneInboundOk" = "Create"
 "activeClient" = "Active This Client"
 "deactiveClient" = "Deactive This Client"
+"inboundStatus" = "Inbound Status"
 
 [pages.inbounds.toasts]
 "obtain" = "Obtain"

@@ -196,10 +196,24 @@
             
 
             getHeaderText(email) {
-                if(email == "")
-                    return "Add Client"
-                
-                return email + (this.isClientEnable(email) == true ? ' Active' : ' Deactive')
+                if(email == "") {
+                    return "Add Client";
+                }
+                // return email + (this.isClientEnable(email) == true ? ' Active' : ' Deactive')
+                if(this.isClientEnable(email) == true) {
+                    if(this.dbInbound.enable == true) {
+                        return email + ' Active';
+                    }
+                    else {
+                        return email + ' Deactive';
+                    }
+                }
+                else if(this.isClientEnable(email) == false) {
+                    return email + ' Deactive';
+                }
+                else {
+                    return email;
+                }
             },
 
             getNewEmail(client) {

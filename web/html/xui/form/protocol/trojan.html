@@ -70,7 +70,7 @@
             </a-form>
             <div style="text-align: center;">
                 <a-button v-if="!isExpiry(index) || ((getUpStats(trojan.email) + getDownStats(trojan.email)) > trojan.totalGB && trojan.totalGB == 0)" 
-                    v-show="returnClientsStatusText(trojan.email) != 'hide'" style="margin-top: 10px;"
+                    v-show="(returnClientsStatusText(trojan.email) != 'hide') && dbInbound.enable" style="margin-top: 10px;"
                     @click="switchClientStatus(trojan.email)" type="primary">[[ returnClientsStatusText(trojan.email) ]]</a-button>
                 <a-button v-show="inbound.settings.trojans.length > 1" type="danger" style="margin-top: 10px;"
                     @click="removeClient(index, inbound.settings.trojans)" ghost>{{ i18n "pages.inbounds.removeClient" }}</a-button>
