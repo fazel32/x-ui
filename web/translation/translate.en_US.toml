@@ -48,6 +48,7 @@
 "allClients" = "All"
 "clientActive" = "Active"
 "clientDeactive" = "Deactive"
+"refresh" = "Refresh"
 
 [menu]
 "dashboard" = "System Status"

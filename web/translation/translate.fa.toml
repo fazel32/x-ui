@@ -48,6 +48,7 @@
 "allClients" = "تعداد کل"
 "clientActive" = "فعال"
 "clientDeactive" = "غیرفعال"
+"refresh" = "بارگیری مجدد"
 
 [menu]
 "dashboard" = "وضعیت سیستم"

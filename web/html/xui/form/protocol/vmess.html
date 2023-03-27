@@ -4,7 +4,7 @@
 :key="`vmess-${index}`" style="margin-top: 12px;">
 
     <a-collapse-panel :header="getHeaderText(vmess.email)">
-        <a-tag v-if="isExpiry(index) || ((getUpStats(vmess.email) + getDownStats(vmess.email)) > vmess.totalGB && vmess.totalGB != 0)" color="red" style="margin-bottom: 10px;display: block;text-align: center;">Account is (Expired|Traffic Ended) And Disabled</a-tag>
+        <a-tag v-if="isExpiry(index) || ((getUpStats(vmess.email) + getDownStats(vmess.email)) > vmess.totalGB && vmess.totalGB != 0)" color="red" style="margin-bottom: 10px;display: block;text-align: center;">Account is Expired or Traffic Ended</a-tag>
         <a-form layout="inline">
             <a-form-item>
                 <span slot="label">

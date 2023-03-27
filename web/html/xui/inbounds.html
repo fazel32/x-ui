@@ -52,6 +52,7 @@
                         <div slot="title">
                             <a-button type="primary" icon="user-add" @click="openAddInbound">{{ i18n "pages.inbounds.addNewInbound" }}</a-button>
                             <a-button type="primary" icon="reload" @click="resetAllTraffic">{{ i18n "pages.inbounds.resetAllTraffic" }}</a-button>
+                            <a-button type="primary" icon="sync" @click="window.location.reload()">{{ i18n "refresh" }}</a-button>
                         </div>
                         <a-table :columns="columns" :row-key="dbInbound => dbInbound.id"
                                  :data-source="dbInbounds"
