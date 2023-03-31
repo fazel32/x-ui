@@ -33,7 +33,9 @@
     <a-tag v-else color="red">{{ i18n "disable" }}</a-tag></p>
 </template>
 <template>
-    <p>{{ i18n "pages.inbounds.inboundClients"}} : <a-tag color="green">[[ allClients(dbInbound) ]]</a-tag></p>
+    <p>{{ i18n "pages.inbounds.inboundClients"}} : <a-tag color="green">{{ i18n "allClients" }} : [[ inboundClients(dbInbound).all ]]</a-tag>
+        <a-tag color="blue">{{ i18n "clientActive" }} : [[ inboundClients(dbInbound).active ]]</a-tag>
+        <a-tag color="red">{{ i18n "clientDeactive" }} : [[ inboundClients(dbInbound).deactive ]]</a-tag></p>
 </template>
 <template v-else>
     <p>tls : <a-tag color="red">{{ i18n "closure" }}</a-tag></p>
@@ -193,7 +195,7 @@
         return clientStats ? clientStats['enable'] : true
     };
 
-    function allClients(dbInbound){
+    function inboundClients(dbInbound){
         let clients = 0, active = 0, deactive = 0;
         inbound = dbInbound.toInbound();
         clients = this.getClients(dbInbound.protocol, inbound.settings);
@@ -212,7 +214,11 @@
         else {
             dbInbound.enable ? active++ : deactive++;
         }
-        return clients = active + deactive;
+        return {
+            all: active + deactive,
+            active: active,
+            deactive: deactive,
+        };
     };
 
     function checkClientEnable(dbInbound, email) {
