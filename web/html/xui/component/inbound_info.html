@@ -32,6 +32,9 @@
     <p>{{ i18n "pages.inbounds.inboundStatus"}} : <a-tag v-if="dbInbound.enable" color="green">{{ i18n "enable" }}</a-tag>
     <a-tag v-else color="red">{{ i18n "disable" }}</a-tag></p>
 </template>
+<template>
+    <p>{{ i18n "pages.inbounds.inboundClients"}} : <a-tag color="green">[[ allClients(dbInbound) ]]</a-tag></p>
+</template>
 <template v-else>
     <p>tls : <a-tag color="red">{{ i18n "closure" }}</a-tag></p>
 </template>
@@ -175,6 +178,43 @@
 </script>
 
 <script>
+    
+    function getClients(protocol, clientSettings) {
+        switch(protocol){
+            case Protocols.VMESS: return clientSettings.vmesses;
+            case Protocols.VLESS: return clientSettings.vlesses;
+            case Protocols.TROJAN: return clientSettings.trojans;
+            default: return null;
+        }
+    };
+
+    function isClientEnabled(dbInbound, email) {
+    clientStats = dbInbound.clientStats ? dbInbound.clientStats.find(stats => stats.email === email) : null
+        return clientStats ? clientStats['enable'] : true
+    };
+
+    function allClients(dbInbound){
+        let clients = 0, active = 0, deactive = 0;
+        inbound = dbInbound.toInbound();
+        clients = this.getClients(dbInbound.protocol, inbound.settings);
+        if(clients){
+            if(dbInbound.enable){
+                isClientEnable = false;
+                clients.forEach(client => {
+                    isClientEnable = client.email == "" ? true: this.isClientEnabled(dbInbound,client.email);
+                    isClientEnable ? active++ : deactive++;
+                });
+            }
+            else {
+                deactive += clients.length;
+            }
+        }
+        else {
+            dbInbound.enable ? active++ : deactive++;
+        }
+        return clients = active + deactive;
+    };
+
     function checkClientEnable(dbInbound, email) {
         const inbound = dbInbound.toInbound();
         clientStats = inbound.clientStats

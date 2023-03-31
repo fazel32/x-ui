@@ -149,6 +149,7 @@
 "activeClient" = "Active This Client"
 "deactiveClient" = "Deactive This Client"
 "inboundStatus" = "Inbound Status"
+"inboundClients" = "Number of clients"
 
 [pages.inbounds.toasts]
 "obtain" = "Obtain"

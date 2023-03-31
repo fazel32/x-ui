@@ -149,6 +149,7 @@
 "activeClient" = "فعال کردن این کلاینت"
 "deactiveClient" = "غیرفعال کردن این کلاینت"
 "inboundStatus" = "وضعیت اینباند"
+"inboundClients" = "تعداد کلاینت ها"
 
 [pages.inbounds.toasts]
 "obtain" = "Obtain"
