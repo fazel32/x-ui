@@ -109,7 +109,7 @@
         </div>
 
         
-
+        <li slot="extra" :class="getSlotExtraStyle(vless.email)">[[ getSlotExtraHeader(vless.email) ]]</li>
     </a-form>
     <a-button style="margin-top: 10px; margin-bottom: 10px;"
     @click="addClient(inbound.protocol, inbound.settings.vlesses)" type="primary">{{ i18n "pages.inbounds.addClient" }}</a-button>

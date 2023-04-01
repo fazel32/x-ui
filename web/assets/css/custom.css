@@ -337,3 +337,27 @@
     text-shadow: 0 -1px 0 rgba(0,0,0,.12);
     box-shadow: 0 2px 0 rgba(0,0,0,.045);
 }
+
+.deactive-client {
+    color:rgb(240, 37, 37);
+}
+
+.ant-card-dark .deactive-client {
+    color:rgb(238, 87, 87);
+}
+
+.active-client {
+    color:rgb(37, 146, 15);
+}
+
+.ant-card-dark .active-client {
+    color:rgb(97, 196, 72);
+}
+
+.new-client {
+    color:rgb(37, 142, 240);
+}
+
+.ant-card-dark .new-client {
+    color:rgb(87, 170, 238);
+}

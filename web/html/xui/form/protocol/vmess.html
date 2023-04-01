@@ -103,6 +103,7 @@
                 @click="removeClient(index, inbound.settings.vmesses)" ghost>{{ i18n "pages.inbounds.removeClient" }}</a-button>
         </div>
 
+        <li slot="extra" :class="getSlotExtraStyle(vmess.email)">[[ getSlotExtraHeader(vmess.email) ]]</li>
     </a-collapse-panel>
 
 </a-collapse>

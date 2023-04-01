@@ -75,6 +75,7 @@
                 <a-button v-show="inbound.settings.trojans.length > 1" type="danger" style="margin-top: 10px;"
                     @click="removeClient(index, inbound.settings.trojans)" ghost>{{ i18n "pages.inbounds.removeClient" }}</a-button>
             </div>
+            <li slot="extra" :class="getSlotExtraStyle(trojan.email)">[[ getSlotExtraHeader(trojan.email) ]]</li>
         </a-collapse-panel>
     </a-collapse>
 
