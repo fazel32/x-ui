@@ -62,7 +62,7 @@
                         {{ i18n "pages.inbounds.resetClientTraffic" }}
                     </template>
                     <span style="color: #FF4D4F">
-                        <a-icon type="delete" @click="resetClientTraffic(trojan,$event)"></a-icon>
+                        <a-icon type="delete" @click="resetClientTraffic(trojan,dbInbound)"></a-icon>
                     </span>
                 </a-tooltip>
                 <a-tag color="blue">[[ sizeFormat(getUpStats(trojan.email)) ]] / [[ sizeFormat(getDownStats(trojan.email)) ]]</a-tag>

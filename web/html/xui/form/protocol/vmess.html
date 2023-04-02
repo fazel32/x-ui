@@ -89,7 +89,7 @@
                     {{ i18n "pages.inbounds.resetClientTraffic" }}
                 </template>
                 <span style="color: #FF4D4F">
-                    <a-icon type="delete" @click="resetClientTraffic(vmess,$event)"></a-icon>
+                    <a-icon type="delete" @click="resetClientTraffic(vmess,dbInbound)"></a-icon>
                 </span>
             </a-tooltip>
             <a-tag color="blue">[[ sizeFormat(getUpStats(vmess.email)) ]] / [[ sizeFormat(getDownStats(vmess.email)) ]]</a-tag>
