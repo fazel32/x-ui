@@ -28,6 +28,7 @@ It's a fork from [HossinAsaadi's x-ui](https://github.com/hossinasaadi/x-ui) and
 -   Security token for login to panel
 -   Clone Inbounds
 -   Dark Mode
+-   Ability see x-ui logs from inside the panel
 -   Support multi-user multi-protocol, web page visualization operation
 -   Supported protocols: vmess, vless, trojan, shadowsocks, dokodemo-door, socks, http
 -   Support to configure more transmission configurations
