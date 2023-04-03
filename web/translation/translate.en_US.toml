@@ -49,6 +49,8 @@
 "clientActive" = "Active"
 "clientDeactive" = "Deactive"
 "refresh" = "Refresh"
+"reload" = "Reload"
+"Count" = "Count"
 
 [menu]
 "dashboard" = "System Status"
@@ -92,6 +94,8 @@
 "xraySwitchVersionDialog" = "Switch XRAY version"
 "xraySwitchVersionDialogDesc" = "Are you sure to switch the XRAY version to"
 "dontRefreshh" = "Installation in progress. Please do not refresh this page!"
+"xuiLogs" = "X-UI Logs"
+"xuiLogsShow" = "Show"
 
 
 [pages.inbounds]
