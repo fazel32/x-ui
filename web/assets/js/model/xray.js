@@ -88,13 +88,8 @@ const UTLS_OPTION = {
 
 const ALPN_OPTION = {
     H2: "h2",
-    HTTP1: "http/1.1",
-    BOTH: "h2,http/1.1",
     H3: "h3",
-    H3_HTTP1: "h3,http/1.1",
-    H3_H2: "h3,h2",
-    H3_H2_HTTP1: "h3,h2,http/1.1"
-
+    HTTP1: "http/1.1",
 };
 
 Object.freeze(Protocols);
@@ -1078,7 +1073,7 @@ class Inbound extends XrayCommonClass {
             tls: this.stream.security,
             sni: this.stream.tls.settings[0]['serverName'], // SNI value is in TlsStreamSettings.Settings 
             fp: this.stream.tls.settings[0]['fingerprint'],
-            alpn: this.stream.tls.alpn[0],
+            alpn: this.stream.tls.alpn[0].join(','),
         };
         return 'vmess://' + base64(JSON.stringify(obj, null, 2));
     }
