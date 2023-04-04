@@ -42,7 +42,6 @@
                                 {{ i18n "clients" }}：
                                 <a-tag color="green">{{ i18n "allClients" }} : [[ total.clients ]]</a-tag>
                                 <a-tag color="blue">{{ i18n "clientActive" }} : [[ total.active.length ]]</a-tag>
-                                <!-- <a-tag color="red">{{ i18n "clientDeactive" }} : [[ total.deactive ]]</a-tag> -->
                                 <a-popover title='{{ i18n "clientDeactivePop" }}' :overlay-class-name="siderDrawer.isDarkTheme ? 'ant-dark' : ''"
                                  placement="bottom" v-if="total.deactive.length > 0">
                                     <template slot="content">
@@ -436,12 +435,10 @@
         computed: {
             total() {
                 let down = 0, up = 0;
-                let active = [], deactive = [], depleted = [], expiring = [];
-                for (let i = 0; i < this.dbInbounds.length; ++i) {
-                    down += this.dbInbounds[i].down;
-                    up += this.dbInbounds[i].up;
-                }
+                let active = [], deactive = [];
                 this.dbInbounds.forEach(dbInbound => {
+                    down += dbInbound.down;
+                    up += dbInbound.up;
                     inbound = dbInbound.toInbound();
                     clients = this.getClients(dbInbound.protocol, inbound.settings);
                     if(clients){
