@@ -348,8 +348,8 @@
     box-shadow: 0 2px 0 rgba(255,255,255,.045);
 }
 .ant-card-dark .ant-btn-primary:hover {
-    background-color: #40a9ff;
-    border-color: #40a9ff;
+    background-color: #0561b6;
+    border-color: #087fee;
 }
 
 .ant-dark .ant-popover-content {
