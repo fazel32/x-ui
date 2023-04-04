@@ -413,6 +413,21 @@ func (s *InboundService) ResetClientTraffic(id int, clientEmail string) error {
 	return nil
 }
 
+func (s *InboundService) ResetAllClientTraffics(id int) error {
+	db := database.GetDB()
+
+	result := db.Model(xray.ClientTraffic{}).
+		Where("inbound_id = ?", id).
+		Updates(map[string]interface{}{"up": 0, "down": 0})
+
+	err := result.Error
+
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func (s *InboundService) SwitchClientStatus(clientEmail string) (error) {
   db := database.GetDB()
   

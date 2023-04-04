@@ -34,6 +34,7 @@ func (a *InboundController) initRouter(g *gin.RouterGroup) {
 	g.POST("/clientIps/:email", a.getClientIps)
 	g.POST("/clearClientIps/:email", a.clearClientIps)
 	g.POST("/:id/resetClientTraffic/:email", a.resetClientTraffic)
+	g.POST("/resetAllClientTraffics/:id", a.resetAllClientTraffics)
 
 }
 
@@ -162,6 +163,21 @@ func (a *InboundController) resetClientTraffic(c *gin.Context) {
 	if err == nil {
 		a.xrayService.SetToNeedRestart()
 	}
+}
+
+func (a *InboundController) resetAllClientTraffics(c *gin.Context) {
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		jsonMsg(c, I18n(c, "pages.inbounds.revise"), err)
+		return
+	}
+
+	err = a.inboundService.ResetAllClientTraffics(id)
+	if err != nil {
+		jsonMsg(c, "something worng!", err)
+		return
+	}
+	jsonMsg(c, "All traffics of client reseted", nil)
 }
 
 func (a *InboundController) switchClientStatus(c *gin.Context) {

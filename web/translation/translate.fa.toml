@@ -154,6 +154,9 @@
 "deactiveClient" = "غیرفعال کردن این کلاینت"
 "inboundStatus" = "وضعیت اینباند"
 "inboundClients" = "تعداد کلاینت ها"
+"resetAllClientTraffics" = "ریست ترافیک کل کاربران"
+"resetAllClientTrafficTitle" = "ریست ترافیک کل کاربران"
+"resetAllClientTrafficContent" = "آیا مطمئن هستید که میخواهید ترافیک کل کاربران این اینباند را ریست کنید؟"
 
 [pages.inbounds.toasts]
 "obtain" = "Obtain"

@@ -154,6 +154,9 @@
 "deactiveClient" = "Deactive This Client"
 "inboundStatus" = "Inbound Status"
 "inboundClients" = "Number of clients"
+"resetAllClientTraffics" = "Reset All Clients Traffic"
+"resetAllClientTrafficTitle" = "Reset all clients traffic"
+"resetAllClientTrafficContent" = "Are you sure to reset all traffics of this inbound's clients ?"
 
 [pages.inbounds.toasts]
 "obtain" = "Obtain"
