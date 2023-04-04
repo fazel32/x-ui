@@ -90,6 +90,11 @@ const ALPN_OPTION = {
     H2: "h2",
     HTTP1: "http/1.1",
     BOTH: "h2,http/1.1",
+    H3: "h3",
+    H3_HTTP1: "h3,http/1.1",
+    H3_H2: "h3,h2",
+    H3_H2_HTTP1: "h3,h2,http/1.1"
+
 };
 
 Object.freeze(Protocols);
