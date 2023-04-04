@@ -355,7 +355,6 @@
 .ant-dark .ant-popover-content {
     border: 1px solid #e8e8e8;
     border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(255,255,255,.15);
 }
 
 .ant-dark .ant-popover-inner {

@@ -48,6 +48,7 @@
 "allClients" = "All"
 "clientActive" = "Active"
 "clientDeactive" = "Deactive"
+"clientDeactivePop" = "Deactive Clients"
 "refresh" = "Refresh"
 "reload" = "Reload"
 "Count" = "Count"

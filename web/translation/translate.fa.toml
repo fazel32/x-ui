@@ -48,6 +48,7 @@
 "allClients" = "تعداد کل"
 "clientActive" = "فعال"
 "clientDeactive" = "غیرفعال"
+"clientDeactivePop" = "کلاینت های غیرفعال"
 "refresh" = "بارگیری مجدد"
 "reload" = "تازه سازی"
 "Count" = "تعداد"

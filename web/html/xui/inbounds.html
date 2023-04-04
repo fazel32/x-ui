@@ -41,8 +41,16 @@
                             <a-col :xs="24" :sm="24" :lg="12">
                                 {{ i18n "clients" }}：
                                 <a-tag color="green">{{ i18n "allClients" }} : [[ total.clients ]]</a-tag>
-                                <a-tag color="blue">{{ i18n "clientActive" }} : [[ total.active ]]</a-tag>
-                                <a-tag color="red">{{ i18n "clientDeactive" }} : [[ total.deactive ]]</a-tag>
+                                <a-tag color="blue">{{ i18n "clientActive" }} : [[ total.active.length ]]</a-tag>
+                                <!-- <a-tag color="red">{{ i18n "clientDeactive" }} : [[ total.deactive ]]</a-tag> -->
+                                <a-popover title='{{ i18n "clientDeactivePop" }}' :overlay-class-name="siderDrawer.isDarkTheme ? 'ant-dark' : ''"
+                                 placement="bottom" v-if="total.deactive.length > 0">
+                                    <template slot="content">
+                                        <p v-for="clientEmail in total.deactive">[[ clientEmail ]]</p>
+                                    </template>
+                                    <a-tag color="red">{{ i18n "clientDeactive" }} : [[ total.deactive.length ]]</a-tag>
+                                </a-popover>
+                                <a-tag v-else color="red">{{ i18n "clientDeactive" }} : [[ total.deactive.length ]]</a-tag>
                             </a-col>
                         </a-row>
                     </a-card>
@@ -428,7 +436,7 @@
         computed: {
             total() {
                 let down = 0, up = 0;
-                let clients = 0, active = 0, deactive = 0;
+                let active = [], deactive = [], depleted = [], expiring = [];
                 for (let i = 0; i < this.dbInbounds.length; ++i) {
                     down += this.dbInbounds[i].down;
                     up += this.dbInbounds[i].up;
@@ -437,23 +445,21 @@
                     inbound = dbInbound.toInbound();
                     clients = this.getClients(dbInbound.protocol, inbound.settings);
                     if(clients){
-                        if(dbInbound.enable){
-                            isClientEnable = false;
-                            clients.forEach(client => {
-                                isClientEnable = client.email == "" ? true: this.isClientEnabled(dbInbound,client.email);
-                                isClientEnable ? active++ : deactive++;
-                            });
-                        } else {
-                            deactive += clients.length;
-                        }
+                    if(dbInbound.enable){
+                        clients.forEach(client => {
+                            this.isClientEnabled(dbInbound, client.email) ? active.push(client.email) : deactive.push(client.email);
+                        });
                     } else {
-                        dbInbound.enable ? active++ : deactive++;
+                        clients.forEach(client => {
+                            deactive.push(client.email);
+                        });
                     }
+                }
                 });
                 return {
                     down: down,
                     up: up,
-                    clients: active + deactive,
+                    clients: active.length + deactive.length,
                     active: active,
                     deactive: deactive,
                 };
