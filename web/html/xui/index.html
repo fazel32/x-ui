@@ -81,17 +81,22 @@
                                 <a-icon type="question-circle" theme="filled"></a-icon>
                             </a-tooltip>
                             <a-tag color="purple" >[[ status.xray.version ]]</a-tag>
-                            <a-tag color="blue" style="cursor: pointer;" @click="openSelectV2rayVersion">{{ i18n "pages.index.xraySwitch"}}</a-tag>
-                            <a-tag color="cyan" style="cursor: pointer;" @click="restartXrayService">{{ i18n "pages.index.restartXray" }}</a-tag>
-                            <a-tag color="green">X-UI v{{ .cur_ver }}</a-tag>
+                            <a-tag color="blue" style="cursor: pointer;" @click="openSelectV2rayVersion"><a-icon 
+                                :style="siderDrawer.isDarkTheme ? 'color: #3c9ae8' : ''" type="swap"></a-icon> {{ i18n "pages.index.xraySwitch"}}</a-tag>
+                            <a-tag color="cyan" style="cursor: pointer;" @click="restartXrayService"><a-icon 
+                                :style="siderDrawer.isDarkTheme ? 'color: #33bcb7' : ''" type="sync"></a-icon> {{ i18n "pages.index.restartXray" }}</a-tag>
+                            <a-tag color="green"><a-icon 
+                                :style="siderDrawer.isDarkTheme ? 'color: #6abe39' : ''" type="bulb"></a-icon> X-UI v{{ .cur_ver }}</a-tag>
                         </a-card>
                     </a-col>
                     <a-col :sm="24" :md="12">
                         <a-card hoverable style="border-radius: 5px;" :class="siderDrawer.isDarkTheme ? darkClass : ''">
                             {{ i18n "pages.index.xuiLogs" }}:
-                            <a-tag color="blue" style="cursor: pointer;" @click="openLogs(20)">{{ i18n "pages.index.xuiLogsShow" }}</a-tag>
+                            <a-tag color="blue" style="cursor: pointer;" @click="openLogs(20)"><a-icon 
+                                :style="siderDrawer.isDarkTheme ? 'color: #3c9ae8' : ''" type="eye"></a-icon> {{ i18n "pages.index.xuiLogsShow" }}</a-tag>
                             {{ i18n "pages.index.operationHours" }}:
-                            <a-tag color="green">[[ formatSecond(status.uptime) ]]</a-tag>
+                            <a-tag color="green"><a-icon 
+                                :style="siderDrawer.isDarkTheme ? 'color: #6abe39' : ''" type="clock-circle"></a-icon> [[ formatSecond(status.uptime) ]]</a-tag>
                             <a-tooltip>
                                 <template slot="title">
                                     {{ i18n "pages.index.operationHoursDesc" }}

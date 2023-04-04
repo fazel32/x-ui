@@ -177,7 +177,7 @@ func (a *InboundController) resetAllClientTraffics(c *gin.Context) {
 		jsonMsg(c, "something worng!", err)
 		return
 	}
-	jsonMsg(c, "All traffics of client reseted", nil)
+	jsonMsg(c, "Traffic of all clients reseted", nil)
 }
 
 func (a *InboundController) switchClientStatus(c *gin.Context) {
