@@ -203,13 +203,11 @@
                 </a-select>
             </a-form-item>
             <a-form-item>
-                <button class="ant-btn ant-btn-primary" @click="openLogs(logModal.rows)"><a-icon type="sync"></a-icon> {{ i18n "reload" }}</button>
+                <a-button icon="sync" type="primary" @click="openLogs(logModal.rows)">{{ i18n "reload" }}</a-button>
             </a-form-item>
             <a-form-item>
-                <a-button type="primary" style="margin-bottom: 10px;"
-                :href="'data:application/text;charset=utf-8,' + encodeURIComponent(logModal.logs)" download="x-ui.log">
-                    {{ i18n "download" }} x-ui.log
-                </a-button>
+                <a-button icon="cloud-download" type="primary" style="margin-bottom: 10px;"
+                :href="'data:application/text;charset=utf-8,' + encodeURIComponent(logModal.logs)" download="x-ui.log">{{ i18n "download" }} x-ui.log</a-button>
             </a-form-item>
        </a-form>
         <a-input type="textarea" v-model="logModal.logs" disabled="true"
