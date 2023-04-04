@@ -45,7 +45,11 @@
                                 <a-popover title='{{ i18n "clientDeactivePop" }}' :overlay-class-name="siderDrawer.isDarkTheme ? 'ant-dark' : ''"
                                  placement="bottom" v-if="total.deactive.length > 0">
                                     <template slot="content">
-                                        <p v-for="clientEmail in total.deactive">[[ clientEmail ]]</p>
+                                        <a-list size="small">
+                                            <a-list-item v-for="clientEmail in total.deactive">
+                                                <li :style="siderDrawer.isDarkTheme ? 'color: hsla(0,0%,100%,.65)' : ''">[[ clientEmail ]]</li>
+                                            </a-list-item>
+                                        </a-list>
                                     </template>
                                     <a-tag color="red">{{ i18n "clientDeactive" }} : [[ total.deactive.length ]]</a-tag>
                                 </a-popover>
