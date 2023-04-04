@@ -87,8 +87,8 @@ const UTLS_OPTION = {
 };
 
 const ALPN_OPTION = {
-    H2: "h2",
     H3: "h3",
+    H2: "h2",
     HTTP1: "http/1.1",
 };
 
