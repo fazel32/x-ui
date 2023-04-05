@@ -60,6 +60,7 @@
 "logout" = "Log Out"
 "link" = "Other"
 "githubpage" = "Github Page"
+"handbook" = "Handbook"
 
 [pages.login]
 "title" = "X-UI LOGIN"
@@ -158,6 +159,8 @@
 "resetAllClientTraffics" = "Reset All Clients Traffic"
 "resetAllClientTrafficTitle" = "Reset all clients traffic"
 "resetAllClientTrafficContent" = "Are you sure to reset all traffics of this inbound's clients ?"
+"search" = "Search"
+"searchBoxDesc" = "Search , can search inbounds name , port , email , password and UUID"
 
 [pages.inbounds.toasts]
 "obtain" = "Obtain"

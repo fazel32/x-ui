@@ -65,8 +65,15 @@
                             <a-button type="primary" icon="reload" @click="resetAllTraffic">{{ i18n "pages.inbounds.resetAllTraffic" }}</a-button>
                             <a-button type="primary" icon="sync" @click="window.location.reload()">{{ i18n "refresh" }}</a-button>
                         </div>
+                        <a-input v-model.lazy="searchKey" placeholder='{{ i18n "pages.inbounds.search" }}' autofocus style="max-width: 300px"></a-input>
+                        <a-tooltip placement="right">
+                            <template slot="title">
+                                {{ i18n "pages.inbounds.searchBoxDesc" }}
+                            </template>
+                            <a-icon style="margin-left: 5px;" type="question-circle" theme="filled"></a-icon>
+                        </a-tooltip>
                         <a-table :columns="columns" :row-key="dbInbound => dbInbound.id"
-                                 :data-source="dbInbounds"
+                                 :data-source="searchedInbounds"
                                  :loading="spinning" :scroll="{ x: 1500 }"
                                  :pagination="false"
                                  style="margin-top: 20px"
@@ -204,6 +211,7 @@
             inbounds: [],
             dbInbounds: [],
             searchKey: '',
+            searchedInbounds: [],
         },
         methods: {
             loading(spinning=true) {
@@ -217,14 +225,18 @@
                     return;
                 }
                 this.setInbounds(msg.obj);
+                this.searchKey = '';
             },
             setInbounds(dbInbounds) {
                 this.inbounds.splice(0);
                 this.dbInbounds.splice(0);
+                this.searchedInbounds.splice(0);
                 for (const inbound of dbInbounds) {
                     const dbInbound = new DBInbound(inbound);
-                    this.inbounds.push(dbInbound.toInbound());
+                    to_inbound = dbInbound.toInbound()
+                    this.inbounds.push(to_inbound);
                     this.dbInbounds.push(dbInbound);
+                    this.searchedInbounds.push(dbInbound);
                 }
             },
             searchInbounds(key) {
@@ -234,7 +246,18 @@
                     this.searchedInbounds.splice(0, this.searchedInbounds.length);
                     this.dbInbounds.forEach(inbound => {
                         if (ObjectUtil.deepSearch(inbound, key)) {
-                            this.searchedInbounds.push(inbound);
+                            const newInbound = new DBInbound(inbound);
+                            const inboundSettings = JSON.parse(inbound.settings);
+                            if (inboundSettings.hasOwnProperty('clients')){
+                                const searchedSettings = { "clients": [] };
+                                inboundSettings.clients.forEach(client => {
+                                    if (ObjectUtil.deepSearch(client, key)){
+                                        searchedSettings.clients.push(client);
+                                    }
+                                });
+                                newInbound.settings = Inbound.Settings.fromJson(inbound.protocol, searchedSettings);
+                            }
+                            this.searchedInbounds.push(newInbound);
                         }
                     });
                 }
@@ -429,9 +452,9 @@
             },
         },
         watch: {
-            searchKey(value) {
-                this.searchInbounds(value);
-            }
+            searchKey: debounce(function (newVal) {
+                this.searchInbounds(newVal);
+            }, 500)
         },
         mounted() {
             this.getDBInbounds();

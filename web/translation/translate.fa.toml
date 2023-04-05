@@ -60,6 +60,7 @@
 "logout" = "خروج"
 "link" = "دیگر"
 "githubpage" = "گیت هاب"
+"handbook" = "راهنما"
 
 [pages.login]
 "title" = "ورود به سیستم X-UI"
@@ -158,6 +159,8 @@
 "resetAllClientTraffics" = "ریست ترافیک کل کاربران"
 "resetAllClientTrafficTitle" = "ریست ترافیک کل کاربران"
 "resetAllClientTrafficContent" = "آیا مطمئن هستید که میخواهید ترافیک کل کاربران این اینباند را ریست کنید؟"
+"search" = "جستوجو"
+"searchBoxDesc" = "جستجو، می تواند نام ورودی ها ، پورت ، ایمیل و رمز عبور را جستجو کند"
 
 [pages.inbounds.toasts]
 "obtain" = "Obtain"
