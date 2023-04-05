@@ -248,15 +248,6 @@
                         if (ObjectUtil.deepSearch(inbound, key)) {
                             const newInbound = new DBInbound(inbound);
                             const inboundSettings = JSON.parse(inbound.settings);
-                            if (inboundSettings.hasOwnProperty('clients')){
-                                const searchedSettings = { "clients": [] };
-                                inboundSettings.clients.forEach(client => {
-                                    if (ObjectUtil.deepSearch(client, key)){
-                                        searchedSettings.clients.push(client);
-                                    }
-                                });
-                                newInbound.settings = Inbound.Settings.fromJson(inbound.protocol, searchedSettings);
-                            }
                             this.searchedInbounds.push(newInbound);
                         }
                     });
