@@ -194,8 +194,7 @@ install_xui() {
         read -rp "Please enter the option [y/n, default n]: " yn
         if [[ $yn =~ "Y"|"y" ]]; then
             cd
-            mv /etc/x-ui/x-ui.db /etc/x-ui.db.bak # Backing up Chinese X-UI db (if any)
-            mv /etc/x-ui/x-ui.db /etc/x-ui.db.bak # Backing up English X-UI db 
+            mv /etc/x-ui/x-ui.db /etc/x-ui.db.bak # Backing up X-UI db
             systemctl stop x-ui
             systemctl disable x-ui
             rm /etc/systemd/system/x-ui.service -f
