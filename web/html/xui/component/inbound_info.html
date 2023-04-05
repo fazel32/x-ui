@@ -32,7 +32,7 @@
     <p>{{ i18n "pages.inbounds.inboundStatus"}} : <a-tag v-if="dbInbound.enable" color="green">{{ i18n "enable" }}</a-tag>
     <a-tag v-else color="red">{{ i18n "disable" }}</a-tag></p>
 </template>
-<template>
+<template v-if="dbInbound.isVMess || dbInbound.isVLess || dbInbound.isTrojan">
     <p>{{ i18n "pages.inbounds.inboundClients"}} : <a-tag color="green">{{ i18n "allClients" }} : [[ inboundClients(dbInbound).all ]]</a-tag>
         <a-tag color="blue">{{ i18n "clientActive" }} : [[ inboundClients(dbInbound).active ]]</a-tag>
         <a-tag color="red">{{ i18n "clientDeactive" }} : [[ inboundClients(dbInbound).deactive ]]</a-tag></p>
