@@ -118,6 +118,27 @@
                 await PromiseUtil.sleep(1000);
                 this.loading(false);
             },
+            async resetXrayConfigTemp() {
+                this.$confirm({
+                    title: '{{ i18n "pages.setting.resetXrayConfigTemp"}}',
+                    content: '{{ i18n "pages.setting.resetXrayConfigTempContent"}}',
+                    class: siderDrawer.isDarkTheme ? darkClass : '',
+                    okText: '{{ i18n "pages.setting.resetXrayConfigTempOkText"}}',
+                    cancelText: '{{ i18n "pages.setting.resetXrayConfigTempCancelText"}}',
+                    onOk: async () => {
+                        this.loading(true);
+                        fetch('{{ .base_path }}assets/xray_default_config_temp.json')
+                            .then((response) => response.text())
+                            .then((text) => this.allSetting.xrayTemplateConfig = text);
+                        if(this.allSetting.blockIranIP = true) {
+                            this.allSetting.blockIranIP = false
+                        }
+                        await PromiseUtil.sleep(1000);
+                        this.updateAllSetting();
+                        this.loading(false);
+                    },
+                });
+            },
             async getUserSecret(){
                 const user_msg = await HttpUtil.post("/xui/setting/getUserSecret", this.user);
                 if (user_msg.success){

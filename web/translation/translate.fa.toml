@@ -228,6 +228,10 @@
 "loginSecurityDesc" = "افزودن یک مرحله دیگر به فرآیند لاگین"
 "secretToken" = "توکن امنیتی"
 "secretTokenDesc" = "این کد امنیتی را نزد خود در این جای امن نگه داری، بدون این کد امکان ورود به پنل را نخواهید داشت. امکان بازیابی آن وجود ندارد!" 
+"resetXrayConfigTemp" = "بازنشانی پیکربندی Xray"
+"resetXrayConfigTempContent" = "آیا مطمئن هستید که پیکربندی xray را بازنشانی کنید؟ هر تغییری که انجام دادید از بین خواهد رفت"
+"resetXrayConfigTempOkText" = "بازنشانی"
+"resetXrayConfigTempCancelText" = "لغو"
 
 
 [pages.setting.toasts]
