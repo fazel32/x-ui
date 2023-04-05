@@ -65,7 +65,7 @@
                             <a-button type="primary" icon="reload" @click="resetAllTraffic">{{ i18n "pages.inbounds.resetAllTraffic" }}</a-button>
                             <a-button type="primary" icon="sync" @click="window.location.reload()">{{ i18n "refresh" }}</a-button>
                         </div>
-                        <a-input v-model.lazy="searchKey" placeholder='{{ i18n "pages.inbounds.search" }}' autofocus style="max-width: 300px"></a-input>
+                        <a-input v-model.lazy="searchKey" placeholder='{{ i18n "pages.inbounds.search" }}' autofocus style="max-width: 300px" allow-clear></a-input>
                         <a-tooltip placement="right">
                             <template slot="title">
                                 {{ i18n "pages.inbounds.searchBoxDesc" }}

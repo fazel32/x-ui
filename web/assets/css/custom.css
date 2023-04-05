@@ -226,6 +226,10 @@
     background-color: #2e3b52;
 }
 
+.ant-card-dark .ant-input-clear-icon:hover {
+    color: hsla(0, 0%, 100%, 0.945);
+}
+
 .ant-card-dark .ant-collapse-item {
     color: hsla(0,0%,100%,.65);
     background-color: #161b22;
