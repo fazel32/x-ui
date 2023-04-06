@@ -1,8 +1,8 @@
 # X-Ui
-![](https://img.shields.io/github/v/release/sudospaes/x-ui.svg)
-![Downloads](https://img.shields.io/github/downloads/sudospaes/x-ui/total.svg)
-![GO Version](https://img.shields.io/github/go-mod/go-version/sudospaes/x-ui.svg)
-[![License](https://img.shields.io/badge/license-GPL%20V3-purple.svg?longCache=true)](https://www.gnu.org/licenses/gpl-3.0.en.html)
+![](https://img.shields.io/github/v/release/sudospaes/x-ui?style=flat-square)
+![Downloads](https://img.shields.io/github/downloads/sudospaes/x-ui/total?color=367cc0&style=flat-square)
+![GO Version](https://img.shields.io/github/go-mod/go-version/sudospaes/x-ui.svg?style=flat-square)
+![License](https://img.shields.io/github/license/sudospaes/x-ui?color=1C7947&style=flat-square)
 <br>
 <br>
 English Version of X-UI Panel with Updated Xray-Core, Multi-protocol & Multi-user, with more option and some of more advanced.
