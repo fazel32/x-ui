@@ -393,14 +393,7 @@
                         class: siderDrawer.isDarkTheme ? darkClass : '',
                         okText: '{{ i18n "pages.inbounds.resetAllTrafficOkText"}}',
                         cancelText: '{{ i18n "pages.inbounds.resetAllTrafficCancelText"}}',
-                        onOk: async () => {
-                            for (const dbInbound of this.dbInbounds) {
-                                const inbound = dbInbound.toInbound();
-                                dbInbound.up = 0;
-                                dbInbound.down = 0;
-                                this.updateInbound(inbound, dbInbound);
-                            }
-                        },
+                        onOk: () => this.submit('/xui/inbound/resetAllTraffics'),
                     });
             },
             delInbound(dbInbound) {
