@@ -50,7 +50,7 @@ It's a fork from [HossinAsaadi's x-ui](https://github.com/hossinasaadi/x-ui) and
 
     bash <(curl -Ls https://raw.githubusercontent.com/sudospaes/x-ui/master/install.sh)
     
-> If you have already installed this panel and want to update to the latest version, read here : [How to update](https://github.com/sudospaes/x-ui/edit/main/README.md#how-to-update)
+> If you have already installed this panel and want to update to the latest version, read here : [How to update](https://github.com/sudospaes/x-ui#how-to-update)
 
     
 ## Manual install ⚙️
