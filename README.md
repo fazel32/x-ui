@@ -46,12 +46,14 @@ It's a fork from [HossinAsaadi's x-ui](https://github.com/hossinasaadi/x-ui) and
 -   AlmaLinux 9.1 or higher
 -   Rocky Linux 9 or higher
 
-## Single Command Install & upgrade ✨
+## Single Command Install ✨
 
     bash <(curl -Ls https://raw.githubusercontent.com/sudospaes/x-ui/master/install.sh)
+    
+> If you have already installed this panel and want to update to the latest version, read here : [How to update](https://github.com/sudospaes/x-ui/edit/main/README.md#how-to-update)
 
     
-## Manual install & upgrade ⚙️
+## Manual install ⚙️
 1.  First update your system and run the following commands. (Must have root user permissions)
 
    ```
@@ -76,3 +78,20 @@ systemctl daemon-reload
 systemctl enable x-ui
 systemctl restart x-ui
 ```
+
+## How to Update
+1.  Run this command.
+  ```
+x-ui
+```
+2.  After that will show x-ui script menu and enter the number 2
+<br><br>
+![](https://github.com/sudospaes/x-ui/raw/main/media/how_to_update/Screenshot%202023-04-06%20201330.png)
+<br><br>
+3. Then a message will be shown to confirm the update. enter y
+<br><br>
+![](https://github.com/sudospaes/x-ui/raw/main/media/how_to_update/Screenshot%202023-04-06%20201739.png)
+<br><br>
+4. Wait until the successful update message is displayed
+<br><br>
+![](https://github.com/sudospaes/x-ui/raw/main/media/how_to_update/Screenshot%202023-04-06%20201811.png)
