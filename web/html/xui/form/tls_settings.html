@@ -39,7 +39,7 @@
         <a-input v-model.trim="inbound.stream.tls.settings[0].serverName"></a-input>
     </a-form-item>
     <a-form-item label="Alpn">
-        <a-checkbox-group v-model="inbound.stream.tls.alpn[0]" style="width:200px">
+        <a-checkbox-group v-model="inbound.stream.tls.alpn" style="width:200px">
             <a-checkbox v-for="key in ALPN_OPTION" :value="key">[[ key ]]</a-checkbox>
         </a-checkbox-group>
     </a-form-item>

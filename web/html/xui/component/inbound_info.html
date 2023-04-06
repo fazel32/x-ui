@@ -55,8 +55,8 @@
 <p v-if="inbound.stream.tls.cipherSuites != ''">
     CipherSuites : <a-tag color="green">[[ inbound.stream.tls.cipherSuites ]]</a-tag>
 </p>
-<p v-if="inbound.stream.tls.alpn[0] != ''">
-    Alpn Parameter : <a-tag color="green">[[ inbound.stream.tls.alpn[0].join(',') ]]</a-tag>
+<p v-if="inbound.stream.tls.alpn != ''">
+    Alpn Parameter : <a-tag color="green">[[ inbound.stream.tls.alpn.join(',') ]]</a-tag>
 </p>
 {{end}}
 

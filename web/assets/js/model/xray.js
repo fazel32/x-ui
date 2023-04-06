@@ -1073,7 +1073,7 @@ class Inbound extends XrayCommonClass {
             tls: this.stream.security,
             sni: this.stream.tls.settings[0]['serverName'], // SNI value is in TlsStreamSettings.Settings 
             fp: this.stream.tls.settings[0]['fingerprint'],
-            alpn: this.stream.tls.alpn[0].join(','),
+            alpn: this.stream.tls.alpn.join(','),
         };
         return 'vmess://' + base64(JSON.stringify(obj, null, 2));
     }
@@ -1134,7 +1134,7 @@ class Inbound extends XrayCommonClass {
             if (!ObjectUtil.isEmpty(this.stream.tls.server)) {
                 address = this.stream.tls.server;
                 params.set("fp" , this.stream.tls.settings[0]['fingerprint']);
-                params.set("alpn", this.stream.tls.alpn[0]);
+                params.set("alpn", this.stream.tls.alpn);
                 if (this.stream.tls.settings[0]['serverName'] !== ''){
                     params.set("sni", this.stream.tls.settings[0]['serverName']);
                 }
@@ -1221,7 +1221,7 @@ class Inbound extends XrayCommonClass {
             if (!ObjectUtil.isEmpty(this.stream.tls.server)) {
                 address = this.stream.tls.server;
                 params.set("fp" , this.stream.tls.settings[0]['fingerprint']);
-                params.set("alpn", this.stream.tls.alpn[0]);
+                params.set("alpn", this.stream.tls.alpn);
                 if (this.stream.tls.settings[0]['serverName'] !== ''){
                     params.set("sni", this.stream.tls.settings[0]['serverName']);
                 }
