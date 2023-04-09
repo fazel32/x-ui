@@ -70,6 +70,9 @@
             </span>
             <a-input-number v-model="vmess._totalGB" :min="0"></a-input-number>
         </a-form-item>
+        <a-form-item v-if="inbound.canEnableGrpcMultiMode()" label="Grpc Multi Mode">
+            <a-switch v-model="vmess.grpcMultiMode"></a-switch>
+        </a-form-item>
         <a-form-item>
             <span slot="label">
                 <span >{{ i18n "pages.inbounds.expireDate" }}</span>

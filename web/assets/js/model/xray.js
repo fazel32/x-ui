@@ -977,6 +977,20 @@ class Inbound extends XrayCommonClass {
         return false;
     }
 
+    canEnableGrpcMultiMode() {
+        if (this.network === "grpc") {
+            switch (this.protocol) {
+                case Protocols.VLESS:
+                case Protocols.VMESS:
+                case Protocols.TROJAN:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+        return false;
+    }
+
     canEnableStream() {
         switch (this.protocol) {
             case Protocols.VMESS:
@@ -1051,6 +1065,9 @@ class Inbound extends XrayCommonClass {
             path = this.stream.quic.key;
         } else if (network === 'grpc') {
             path = this.stream.grpc.serviceName;
+            if(this.settings.vmesses[clientIndex].grpcMultiMode == true) {
+                type = 'multi'
+            }
         }
 
         if (this.stream.security === 'tls') {
@@ -1127,6 +1144,9 @@ class Inbound extends XrayCommonClass {
             case "grpc":
                 const grpc = this.stream.grpc;
                 params.set("serviceName", grpc.serviceName);
+                if(settings.vlesses[clientIndex].grpcMultiMode == true) {
+                    params.set("mode", "multi");
+                }
                 break;
         }
 
@@ -1214,6 +1234,9 @@ class Inbound extends XrayCommonClass {
             case "grpc":
                 const grpc = this.stream.grpc;
                 params.set("serviceName", grpc.serviceName);
+                if(settings.trojans[clientIndex].grpcMultiMode == true) {
+                    params.set("mode", "multi");
+                }
                 break;
         }
 
@@ -1374,7 +1397,7 @@ Inbound.VmessSettings = class extends Inbound.Settings {
     }
 };
 Inbound.VmessSettings.Vmess = class extends XrayCommonClass {
-    constructor(id=RandomUtil.randomUUID(), alterId=0, email=`${RandomUtil.randomSeq(8)}@mail.fun`, limitIp=0, totalGB=0, expiryTime='') {
+    constructor(id=RandomUtil.randomUUID(), alterId=0, email=`${RandomUtil.randomSeq(8)}@mail.fun`, limitIp=0, totalGB=0, expiryTime='', grpcMultiMode=false) {
         super();
         this.id = id;
         this.alterId = alterId;
@@ -1382,6 +1405,7 @@ Inbound.VmessSettings.Vmess = class extends XrayCommonClass {
         this.limitIp = limitIp;
         this.totalGB = totalGB;
         this.expiryTime = expiryTime;
+        this.grpcMultiMode = grpcMultiMode;
     }
 
     static fromJson(json={}) {
@@ -1392,7 +1416,7 @@ Inbound.VmessSettings.Vmess = class extends XrayCommonClass {
             json.limitIp,
             json.totalGB,
             json.expiryTime,
-
+            json.grpcMultiMode,
         );
     }
     get _expiryTime() {
@@ -1458,7 +1482,7 @@ Inbound.VLESSSettings = class extends Inbound.Settings {
 };
 Inbound.VLESSSettings.VLESS = class extends XrayCommonClass {
 
-    constructor(id=RandomUtil.randomUUID(), flow='', email=`${RandomUtil.randomSeq(8)}@mail.fun`, limitIp=0, totalGB=0, expiryTime='') {
+    constructor(id=RandomUtil.randomUUID(), flow='', email=`${RandomUtil.randomSeq(8)}@mail.fun`, limitIp=0, totalGB=0, expiryTime='', grpcMultiMode=false) {
         super();
         this.id = id;
         this.flow = flow;
@@ -1466,6 +1490,7 @@ Inbound.VLESSSettings.VLESS = class extends XrayCommonClass {
         this.limitIp = limitIp;
         this.totalGB = totalGB;
         this.expiryTime = expiryTime;
+        this.grpcMultiMode = grpcMultiMode;
     }
 
     static fromJson(json={}) {
@@ -1476,6 +1501,7 @@ Inbound.VLESSSettings.VLESS = class extends XrayCommonClass {
             json.limitIp,
             json.totalGB,
             json.expiryTime,
+            json.grpcMultiMode,
         );
     }
 
@@ -1573,13 +1599,14 @@ Inbound.TrojanSettings = class extends Inbound.Settings {
     }
 };
 Inbound.TrojanSettings.Trojan = class extends XrayCommonClass {
-    constructor(password=RandomUtil.randomSeq(10), flow='', email=`${RandomUtil.randomSeq(8)}@mail.fun`, totalGB=0, expiryTime='') {
+    constructor(password=RandomUtil.randomSeq(10), flow='', email=`${RandomUtil.randomSeq(8)}@mail.fun`, totalGB=0, expiryTime='', grpcMultiMode=false) {
         super();
         this.password = password;
         this.flow = flow;
         this.email = email;
         this.totalGB = totalGB;
         this.expiryTime = expiryTime;
+        this.grpcMultiMode = grpcMultiMode;
     }
 
     toJson() {
@@ -1589,6 +1616,7 @@ Inbound.TrojanSettings.Trojan = class extends XrayCommonClass {
             email: this.email,
             totalGB: this.totalGB,
             expiryTime: this.expiryTime,
+            grpcMultiMode: this.grpcMultiMode,
         };
     }
 
@@ -1599,6 +1627,7 @@ Inbound.TrojanSettings.Trojan = class extends XrayCommonClass {
             json.email,
             json.totalGB,
             json.expiryTime,
+            json.grpcMultiMode,
         );
     }
 
