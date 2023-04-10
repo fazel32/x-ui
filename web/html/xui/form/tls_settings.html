@@ -5,6 +5,18 @@
         <a-switch v-model="inbound.tls">
         </a-switch>
     </a-form-item>
+    <a-form-item v-if="inbound.canEnableReality()">
+        <span slot="label">
+            Reality
+            <a-tooltip>
+                <template slot="title">
+                  <span>{{ i18n "pages.inbounds.Realitydec" }}</span>
+                </template>
+                <a-icon type="question-circle" theme="filled"></a-icon>
+            </a-tooltip>
+        </span>
+        <a-switch v-model="inbound.reality"></a-switch>
+    </a-form-item>
 </a-form>
 
 <!-- tls settings -->
@@ -68,6 +80,36 @@
                      v-model="inbound.stream.tls.certs[0].key"></a-input>
         </a-form-item>
     </template>
+</a-form>
+<!-- reality settings -->
+<a-form v-else-if="inbound.reality" layout="inline">
+    <a-form-item label="show">
+        <a-switch v-model="inbound.stream.reality.show">
+        </a-switch>
+    </a-form-item>
+    <a-form-item label="xver">
+        <a-input type="number" v-model.number="inbound.stream.reality.xver" :min="0" style="width: 60px"></a-input>
+    </a-form-item>
+    <a-form-item label="uTLS" >
+        <a-select v-model="inbound.stream.reality.fingerprint" style="width: 135px" :dropdown-class-name="siderDrawer.isDarkTheme ? 'ant-card-dark' : ''">
+            <a-select-option v-for="key in UTLS_OPTION" :value="key">[[ key ]]</a-select-option>
+        </a-select>
+    </a-form-item>
+	<a-form-item label="dest">
+        <a-input v-model.trim="inbound.stream.reality.dest" style="width: 360px"></a-input>
+    </a-form-item>
+    <a-form-item label="serverNames">
+        <a-input v-model.trim="inbound.stream.reality.serverNames" style="width: 360px"></a-input>
+    </a-form-item>
+    <a-form-item label="privateKey">
+        <a-input v-model.trim="inbound.stream.reality.privateKey" style="width: 360px"></a-input>
+    </a-form-item>
+    <a-form-item label="publicKey">
+        <a-input v-model.trim="inbound.stream.reality.publicKey" style="width: 360px"></a-input>
+    </a-form-item>
+    <a-form-item label="shortIds">
+        <a-input v-model.trim="inbound.stream.reality.shortIds"></a-input>
+    </a-form-item>
 </a-form>
 <a-form layout="inline" v-else-if = "inbound.stream.network === 'tcp' ">
     <a-form-item label="tcp-acceptProxyProtocol">

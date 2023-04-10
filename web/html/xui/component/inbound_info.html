@@ -46,6 +46,12 @@
 <p v-if="inbound.xtls">
     xtls {{ i18n "domainName" }} : <a-tag :color="inbound.serverName ? 'green' : 'orange'">[[ inbound.serverName ? inbound.serverName : '' ]]</a-tag>
 </p>
+<template v-if="inbound.reality">
+    <p>reality xver : <a-tag color="green">[[ inbound.stream.reality.xver ]]</a-tag></p>
+    <p>reality dest : <a-tag color="green">[[ inbound.stream.reality.dest ]]</a-tag></p>
+    <p>reality serverNames : <a-tag color="green">[[ inbound.stream.reality.serverNames ]]</a-tag></p>
+    <p>reality fingerprint : <a-tag color="green">[[ inbound.stream.reality.fingerprint ]]</a-tag></p>
+</template>
 <p v-if="inbound.stream.tls.settings[0].serverName != ''">
     SNI Parameter : <a-tag color="green">[[ inbound.stream.tls.settings[0].serverName ]]</a-tag>
 </p>

@@ -161,6 +161,7 @@
 "resetAllClientTrafficContent" = "آیا مطمئن هستید که میخواهید ترافیک کل کاربران این اینباند را ریست کنید؟"
 "search" = "جستوجو"
 "searchBoxDesc" = "جستجو، می تواند نام ورودی ها ، پورت ، ایمیل و رمز عبور را جستجو کند"
+"Realitydec" = "هسته Xray باید 1.8.0 و بالاتر باشد"
 
 [pages.inbounds.toasts]
 "obtain" = "Obtain"

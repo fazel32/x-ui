@@ -123,6 +123,7 @@
                                     <a-tag color="green">[[ inbounds[index].stream.network ]]</a-tag>
                                     <a-tag v-if="inbounds[index].stream.isTls" color="blue">tls</a-tag>
                                     <a-tag v-if="inbounds[index].stream.isXTls" color="blue">xtls</a-tag>
+                                    <a-tag v-if="inbounds[index].stream.isReality" color="blue">reality</a-tag>
                                 </template>
                                 <template v-else>{{ i18n "none" }}</template>
                             </template>
@@ -193,7 +194,7 @@
     }, {
         title: '{{ i18n "pages.inbounds.transportConfig" }}',
         align: 'center',
-        width: 60,
+        width: 61,
         scopedSlots: { customRender: 'stream' },
     }, {
         title: '{{ i18n "pages.inbounds.expireDate" }}',
