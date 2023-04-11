@@ -1282,7 +1282,9 @@ class Inbound extends XrayCommonClass {
                 params.set("pbk", this.stream.reality.publicKey);
             }
             if (this.stream.network === 'tcp') {
-                params.set("flow", this.settings.vlesses[clientIndex].flow);
+                if(this.settings.vlesses[clientIndex].flow != "") {
+                    params.set("flow", this.settings.vlesses[clientIndex].flow);
+                }
             }
             if (this.stream.reality.shortIds != "") {
                 params.set("sid", this.stream.reality.shortIds);
