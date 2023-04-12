@@ -1047,7 +1047,6 @@ class Inbound extends XrayCommonClass {
     canEnableReality() {
         switch (this.protocol) {
             case Protocols.VLESS:
-            case Protocols.TROJAN:
                 break;
             default:
                 return false;
@@ -1379,28 +1378,6 @@ class Inbound extends XrayCommonClass {
                 else{
                    params.set("sni", address);
                 }
-            }
-        }
-
-        if (this.reality) {
-            params.set("security", "reality");
-            if (!ObjectUtil.isArrEmpty(this.stream.reality.serverNames)) {
-                params.set("sni", this.stream.reality.serverNames.split(/,|，|\s+/)[0]);
-            }
-            if (this.stream.reality.publicKey != "") {
-                //params.set("pbk", Ed25519.getPublicKey(this.stream.reality.privateKey));
-                params.set("pbk", this.stream.reality.publicKey);
-            }
-            if (this.stream.network === 'tcp') {
-                if(this.settings.trojans[clientIndex].flow != "") {
-                    params.set("flow", this.settings.trojans[clientIndex].flow);
-                }
-            }
-            if (this.stream.reality.shortIds != "") {
-                params.set("sid", this.stream.reality.shortIds);
-            }
-            if (this.stream.reality.fingerprint != "") {
-                params.set("fp", this.stream.reality.fingerprint);
             }
         }
 
