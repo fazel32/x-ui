@@ -132,7 +132,7 @@ update() {
             exit 1
         fi
         
-        yellow "The latest version of X-UI is: $ {last_version}, starting update..."
+        yellow "The latest version of X-UI is: ${last_version}, starting update..."
         wget -N --no-check-certificate -O /usr/local/x-ui-linux-$(archAffix).tar.gz https://github.com/sudospaes/x-ui/releases/download/${last_version}/x-ui-linux-$(archAffix).tar.gz
         if [[ $? -ne 0 ]]; then
             red "Download the X-UI failure, please make sure your server can connect and download the files from github"
