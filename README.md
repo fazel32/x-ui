@@ -18,6 +18,7 @@ It's a fork from [HossinAsaadi's x-ui](https://github.com/hossinasaadi/x-ui) and
 -   Ability to install the latest version of the xray-core from inside the panel
 -   Multi-user can be added as users for Vmess, Vless and Trojan configurations with separate QR codes
 -   Traffic statistics, limit traffic, users tarffic limit and limit expiration time
+-   Support Reality
 -   Support more transmission for Trojan protocol
 -   Ability to define SNI for Vmess, Vless, Trojan
 -   Ability to define uTLS for Vmess, Vless, Trojan
@@ -77,6 +78,7 @@ mv x-ui/ /usr/local/
 systemctl daemon-reload
 systemctl enable x-ui
 systemctl restart x-ui
+x-ui
 ```
 
 ## How to Update
