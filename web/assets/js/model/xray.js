@@ -593,7 +593,7 @@ TlsStreamSettings.Settings = class extends XrayCommonClass {
 
 class RealityStreamSettings extends XrayCommonClass {
     constructor(show = false,xver = 0, fingerprint = UTLS_OPTION.RANDOMIZED, dest = 'github.io:443',  serverNames = 'github.io,www.github.io', privateKey = RandomUtil.randomX25519PrivateKey(), publicKey = '', minClient = '',
-        maxClient = '', maxTimediff = 0, shortIds = RandomUtil.randowShortId()) {
+        maxClient = '', maxTimediff = 0, shortIds = RandomUtil.randowShortId(),mainAddress='') {
         super();
         this.show = show;
         this.xver = xver;
@@ -606,7 +606,7 @@ class RealityStreamSettings extends XrayCommonClass {
         this.maxClient = maxClient;
         this.maxTimediff = maxTimediff;
         this.shortIds = shortIds instanceof Array ? shortIds.join(",") : shortIds;
-        
+        this.mainAddress = mainAddress;
     }
 
     static fromJson(json = {}) {
@@ -621,7 +621,8 @@ class RealityStreamSettings extends XrayCommonClass {
             json.minClient,
             json.maxClient,
             json.maxTimediff,
-            json.shortIds  
+            json.shortIds,
+            json.mainAddress,
         );
 
     }
@@ -637,7 +638,8 @@ class RealityStreamSettings extends XrayCommonClass {
             minClient: this.minClient,
             maxClient: this.maxClient,
             maxTimediff: this.maxTimediff,
-            shortIds: this.shortIds.split(/,|，|\s+/)
+            shortIds: this.shortIds.split(/,|，|\s+/),
+            mainAddress: this.mainAddress,
         };
     }
 }
@@ -1278,7 +1280,6 @@ class Inbound extends XrayCommonClass {
                 params.set("sni", this.stream.reality.serverNames.split(/,|，|\s+/)[0]);
             }
             if (this.stream.reality.publicKey != "") {
-                //params.set("pbk", Ed25519.getPublicKey(this.stream.reality.privateKey));
                 params.set("pbk", this.stream.reality.publicKey);
             }
             if (this.stream.network === 'tcp') {
@@ -1291,6 +1292,9 @@ class Inbound extends XrayCommonClass {
             }
             if (this.stream.reality.fingerprint != "") {
                 params.set("fp", this.stream.reality.fingerprint);
+            }
+            if(this.stream.reality.mainAddress != '') {
+                address = this.stream.reality.mainAddress;
             }
         }
 
