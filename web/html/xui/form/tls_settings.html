@@ -113,6 +113,11 @@
     <a-form-item label="shortIds">
         <a-input v-model.trim="inbound.stream.reality.shortIds"></a-input>
     </a-form-item>
+    <a-form-item >
+        <a-button type="primary" @click="getX25519Cert">
+            [[ inbound.stream.reality.privateKey != '' && inbound.stream.reality.publicKey != '' ? "Generate New Key" : "Generate Key"]]
+        </a-button>
+    </a-form-item>
 </a-form>
 <a-form layout="inline" v-else-if = "inbound.stream.network === 'tcp' ">
     <a-form-item label="tcp-acceptProxyProtocol">

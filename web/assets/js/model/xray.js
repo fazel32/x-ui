@@ -592,8 +592,20 @@ TlsStreamSettings.Settings = class extends XrayCommonClass {
 };
 
 class RealityStreamSettings extends XrayCommonClass {
-    constructor(show = false,xver = 0, fingerprint = UTLS_OPTION.RANDOMIZED, dest = 'github.io:443',  serverNames = 'github.io,www.github.io', privateKey = RandomUtil.randomX25519PrivateKey(), publicKey = '', minClient = '',
-        maxClient = '', maxTimediff = 0, shortIds = RandomUtil.randowShortId(),mainAddress='') {
+    constructor(
+        show = false,
+        xver = 0,
+        fingerprint = UTLS_OPTION.FIREFOX,
+        dest = 'github.io:443',
+        serverNames = 'github.io,www.github.io', 
+        privateKey = '', 
+        publicKey = '', 
+        minClient = '',
+        maxClient = '', 
+        maxTimediff = 0, 
+        shortIds = RandomUtil.randowShortId(), 
+        mainAddress=''
+        ) {
         super();
         this.show = show;
         this.xver = xver;
@@ -601,7 +613,7 @@ class RealityStreamSettings extends XrayCommonClass {
         this.dest = dest;
         this.serverNames = serverNames instanceof Array ? serverNames.join(",") : serverNames;
         this.privateKey = privateKey;
-        this.publicKey = RandomUtil.randomX25519PublicKey(this.privateKey);
+        this.publicKey = publicKey;
         this.minClient = minClient;
         this.maxClient = maxClient;
         this.maxTimediff = maxTimediff;
