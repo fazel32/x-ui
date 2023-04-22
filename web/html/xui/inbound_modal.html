@@ -139,7 +139,9 @@
                 }
             },
             async getX25519Cert(){
+                inModal.loading(true);
                 const msg = await HttpUtil.post('/server/getX25519Cert');
+                inModal.loading(false);
                 if (!msg.success) {
                     return;
                 }
