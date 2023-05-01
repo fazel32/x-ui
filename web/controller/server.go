@@ -37,6 +37,7 @@ func (a *ServerController) initRouter(g *gin.RouterGroup) {
 	g.POST("/installXray/:version", a.installXray)
 	g.POST("/restartXrayService", a.restartXrayService)
 	g.POST("/logs/:count", a.getLogs)
+	g.POST("/getX25519Cert", a.getX25519Cert)
 }
 
 func (a *ServerController) refreshStatus() {
@@ -104,4 +105,13 @@ func (a *ServerController) getLogs(c *gin.Context) {
 		return
 	}
 	jsonObj(c, logs, nil)
+}
+
+func (a *ServerController) getX25519Cert(c *gin.Context) {
+	cert, err := a.serverService.GetX25519Cert()
+	if err != nil {
+		jsonMsg(c, "get x25519 certificate", err)
+		return
+	}
+	jsonObj(c, cert, nil)
 }

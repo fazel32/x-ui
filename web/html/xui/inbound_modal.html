@@ -138,6 +138,16 @@
                     return;
                 }
             },
+            async getX25519Cert(){
+                inModal.loading(true);
+                const msg = await HttpUtil.post('/server/getX25519Cert');
+                inModal.loading(false);
+                if (!msg.success) {
+                    return;
+                }
+                inModal.inbound.stream.reality.privateKey = msg.obj.privateKey;
+                inModal.inbound.stream.reality.publicKey = msg.obj.publicKey;
+            },
             isExpiry(index) {
                 return this.inbound.isExpiry(index)
             },
