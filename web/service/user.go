@@ -44,11 +44,11 @@ func (s *UserService) CheckUser(username string, password string, secret string)
 
 func (s *UserService) UpdateUser(id int, username string, password string) error {
 	db := database.GetDB()
-	return db.Model(model.User{}).
+  return db.Model(model.User{}).
 		Where("id = ?", id).
-		Update("username", username).
-		Update("password", password).
-		Error
+    Updates(map[string]interface{}{"username": username, "password": password}).
+    Error
+
 }
 func (s *UserService) UpdateUserSecret(id int,secret string) error {
 	db := database.GetDB()
