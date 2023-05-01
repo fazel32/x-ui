@@ -171,7 +171,7 @@ class AllSetting {
     this.tgBotChatId = 0;
     this.tgRunTime = "";
     this.xrayTemplateConfig = "";
-    this.timeLocation = "Asia/Shanghai";
+    this.timeLocation = "Asia/Tehran";
     this.blockIranIP = false;
     this.secretEnable = false;
 

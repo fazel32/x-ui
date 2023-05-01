@@ -114,22 +114,22 @@
                 }
                 event.target.value = ""
             },
-            async resetClientTraffic(client,event) {
-                const msg = await HttpUtil.post('/xui/inbound/resetClientTraffic/'+ client.email);
-                if (!msg.success) {
+            async submit(url, data) {
+                const msg = await HttpUtil.postWithModal(url, data);
+                if (msg.success) {
+                    await this.getDBInbounds();
+                }
+            },
+            async resetAllClientTraffics(dbInbound) {
+                const msg = await this.submit('/xui/inbound/resetAllClientTraffics/' + dbInbound.id);
+                if(!msg.success){
                     return;
                 }
-                clientStats = this.inbound.clientStats
-                if(clientStats.length > 0)
-                {
-                    for (const key in clientStats) {
-                        if (Object.hasOwnProperty.call(clientStats, key)) {
-                            if(clientStats[key]['email'] == client.email){ 
-                                clientStats[key]['up'] = 0
-                                clientStats[key]['down'] = 0
-                            }
-                        }
-                    }
+            },
+            async resetClientTraffic(client,dbInbound) {
+                const msg = await this.submit('/xui/inbound/' + dbInbound.id + '/resetClientTraffic/'+ client.email);
+                if(!msg.success){
+                    return;
                 }
             },
             async switchClientStatus(email,event) {
@@ -193,13 +193,46 @@
                     return 'hide';
                 }
             },
-            
 
+            getSlotExtraStyle(email) {
+                if(this.isClientEnable(email) == true) {
+                    if(this.dbInbound.enable == true) {
+                        return 'active-client';
+                    }
+                    else {
+                        return 'deactive-client';
+                    }
+                }
+                else if(this.isClientEnable(email) == false) {
+                    return 'deactive-client';
+                }
+                else {
+                    return 'new-client';
+                }
+            },
+
+            getSlotExtraHeader(email) {
+                if(this.isClientEnable(email) == true) {
+                    if(this.dbInbound.enable == true) {
+                        return 'Active';
+                    }
+                    else {
+                        return 'Deactive';
+                    }
+                }
+                else if(this.isClientEnable(email) == false) {
+                    return 'Deactive';
+                }
+                else {
+                    return 'New';
+                }
+            },
+            
             getHeaderText(email) {
-                if(email == "")
-                    return "Add Client"
-                
-                return email + (this.isClientEnable(email) == true ? ' Active' : ' Deactive')
+                if(email == "") {
+                    return "Please fill email field";
+                }
+                return email;
             },
 
             getNewEmail(client) {

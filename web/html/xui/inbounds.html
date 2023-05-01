@@ -39,10 +39,21 @@
                                 <a-tag color="green">[[ dbInbounds.length ]]</a-tag>
                             </a-col>
                             <a-col :xs="24" :sm="24" :lg="12">
-                                {{ i18n "clients" }}:
+                                {{ i18n "clients" }}：
                                 <a-tag color="green">{{ i18n "allClients" }} : [[ total.clients ]]</a-tag>
-                                <a-tag color="blue">{{ i18n "clientActive" }} : [[ total.active ]]</a-tag>
-                                <a-tag color="red">{{ i18n "clientDeactive" }} : [[ total.deactive ]]</a-tag>
+                                <a-tag color="blue">{{ i18n "clientActive" }} : [[ total.active.length ]]</a-tag>
+                                <a-popover title='{{ i18n "clientDeactivePop" }}' :overlay-class-name="siderDrawer.isDarkTheme ? 'ant-dark' : ''"
+                                 placement="bottom" v-if="total.deactive.length > 0">
+                                    <template slot="content">
+                                        <a-list size="small">
+                                            <a-list-item v-for="clientEmail in total.deactive">
+                                                <li :style="siderDrawer.isDarkTheme ? 'color: hsla(0,0%,100%,.65)' : ''">[[ clientEmail ]]</li>
+                                            </a-list-item>
+                                        </a-list>
+                                    </template>
+                                    <a-tag color="red">{{ i18n "clientDeactive" }} : [[ total.deactive.length ]]</a-tag>
+                                </a-popover>
+                                <a-tag v-else color="red">{{ i18n "clientDeactive" }} : [[ total.deactive.length ]]</a-tag>
                             </a-col>
                         </a-row>
                     </a-card>
@@ -52,9 +63,17 @@
                         <div slot="title">
                             <a-button type="primary" icon="user-add" @click="openAddInbound">{{ i18n "pages.inbounds.addNewInbound" }}</a-button>
                             <a-button type="primary" icon="reload" @click="resetAllTraffic">{{ i18n "pages.inbounds.resetAllTraffic" }}</a-button>
+                            <a-button type="primary" icon="sync" @click="window.location.reload()">{{ i18n "refresh" }}</a-button>
                         </div>
+                        <a-input v-model.lazy="searchKey" placeholder='{{ i18n "pages.inbounds.search" }}' autofocus style="max-width: 300px" allow-clear></a-input>
+                        <a-tooltip placement="right">
+                            <template slot="title">
+                                {{ i18n "pages.inbounds.searchBoxDesc" }}
+                            </template>
+                            <a-icon style="margin-left: 5px;" type="question-circle" theme="filled"></a-icon>
+                        </a-tooltip>
                         <a-table :columns="columns" :row-key="dbInbound => dbInbound.id"
-                                 :data-source="dbInbounds"
+                                 :data-source="searchedInbounds"
                                  :loading="spinning" :scroll="{ x: 1500 }"
                                  :pagination="false"
                                  style="margin-top: 20px"
@@ -104,6 +123,7 @@
                                     <a-tag color="green">[[ inbounds[index].stream.network ]]</a-tag>
                                     <a-tag v-if="inbounds[index].stream.isTls" color="blue">tls</a-tag>
                                     <a-tag v-if="inbounds[index].stream.isXTls" color="blue">xtls</a-tag>
+                                    <a-tag v-if="inbounds[index].stream.isReality" color="blue">reality</a-tag>
                                 </template>
                                 <template v-else>{{ i18n "none" }}</template>
                             </template>
@@ -174,7 +194,7 @@
     }, {
         title: '{{ i18n "pages.inbounds.transportConfig" }}',
         align: 'center',
-        width: 60,
+        width: 61,
         scopedSlots: { customRender: 'stream' },
     }, {
         title: '{{ i18n "pages.inbounds.expireDate" }}',
@@ -192,6 +212,7 @@
             inbounds: [],
             dbInbounds: [],
             searchKey: '',
+            searchedInbounds: [],
         },
         methods: {
             loading(spinning=true) {
@@ -205,14 +226,18 @@
                     return;
                 }
                 this.setInbounds(msg.obj);
+                this.searchKey = '';
             },
             setInbounds(dbInbounds) {
                 this.inbounds.splice(0);
                 this.dbInbounds.splice(0);
+                this.searchedInbounds.splice(0);
                 for (const inbound of dbInbounds) {
                     const dbInbound = new DBInbound(inbound);
-                    this.inbounds.push(dbInbound.toInbound());
+                    to_inbound = dbInbound.toInbound()
+                    this.inbounds.push(to_inbound);
                     this.dbInbounds.push(dbInbound);
+                    this.searchedInbounds.push(dbInbound);
                 }
             },
             searchInbounds(key) {
@@ -222,7 +247,9 @@
                     this.searchedInbounds.splice(0, this.searchedInbounds.length);
                     this.dbInbounds.forEach(inbound => {
                         if (ObjectUtil.deepSearch(inbound, key)) {
-                            this.searchedInbounds.push(inbound);
+                            const newInbound = new DBInbound(inbound);
+                            const inboundSettings = JSON.parse(inbound.settings);
+                            this.searchedInbounds.push(newInbound);
                         }
                     });
                 }
@@ -367,14 +394,7 @@
                         class: siderDrawer.isDarkTheme ? darkClass : '',
                         okText: '{{ i18n "pages.inbounds.resetAllTrafficOkText"}}',
                         cancelText: '{{ i18n "pages.inbounds.resetAllTrafficCancelText"}}',
-                        onOk: async () => {
-                            for (const dbInbound of this.dbInbounds) {
-                                const inbound = dbInbound.toInbound();
-                                dbInbound.up = 0;
-                                dbInbound.down = 0;
-                                this.updateInbound(inbound, dbInbound);
-                            }
-                        },
+                        onOk: () => this.submit('/xui/inbound/resetAllTraffics'),
                     });
             },
             delInbound(dbInbound) {
@@ -417,9 +437,9 @@
             },
         },
         watch: {
-            searchKey(value) {
-                this.searchInbounds(value);
-            }
+            searchKey: debounce(function (newVal) {
+                this.searchInbounds(newVal);
+            }, 500)
         },
         mounted() {
             this.getDBInbounds();
@@ -427,34 +447,28 @@
         computed: {
             total() {
                 let down = 0, up = 0;
-                let clients = 0, active = 0, deactive = 0;
-                for (let i = 0; i < this.dbInbounds.length; ++i) {
-                    down += this.dbInbounds[i].down;
-                    up += this.dbInbounds[i].up;
-                }
+                let active = [], deactive = [];
                 this.dbInbounds.forEach(dbInbound => {
                     down += dbInbound.down;
                     up += dbInbound.up;
                     inbound = dbInbound.toInbound();
                     clients = this.getClients(dbInbound.protocol, inbound.settings);
                     if(clients){
-                        if(dbInbound.enable){
-                            isClientEnable = false;
-                            clients.forEach(client => {
-                                isClientEnable = client.email == "" ? true: this.isClientEnabled(dbInbound,client.email);
-                                isClientEnable ? active++ : deactive++;
-                            });
-                        } else {
-                            deactive += clients.length;
-                        }
+                    if(dbInbound.enable){
+                        clients.forEach(client => {
+                            this.isClientEnabled(dbInbound, client.email) ? active.push(client.email) : deactive.push(client.email);
+                        });
                     } else {
-                        dbInbound.enable ? active++ : deactive++;
+                        clients.forEach(client => {
+                            deactive.push(client.email);
+                        });
                     }
+                }
                 });
                 return {
                     down: down,
                     up: up,
-                    clients: active + deactive,
+                    clients: active.length + deactive.length,
                     active: active,
                     deactive: deactive,
                 };

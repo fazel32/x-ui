@@ -18,6 +18,7 @@
     <a-list item-layout="horizontal">
       <setting-list-item type="textarea" title='{{ i18n "pages.setting.xrayConfigTemplate"}}' desc='{{ i18n "pages.setting.xrayConfigTemplateDesc"}}' v-model="allSetting.xrayTemplateConfig"></setting-list-item>
     </a-list>
+    <a-button @click="resetXrayConfigTemp" icon="fire" type="primary">{{ i18n "pages.setting.resetXrayConfigTemp"}}</a-button>
   </a-form>
 </a-tab-pane>
 {{end}}

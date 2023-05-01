@@ -15,6 +15,8 @@ import (
 	"io/fs"
 	"net/http"
 	"os"
+	"os/exec"
+	"strings"
 	"runtime"
 	"time"
 	"x-ui/logger"
@@ -311,4 +313,25 @@ func (s *ServerService) UpdateXray(version string) error {
 
 	return nil
 
+}
+
+func (s *ServerService) GetLogs(count string) ([]string, error) {
+	var cmdArgs []string
+	if runtime.GOOS == "linux" {
+		cmdArgs = []string{"journalctl", "-u", "x-ui", "--no-pager", "-n", count}
+	} else {
+		return []string{"Unsupported operating system"}, nil
+	}
+
+	cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...)
+	var out bytes.Buffer
+	cmd.Stdout = &out
+	err := cmd.Run()
+	if err != nil {
+		return nil, err
+	}
+
+	lines := strings.Split(out.String(), "\n")
+
+	return lines, nil
 }

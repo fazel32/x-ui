@@ -9,6 +9,7 @@
 "download" = "Download"
 "remark" = "Remark"
 "enable" = "Enable"
+"disable" = "Disable"
 "protocol" = "Protocol"
 
 "loading" = "Loading..."
@@ -47,6 +48,10 @@
 "allClients" = "All"
 "clientActive" = "Active"
 "clientDeactive" = "Deactive"
+"clientDeactivePop" = "Deactive Clients"
+"refresh" = "Refresh"
+"reload" = "Reload"
+"Count" = "Count"
 
 [menu]
 "dashboard" = "System Status"
@@ -55,6 +60,7 @@
 "logout" = "Log Out"
 "link" = "Other"
 "githubpage" = "Github Page"
+"handbook" = "Handbook"
 
 [pages.login]
 "title" = "X-UI LOGIN"
@@ -90,6 +96,8 @@
 "xraySwitchVersionDialog" = "Switch XRAY version"
 "xraySwitchVersionDialogDesc" = "Are you sure to switch the XRAY version to"
 "dontRefreshh" = "Installation in progress. Please do not refresh this page!"
+"xuiLogs" = "X-UI Logs"
+"xuiLogsShow" = "Show"
 
 
 [pages.inbounds]
@@ -146,6 +154,14 @@
 "cloneInboundOk" = "Create"
 "activeClient" = "Active This Client"
 "deactiveClient" = "Deactive This Client"
+"inboundStatus" = "Inbound Status"
+"inboundClients" = "Number of clients"
+"resetAllClientTraffics" = "Reset All Clients Traffic"
+"resetAllClientTrafficTitle" = "Reset all clients traffic"
+"resetAllClientTrafficContent" = "Are you sure to reset all traffics of this inbound's clients ?"
+"search" = "Search"
+"searchBoxDesc" = "Search , can search inbounds name , port , email , password and UUID"
+"Realitydec" = "Just for xray core 1.8.0 and above"
 
 [pages.inbounds.toasts]
 "obtain" = "Obtain"
@@ -213,6 +229,10 @@
 "loginSecurityDesc" = "Toggle additional step in user login page"
 "secretToken" = "Secret Token"
 "secretTokenDesc" = "Copy this secret token and keep it in safe place; whitout this you wont be able to login. This can not be recovered from x-ui command tool neighter" 
+"resetXrayConfigTemp" = "Reset XRAY Configuration"
+"resetXrayConfigTempContent" = "Are you sure reset xray configuration ? Any changes you did made will be lost"
+"resetXrayConfigTempOkText" = "Reset"
+"resetXrayConfigTempCancelText" = "Cancel"
 
 [pages.setting.toasts]
 "modifySetting" = "Modify setting"

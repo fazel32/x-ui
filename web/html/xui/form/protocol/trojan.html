@@ -4,7 +4,7 @@
     :key="`trojan-${index}`" style="margin-top: 12px;">
     
         <a-collapse-panel :header="getHeaderText(trojan.email)">
-            <a-tag v-if="isExpiry(index) || ((getUpStats(trojan.email) + getDownStats(trojan.email)) > trojan.totalGB && trojan.totalGB != 0)" color="red" style="margin-bottom: 10px;display: block;text-align: center;">Account is (Expired|Traffic Ended) And Disabled</a-tag>
+            <a-tag v-if="isExpiry(index) || ((getUpStats(trojan.email) + getDownStats(trojan.email)) > trojan.totalGB && trojan.totalGB != 0)" color="red" style="margin-bottom: 10px;display: block;text-align: center;">Account is Expired or Traffic Ended</a-tag>
             <a-form layout="inline">
                 <a-form-item>
                     <span slot="label">
@@ -27,7 +27,7 @@
             </a-form-item>
             <a-form-item v-if="inbound.canEnableFlow()" label="Flow">
                 <a-select v-model="trojan.flow" style="width: 150px" :dropdown-class-name="siderDrawer.isDarkTheme ? 'ant-card-dark' : ''">
-                    <a-select-option value="">{{ i18n "none" }}</a-select-option>
+                    <a-select-option value="">none</a-select-option>
                     <a-select-option v-for="key in FLOW_CONTROL" :value="key">[[ key ]]</a-select-option>
                 </a-select>
             </a-form-item>
@@ -42,6 +42,9 @@
                     </a-tooltip>
                 </span>
                 <a-input-number v-model="trojan._totalGB" :min="0"></a-input-number>
+            </a-form-item>
+            <a-form-item v-if="inbound.canEnableGrpcMultiMode()" label="Grpc Multi Mode">
+                <a-switch v-model="trojan.grpcMultiMode"></a-switch>
             </a-form-item>
             <a-form-item>
                 <span slot="label">
@@ -62,7 +65,7 @@
                         {{ i18n "pages.inbounds.resetClientTraffic" }}
                     </template>
                     <span style="color: #FF4D4F">
-                        <a-icon type="delete" @click="resetClientTraffic(trojan,$event)"></a-icon>
+                        <a-icon type="delete" @click="resetClientTraffic(trojan,dbInbound)"></a-icon>
                     </span>
                 </a-tooltip>
                 <a-tag color="blue">[[ sizeFormat(getUpStats(trojan.email)) ]] / [[ sizeFormat(getDownStats(trojan.email)) ]]</a-tag>
@@ -70,16 +73,20 @@
             </a-form>
             <div style="text-align: center;">
                 <a-button v-if="!isExpiry(index) || ((getUpStats(trojan.email) + getDownStats(trojan.email)) > trojan.totalGB && trojan.totalGB == 0)" 
-                    v-show="returnClientsStatusText(trojan.email) != 'hide'" style="margin-top: 10px;"
+                    v-show="(returnClientsStatusText(trojan.email) != 'hide') && dbInbound.enable" style="margin-top: 10px;"
                     @click="switchClientStatus(trojan.email)" type="primary">[[ returnClientsStatusText(trojan.email) ]]</a-button>
                 <a-button v-show="inbound.settings.trojans.length > 1" type="danger" style="margin-top: 10px;"
                     @click="removeClient(index, inbound.settings.trojans)" ghost>{{ i18n "pages.inbounds.removeClient" }}</a-button>
             </div>
+            <li slot="extra" :class="getSlotExtraStyle(trojan.email)">[[ getSlotExtraHeader(trojan.email) ]]</li>
         </a-collapse-panel>
     </a-collapse>
 
     <a-button style="margin-top: 10px; margin-bottom: 10px;"
     @click="addClient(inbound.protocol, inbound.settings.trojans)" type="primary">{{ i18n "pages.inbounds.addClient" }}</a-button>
+
+    <a-button style="margin-top: 10px; margin-left: 5px;"
+    @click="resetAllClientTraffics(dbInbound)" type="primary">{{ i18n "pages.inbounds.resetAllClientTraffics"}}</a-button>
 
 <a-form layout="inline">
     <a-form-item label="Fallbacks">

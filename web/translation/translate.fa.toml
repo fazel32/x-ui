@@ -9,6 +9,7 @@
 "download" = "دانلود"
 "remark" = "نام"
 "enable" = "فعال"
+"disable" = "غیرفعال"
 "protocol" = "پروتکل"
 
 "loading" = "در حال بروزرسانی..."
@@ -47,6 +48,10 @@
 "allClients" = "تعداد کل"
 "clientActive" = "فعال"
 "clientDeactive" = "غیرفعال"
+"clientDeactivePop" = "کلاینت های غیرفعال"
+"refresh" = "بارگیری مجدد"
+"reload" = "تازه سازی"
+"Count" = "تعداد"
 
 [menu]
 "dashboard" = "وضعیت سیستم"
@@ -55,6 +60,7 @@
 "logout" = "خروج"
 "link" = "دیگر"
 "githubpage" = "گیت هاب"
+"handbook" = "راهنما"
 
 [pages.login]
 "title" = "ورود به سیستم X-UI"
@@ -90,6 +96,8 @@
 "xraySwitchVersionDialog" = "تغییر ورژن Xray"
 "xraySwitchVersionDialogDesc" = "آیا از تغییر ورژن مطمئن هستین"
 "dontRefreshh" = "در حال نصب ، لطفا رفرش نکنید "
+"xuiLogs" = "لاگ های X-UI"
+"xuiLogsShow" = "نمایش"
 
 
 [pages.inbounds]
@@ -146,6 +154,14 @@
 "cloneInboundOk" = "ایجاد"
 "activeClient" = "فعال کردن این کلاینت"
 "deactiveClient" = "غیرفعال کردن این کلاینت"
+"inboundStatus" = "وضعیت اینباند"
+"inboundClients" = "تعداد کلاینت ها"
+"resetAllClientTraffics" = "ریست ترافیک کل کاربران"
+"resetAllClientTrafficTitle" = "ریست ترافیک کل کاربران"
+"resetAllClientTrafficContent" = "آیا مطمئن هستید که میخواهید ترافیک کل کاربران این اینباند را ریست کنید؟"
+"search" = "جستوجو"
+"searchBoxDesc" = "جستجو، می تواند نام ورودی ها ، پورت ، ایمیل و رمز عبور را جستجو کند"
+"Realitydec" = "هسته Xray باید 1.8.0 و بالاتر باشد"
 
 [pages.inbounds.toasts]
 "obtain" = "Obtain"
@@ -213,6 +229,10 @@
 "loginSecurityDesc" = "افزودن یک مرحله دیگر به فرآیند لاگین"
 "secretToken" = "توکن امنیتی"
 "secretTokenDesc" = "این کد امنیتی را نزد خود در این جای امن نگه داری، بدون این کد امکان ورود به پنل را نخواهید داشت. امکان بازیابی آن وجود ندارد!" 
+"resetXrayConfigTemp" = "بازنشانی پیکربندی Xray"
+"resetXrayConfigTempContent" = "آیا مطمئن هستید که پیکربندی xray را بازنشانی کنید؟ هر تغییری که انجام دادید از بین خواهد رفت"
+"resetXrayConfigTempOkText" = "بازنشانی"
+"resetXrayConfigTempCancelText" = "لغو"
 
 
 [pages.setting.toasts]

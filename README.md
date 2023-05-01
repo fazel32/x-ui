@@ -1,5 +1,10 @@
 # X-Ui
-
+![](https://img.shields.io/github/v/release/sudospaes/x-ui?style=flat-square)
+![Downloads](https://img.shields.io/github/downloads/sudospaes/x-ui/total?color=367cc0&style=flat-square)
+![GO Version](https://img.shields.io/github/go-mod/go-version/sudospaes/x-ui.svg?style=flat-square)
+![License](https://img.shields.io/github/license/sudospaes/x-ui?color=1C7947&style=flat-square)
+<br>
+<br>
 English Version of X-UI Panel with Updated Xray-Core, Multi-protocol & Multi-user, with more option and some of more advanced.
 
 It's a fork from [HossinAsaadi's x-ui](https://github.com/hossinasaadi/x-ui) and [NidukaAkalanka's x-ui](https://github.com/NidukaAkalanka/x-ui-english).
@@ -13,6 +18,7 @@ It's a fork from [HossinAsaadi's x-ui](https://github.com/hossinasaadi/x-ui) and
 -   Ability to install the latest version of the xray-core from inside the panel
 -   Multi-user can be added as users for Vmess, Vless and Trojan configurations with separate QR codes
 -   Traffic statistics, limit traffic, users tarffic limit and limit expiration time
+-   Support Reality
 -   Support more transmission for Trojan protocol
 -   Ability to define SNI for Vmess, Vless, Trojan
 -   Ability to define uTLS for Vmess, Vless, Trojan
@@ -22,6 +28,8 @@ It's a fork from [HossinAsaadi's x-ui](https://github.com/hossinasaadi/x-ui) and
 -   Block Iran IP option
 -   Security token for login to panel
 -   Clone Inbounds
+-   Dark Mode
+-   Ability see x-ui logs from inside the panel
 -   Support multi-user multi-protocol, web page visualization operation
 -   Supported protocols: vmess, vless, trojan, shadowsocks, dokodemo-door, socks, http
 -   Support to configure more transmission configurations
@@ -39,12 +47,14 @@ It's a fork from [HossinAsaadi's x-ui](https://github.com/hossinasaadi/x-ui) and
 -   AlmaLinux 9.1 or higher
 -   Rocky Linux 9 or higher
 
-## Single Command Install & upgrade ✨
+## Single Command Install ✨
 
     bash <(curl -Ls https://raw.githubusercontent.com/sudospaes/x-ui/master/install.sh)
+    
+> If you have already installed this panel and want to update to the latest version, read here : [How to update](https://github.com/sudospaes/x-ui#how-to-update)
 
     
-## Manual install & upgrade ⚙️
+## Manual install ⚙️
 1.  First update your system and run the following commands. (Must have root user permissions)
 
    ```
@@ -68,4 +78,22 @@ mv x-ui/ /usr/local/
 systemctl daemon-reload
 systemctl enable x-ui
 systemctl restart x-ui
+x-ui
 ```
+
+## How to Update
+1.  Run this command.
+  ```
+x-ui
+```
+2.  After that will show x-ui script menu and enter the number 2
+<br><br>
+![](https://github.com/sudospaes/x-ui/raw/main/media/how_to_update/Screenshot%202023-04-06%20201330.png)
+<br><br>
+3. Then a message will be shown to confirm the update. enter y
+<br><br>
+![](https://github.com/sudospaes/x-ui/raw/main/media/how_to_update/Screenshot%202023-04-06%20201739.png)
+<br><br>
+4. Wait until the successful update message is displayed
+<br><br>
+![](https://github.com/sudospaes/x-ui/raw/main/media/how_to_update/Screenshot%202023-04-06%20201811.png)
