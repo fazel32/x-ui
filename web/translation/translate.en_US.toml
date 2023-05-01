@@ -111,7 +111,7 @@
 "protocol" = "Protocol"
 "port" = "Port"
 "traffic" = "Traffic"
-"resetAllTraffic" = "Reset All Inbounds Traffic"
+"resetAllTraffic" = "Reset Inbounds Traffic"
 "resetAllTrafficTitle" = "Reset all inbounds traffic"
 "resetAllTrafficContent" = "Are you sure to reset all inbounds traffic ?"
 "resetAllTrafficOkText" = "Confirm"
@@ -162,6 +162,13 @@
 "search" = "Search"
 "searchBoxDesc" = "Search , can search inbounds name , port , email , password and UUID"
 "Realitydec" = "Just for xray core 1.8.0 and above"
+"moreOptions" = "More Options"
+"delDeactiveClients" = "Delete Deactive Clients"
+"delDeactiveClientsTitle" = "Delete deactive clients"
+"delDeactiveClientsContent" = "Are you sure to delete all deactive clients ?"
+"resetInboundClientTraffics" = "Reset All Clients Traffic"
+"resetInboundClientTrafficTitle" = "Reset all clients traffic"
+"resetInboundClientTrafficContent" = "Are you sure to reset all clients traffics ?"
 
 [pages.inbounds.toasts]
 "obtain" = "Obtain"

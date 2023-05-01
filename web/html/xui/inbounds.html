@@ -62,7 +62,23 @@
                     <a-card hoverable :class="siderDrawer.isDarkTheme ? darkClass : ''" style="border-radius: 5px;">
                         <div slot="title">
                             <a-button type="primary" icon="user-add" @click="openAddInbound">{{ i18n "pages.inbounds.addNewInbound" }}</a-button>
-                            <a-button type="primary" icon="reload" @click="resetAllTraffic">{{ i18n "pages.inbounds.resetAllTraffic" }}</a-button>
+                            <a-dropdown :trigger="['click']">
+                                <a-button type="primary" icon="menu">{{ i18n "pages.inbounds.moreOptions" }}</a-button>
+                                <a-menu slot="overlay" @click="a => moreOptions(a)" :theme="siderDrawer.theme">
+                                    <a-menu-item key="resetInbounds">
+                                        <a-icon type="reload"></a-icon>
+                                        {{ i18n "pages.inbounds.resetAllTraffic" }}
+                                    </a-menu-item>
+                                    <a-menu-item key="resetClients">
+                                        <a-icon type="file-sync"></a-icon>
+                                        {{ i18n "pages.inbounds.resetInboundClientTraffics" }}
+                                    </a-menu-item>
+                                    <a-menu-item key="deleteDeactiveClients">
+                                        <a-icon type="usergroup-delete"></a-icon>
+                                        {{ i18n "pages.inbounds.delDeactiveClients" }}
+                                    </a-menu-item>
+                                </a-menu>
+                            </a-dropdown>
                             <a-button type="primary" icon="sync" @click="window.location.reload()">{{ i18n "refresh" }}</a-button>
                         </div>
                         <a-input v-model.lazy="searchKey" placeholder='{{ i18n "pages.inbounds.search" }}' autofocus style="max-width: 300px" allow-clear></a-input>
@@ -254,6 +270,22 @@
                     });
                 }
             },
+            moreOptions(action){
+                switch (action.key) {
+                    case "resetInbounds":
+                        this.resetAllTraffic();
+                        break;
+                    case "resetClients":
+                        this.resetAllClientTraffics(-1);
+                        break;
+                    case "deleteDeactiveClients":
+                        this.delDeactiveClients(-1);
+                        break;
+                    case "refresh":
+                        window.location.reload();
+                        break;
+                }
+            },
             clickAction(action, dbInbound) {
                 switch (action.key) {
                     case "qrcode":
@@ -396,6 +428,26 @@
                         cancelText: '{{ i18n "pages.inbounds.resetAllTrafficCancelText"}}',
                         onOk: () => this.submit('/xui/inbound/resetAllTraffics'),
                     });
+            },
+            resetAllClientTraffics(dbInboundId) {
+                this.$confirm({
+                    title: '{{ i18n "pages.inbounds.resetInboundClientTrafficTitle"}}',
+                    content: '{{ i18n "pages.inbounds.resetInboundClientTrafficContent"}}',
+                    class: siderDrawer.isDarkTheme ? darkClass : '',
+                    okText: '{{ i18n "reset"}}',
+                    cancelText: '{{ i18n "cancel"}}',
+                    onOk: () => this.submit('/xui/inbound/resetAllClientTraffics/' + dbInboundId),
+                })
+            },
+            delDeactiveClients(dbInboundId) {
+                this.$confirm({
+                    title: '{{ i18n "pages.inbounds.delDeactiveClientsTitle"}}',
+                    content: '{{ i18n "pages.inbounds.delDeactiveClientsContent"}}',
+                    class: siderDrawer.isDarkTheme ? darkClass : '',
+                    okText: '{{ i18n "reset"}}',
+                    cancelText: '{{ i18n "cancel"}}',
+                    onOk: () => this.submit('/xui/inbound/delDeactiveClients/' + dbInboundId),
+                })
             },
             delInbound(dbInbound) {
                 this.$confirm({

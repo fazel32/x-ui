@@ -36,7 +36,7 @@ func (a *InboundController) initRouter(g *gin.RouterGroup) {
 	g.POST("/:id/resetClientTraffic/:email", a.resetClientTraffic)
 	g.POST("/resetAllClientTraffics/:id", a.resetAllClientTraffics)
 	g.POST("/resetAllTraffics", a.resetAllTraffics)
-
+	g.POST("/delDeactiveClients/:id", a.delDeactiveClients)
 }
 
 func (a *InboundController) startTask() {
@@ -199,4 +199,18 @@ func (a *InboundController) switchClientStatus(c *gin.Context) {
 		return
 	}
 	jsonMsg(c, "client status changed", nil)
+}
+
+func (a *InboundController) delDeactiveClients(c *gin.Context) {
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		jsonMsg(c, I18n(c, "pages.inbounds.revise"), err)
+		return
+	}
+	err = a.inboundService.DelDeactiveClients(id)
+	if err != nil {
+		jsonMsg(c, "Something went wrong!", err)
+		return
+	}
+	jsonMsg(c, "All deactive clients are deleted", nil)
 }

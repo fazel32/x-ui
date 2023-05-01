@@ -2,6 +2,7 @@ package service
 
 import (
 	"fmt"
+	"strings"
 	"time"
 	"x-ui/database"
 	"encoding/json"
@@ -429,9 +430,16 @@ func (s *InboundService) ResetClientTraffic(id int, clientEmail string) error {
 func (s *InboundService) ResetAllClientTraffics(id int) error {
 	db := database.GetDB()
 
+	whereText := "inbound_id "
+	if id == -1 {
+		whereText += " > ?"
+	} else {
+		whereText += " = ?"
+	}
+
 	result := db.Model(xray.ClientTraffic{}).
-		Where("inbound_id = ?", id).
-		Updates(map[string]interface{}{"up": 0, "down": 0})
+		Where(whereText, id).
+		Updates(map[string]interface{}{"enable": true, "up": 0, "down": 0})
 
 	err := result.Error
 
@@ -453,6 +461,84 @@ func (s *InboundService) ResetAllTraffics() error {
 	if err != nil {
 		return err
 	}
+	return nil
+}
+
+func (s *InboundService) DelDeactiveClients(id int) (err error) {
+	db := database.GetDB()
+	tx := db.Begin()
+	defer func() {
+		if err == nil {
+			tx.Commit()
+		} else {
+			tx.Rollback()
+		}
+	}()
+
+	whereText := "inbound_id "
+	if id < 0 {
+		whereText += "> ?"
+	} else {
+		whereText += "= ?"
+	}
+
+	deactiveClients := []xray.ClientTraffic{}
+	err = db.Model(xray.ClientTraffic{}).Where(whereText+" and enable = ?", id, false).Select("inbound_id, GROUP_CONCAT(email) as email").Group("inbound_id").Find(&deactiveClients).Error
+	if err != nil {
+		return err
+	}
+
+	for _, deactiveClient := range deactiveClients {
+		emails := strings.Split(deactiveClient.Email, ",")
+		oldInbound, err := s.GetInbound(deactiveClient.InboundId)
+		if err != nil {
+			return err
+		}
+		var oldSettings map[string]interface{}
+		err = json.Unmarshal([]byte(oldInbound.Settings), &oldSettings)
+		if err != nil {
+			return err
+		}
+
+		oldClients := oldSettings["clients"].([]interface{})
+		var newClients []interface{}
+		for _, client := range oldClients {
+			deplete := false
+			c := client.(map[string]interface{})
+			for _, email := range emails {
+				if email == c["email"].(string) {
+					deplete = true
+					break
+				}
+			}
+			if !deplete {
+				newClients = append(newClients, client)
+			}
+		}
+		if len(newClients) > 0 {
+			oldSettings["clients"] = newClients
+
+			newSettings, err := json.MarshalIndent(oldSettings, "", "  ")
+			if err != nil {
+				return err
+			}
+
+			oldInbound.Settings = string(newSettings)
+			err = tx.Save(oldInbound).Error
+			if err != nil {
+				return err
+			}
+		} else {
+			// Delete inbound if no client remains
+			s.DelInbound(deactiveClient.InboundId)
+		}
+	}
+
+	err = tx.Where(whereText+" and enable = ?", id, false).Delete(xray.ClientTraffic{}).Error
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 

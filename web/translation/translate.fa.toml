@@ -162,6 +162,13 @@
 "search" = "جستوجو"
 "searchBoxDesc" = "جستجو، می تواند نام ورودی ها ، پورت ، ایمیل و رمز عبور را جستجو کند"
 "Realitydec" = "هسته Xray باید 1.8.0 و بالاتر باشد"
+"moreOptions" = "سایر گزینه ها"
+"delDeactiveClients" = "حذف کاربران غیرفعال"
+"delDeactiveClientsTitle" = "حذف کاربران غیرفعال"
+"delDeactiveClientsContent" = "آیا مطمئن هستید میخواهید تمامی کاربران غیرفعال را حذف کنید؟"
+"resetInboundClientTraffics" = "ریست ترافیک کاربران"
+"resetInboundClientTrafficTitle" = "ریست ترافیک کل کاربران"
+"resetInboundClientTrafficContent" = "آیا مطمئن هستید که میخواهید تمام ترافیک کاربران این سرویس را ریست کنید؟"
 
 [pages.inbounds.toasts]
 "obtain" = "Obtain"
