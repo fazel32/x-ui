@@ -95,7 +95,7 @@
 "totalReceive" = "Total download traffic of all network cards since system startup"
 "xraySwitchVersionDialog" = "Switch XRAY version"
 "xraySwitchVersionDialogDesc" = "Are you sure to switch the XRAY version to"
-"dontRefreshh" = "Installation in progress. Please do not refresh this page!"
+"dontRefresh" = "Installation in progress. Please do not refresh this page!"
 "xuiLogs" = "X-UI Logs"
 "xuiLogsShow" = "Show"
 
@@ -235,7 +235,7 @@
 "loginSecurity" = "Login security"
 "loginSecurityDesc" = "Toggle additional step in user login page"
 "secretToken" = "Secret Token"
-"secretTokenDesc" = "Copy this secret token and keep it in safe place; whitout this you wont be able to login. This can not be recovered from x-ui command tool neighter" 
+"secretTokenDesc" = "Copy this secret token and keep it in safe place; whitout this you wont be able to login. If you lose it, you can disable it from x-ui command tool" 
 "resetXrayConfigTemp" = "Reset XRAY Configuration"
 "resetXrayConfigTempContent" = "Are you sure reset xray configuration ? Any changes you did made will be lost"
 "resetXrayConfigTempOkText" = "Reset"

@@ -95,7 +95,7 @@
 "totalReceive" = "جمع کل ترافیک دانلود مصرفی"
 "xraySwitchVersionDialog" = "تغییر ورژن Xray"
 "xraySwitchVersionDialogDesc" = "آیا از تغییر ورژن مطمئن هستین"
-"dontRefreshh" = "در حال نصب ، لطفا رفرش نکنید "
+"dontRefresh" = "در حال نصب ، لطفا رفرش نکنید "
 "xuiLogs" = "لاگ های X-UI"
 "xuiLogsShow" = "نمایش"
 
@@ -235,7 +235,7 @@
 "loginSecurity" = "لاگین ایمن"
 "loginSecurityDesc" = "افزودن یک مرحله دیگر به فرآیند لاگین"
 "secretToken" = "توکن امنیتی"
-"secretTokenDesc" = "این کد امنیتی را نزد خود در این جای امن نگه داری، بدون این کد امکان ورود به پنل را نخواهید داشت. امکان بازیابی آن وجود ندارد!" 
+"secretTokenDesc" = "این کد امنیتی را نزد خود در این جای امن نگه داری، بدون این کد امکان ورود به پنل را نخواهید داشت. اگر آن را گم کنید میتوانید آن را از خط فرمان غیرفعال کنید." 
 "resetXrayConfigTemp" = "بازنشانی پیکربندی Xray"
 "resetXrayConfigTempContent" = "آیا مطمئن هستید که پیکربندی xray را بازنشانی کنید؟ هر تغییری که انجام دادید از بین خواهد رفت"
 "resetXrayConfigTempOkText" = "بازنشانی"

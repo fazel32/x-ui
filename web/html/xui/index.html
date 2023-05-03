@@ -370,7 +370,7 @@
                     class: siderDrawer.isDarkTheme ? darkClass : '',
                     onOk: async () => {
                         versionModal.hide();
-                        this.loading(true, '{{ i18n "pages.index.dontRefreshh"}}');
+                        this.loading(true, '{{ i18n "pages.index.dontRefresh"}}');
                         await HttpUtil.post(`/server/installXray/${version}`);
                         this.loading(false);
                     },
