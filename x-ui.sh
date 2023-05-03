@@ -118,7 +118,7 @@ install() {
 }
 
 update() {
-    read -rp "This function will update the X-UI panel to the latest version. Data will not be lost. Whether to continues? [Y/N]: " yn
+    read -rp "Updating the X-UI panel to the latest version. Data will not be lost. Whether to continues? [Y/N]: " yn
     if [[ $yn =~ "Y"|"y" ]]; then
         systemctl stop x-ui
         if [[ -e /usr/local/x-ui/ ]]; then
@@ -541,7 +541,7 @@ show_menu() {
 --------------------------------------------------------------------------------
   ${GREEN}0.${PLAIN} Exit Script
 --------------------------------------------------------------------------------
-  ${GREEN}1.${PLAIN} Install X-UI
+  ${GREEN}1.${PLAIN} Reinstall X-UI
   ${GREEN}2.${PLAIN} Update X-UI
   ${GREEN}3.${PLAIN} Uninstall X-UI
 --------------------------------------------------------------------------------
