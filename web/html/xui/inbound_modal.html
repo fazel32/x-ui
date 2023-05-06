@@ -120,12 +120,6 @@
                     await this.getDBInbounds();
                 }
             },
-            async resetAllClientTraffics(dbInbound) {
-                const msg = await this.submit('/xui/inbound/resetAllClientTraffics/' + dbInbound.id);
-                if(!msg.success){
-                    return;
-                }
-            },
             async resetClientTraffic(client,dbInbound) {
                 const msg = await this.submit('/xui/inbound/' + dbInbound.id + '/resetClientTraffic/'+ client.email);
                 if(!msg.success){

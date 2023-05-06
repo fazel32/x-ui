@@ -69,10 +69,6 @@
                                         <a-icon type="reload"></a-icon>
                                         {{ i18n "pages.inbounds.resetAllTraffic" }}
                                     </a-menu-item>
-                                    <a-menu-item key="resetClients">
-                                        <a-icon type="file-sync"></a-icon>
-                                        {{ i18n "pages.inbounds.resetInboundClientTraffics" }}
-                                    </a-menu-item>
                                     <a-menu-item key="deleteDeactiveClients">
                                         <a-icon type="usergroup-delete"></a-icon>
                                         {{ i18n "pages.inbounds.delDeactiveClients" }}
@@ -273,16 +269,10 @@
             moreOptions(action){
                 switch (action.key) {
                     case "resetInbounds":
-                        this.resetAllTraffic();
-                        break;
-                    case "resetClients":
-                        this.resetAllClientTraffics(-1);
+                        this.resetAllTraffic(-1);
                         break;
                     case "deleteDeactiveClients":
                         this.delDeactiveClients(-1);
-                        break;
-                    case "refresh":
-                        window.location.reload();
                         break;
                 }
             },
@@ -416,28 +406,22 @@
                         dbInbound.up = 0;
                         dbInbound.down = 0;
                         this.updateInbound(inbound, dbInbound);
+                        this.submit('/xui/inbound/resetAllClientTraffics/' + dbInbound.id);
                     },
                 });
             },
-            resetAllTraffic() {
+            resetAllTraffic(dbInboundId) {
                     this.$confirm({
                         title: '{{ i18n "pages.inbounds.resetAllTrafficTitle"}}',
                         content: '{{ i18n "pages.inbounds.resetAllTrafficContent"}}',
                         class: siderDrawer.isDarkTheme ? darkClass : '',
                         okText: '{{ i18n "pages.inbounds.resetAllTrafficOkText"}}',
                         cancelText: '{{ i18n "pages.inbounds.resetAllTrafficCancelText"}}',
-                        onOk: () => this.submit('/xui/inbound/resetAllTraffics'),
+                        onOk: () => {
+                            this.submit('/xui/inbound/resetAllTraffics');
+                            this.submit('/xui/inbound/resetAllClientTraffics/' + dbInboundId);
+                        },
                     });
-            },
-            resetAllClientTraffics(dbInboundId) {
-                this.$confirm({
-                    title: '{{ i18n "pages.inbounds.resetInboundClientTrafficTitle"}}',
-                    content: '{{ i18n "pages.inbounds.resetInboundClientTrafficContent"}}',
-                    class: siderDrawer.isDarkTheme ? darkClass : '',
-                    okText: '{{ i18n "reset"}}',
-                    cancelText: '{{ i18n "cancel"}}',
-                    onOk: () => this.submit('/xui/inbound/resetAllClientTraffics/' + dbInboundId),
-                })
             },
             delDeactiveClients(dbInboundId) {
                 this.$confirm({
