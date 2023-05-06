@@ -6,19 +6,19 @@
     <a-tag color="green" style="margin-bottom: 10px;display: block;text-align: center;" >click on QR Code to Copy</a-tag>
     <canvas v-if="qrModal.inbound.protocol != Protocols.VMESS && qrModal.inbound.protocol != Protocols.VLESS && qrModal.inbound.protocol != Protocols.TROJAN" id="qrCode" style="width: 100%; height: 100%;"></canvas>
 
-    <template v-if="qrModal.inbound.protocol === Protocols.VMESS" v-for="(vmess, index) in qrModal.inbound.settings.vmesses">
+    <template v-if="qrModal.inbound.protocol === Protocols.VMESS && isClientEnabled(qrModal.inbound, vmess.email) == true" v-for="(vmess, index) in qrModal.inbound.settings.vmesses">
         <a-tag color="red" style="margin-bottom: 10px;display: block;text-align: center;" v-text="vmess.email"></a-tag>
         <canvas @click="copyTextToClipboard(`qrCode-vmess-${vmess.id}`,index)" :id="`qrCode-vmess-${vmess.id}`" style="width: 100%; height: 100%;"></canvas>
         <a-divider :style="siderDrawer.isDarkTheme ? 'height: 1px; background-color: #a7a7a7;': 'height: 1px; background-color: #000000;'"/>
     </template>
 
-    <template v-if="qrModal.inbound.protocol === Protocols.VLESS" v-for="(vless, index) in qrModal.inbound.settings.vlesses">
+    <template v-if="qrModal.inbound.protocol === Protocols.VLESS && isClientEnabled(qrModal.inbound, vless.email) == true" v-for="(vless, index) in qrModal.inbound.settings.vlesses">
         <a-tag color="red" style="margin-bottom: 10px;display: block;text-align: center;" v-text="vless.email"></a-tag>
         <canvas @click="copyTextToClipboard(`qrCode-vless-${vless.id}`,index)" :id="`qrCode-vless-${vless.id}`" style="width: 100%; height: 100%;"></canvas>
         <a-divider :style="siderDrawer.isDarkTheme ? 'height: 1px; background-color: #a7a7a7;': 'height: 1px; background-color: #000000;'"/>
     </template>
 
-    <template v-if="qrModal.inbound.protocol === Protocols.TROJAN" v-for="(trojan, index) in qrModal.inbound.settings.trojans">
+    <template v-if="qrModal.inbound.protocol === Protocols.TROJAN && isClientEnabled(qrModal.inbound, trojan.email) == true" v-for="(trojan, index) in qrModal.inbound.settings.trojans">
         <a-tag color="red" style="margin-bottom: 10px;display: block;text-align: center;" v-text="trojan.email"></a-tag>
         <canvas @click="copyTextToClipboard(`qrCode-trojan-${trojan.password}`,index)" :id="`qrCode-trojan-${trojan.password}`" style="width: 100%; height: 100%;"></canvas>
         <a-divider :style="siderDrawer.isDarkTheme ? 'height: 1px; background-color: #a7a7a7;': 'height: 1px; background-color: #000000;'"/>
@@ -78,6 +78,10 @@
             qrModal: qrModal,
         },
         methods: {
+            isClientEnabled(dbInbound, email) {
+                clientStats = dbInbound.clientStats ? dbInbound.clientStats.find(stats => stats.email === email) : null
+                return clientStats ? clientStats['enable'] : true
+            },
             setQrCode(elmentId,index) {
                 content = qrModal.inbound.genLink(qrModal.dbInbound.address,qrModal.dbInbound.remark,index)
 
